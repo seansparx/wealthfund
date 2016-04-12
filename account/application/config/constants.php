@@ -110,9 +110,10 @@ define('TBL_USERS', PREFIX.'users');
 
 /*
 |--------------------------------------------------------------------------
-| Define Yodlee Constants.
+| Define twilio Constants.
 |--------------------------------------------------------------------------
 |
 */
-
+define('TWILIO_ACCOUNT_SID', 'ACd144550cbf5cb59a889336da4a1b0a6b');
+define('TWILIO_AUTH_TOKEN', '0a121a43803d10203da7761c2b012a3d');
 

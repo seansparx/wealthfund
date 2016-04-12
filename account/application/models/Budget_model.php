@@ -63,6 +63,24 @@ class Budget_model extends CI_Model
     
     
     /**
+     * Get budget by user ( used by cron ).
+     * 
+     * @param int $user_id
+     * @return array
+     */
+    public function get_user_budget($user_id)
+    {        
+        $this->db->select('a.*, b.category_name, c.type_name');
+        $this->db->from($this->tbl_budgets." AS a");
+        $this->db->join($this->categories." AS b", "b.category_id = a.category_id", "left");
+        $this->db->join($this->category_types." AS c", "c.type_id = b.category_type_id", "left");
+        $this->db->where(array("a.user_id" => $user_id));
+        $query = $this->db->get();
+        return $query->result();
+    }
+    
+    
+    /**
      * create new budget.
      * 
      * @return bool
@@ -102,20 +120,22 @@ class Budget_model extends CI_Model
      * @return bool
      */
     public function add_default_budgets()
-    {
-        /*SELECT DATE_FORMAT(b.post_date,'%Y%m') AS mth, a.category_id, SUM(b.amount) FROM wf_user_budgets AS a 
-LEFT JOIN wf_account_transactions AS b ON(b.category_id = a.category_id) WHERE a.user_id = 1 GROUP BY a.category_id, mth ORDER BY mth,a.category_id;*/
+    {        
         $user_id = $this->session->userdata(SITE_SESSION_NAME."session")['wealthfund_user_id'];
+        
         if($user_id > 0) {
+            
+            $past_exp = $this->spendings_of_past_months();
+            
             $default_cat = array(5, 12, 13, 22);
             foreach ($default_cat as $cat_id) {
                 
                 $entry = array(
                         "user_id"       => $user_id, 
                         "category_id"   => $cat_id,
-                        "amount"        => 0,
+                        "amount"        => (isset($past_exp[$cat_id]) ? $past_exp[$cat_id] : 0),
                         "term"          => 'monthly');
-                
+
                 $query = $this->db->get_where($this->tbl_budgets, array("user_id" => $user_id, "category_id" => $cat_id));
                 if( ! ($query->num_rows() > 0)){
                     $this->db->insert($this->tbl_budgets, $entry);
@@ -134,7 +154,7 @@ LEFT JOIN wf_account_transactions AS b ON(b.category_id = a.category_id) WHERE a
     public function spendings_of_month()
     {
         $user_id = $this->session->userdata(SITE_SESSION_NAME."session")['wealthfund_user_id'];
-        $month   = date("Ym");
+        $month   = date("Ym", strtotime("-1 month"));
         
         $this->db->select(array("DATE_FORMAT(b.post_date,'%Y%m') AS mth", "a.category_id", "SUM(b.amount) AS amt"));
         $this->db->from($this->tbl_budgets." AS a");
@@ -147,6 +167,64 @@ LEFT JOIN wf_account_transactions AS b ON(b.category_id = a.category_id) WHERE a
         if($query->num_rows() > 0){
             return $query->result();
         }
+    }
+    
+    
+    /**
+     * Get Spendings of the month by user.
+     * 
+     * @param int $user_id
+     * @return array
+     */
+    public function spendings_of_month_by_user($user_id)
+    {
+        $month   = date("Ym", strtotime("-1 month"));
+        
+        $this->db->select(array("DATE_FORMAT(b.post_date,'%Y%m') AS mth", "a.category_id", "SUM(b.amount) AS amt"));
+        $this->db->from($this->tbl_budgets." AS a");
+        $this->db->join($this->tbl_transactions." AS b", "b.category_id = a.category_id", "left");
+        $this->db->where(array("b.user_id" => $user_id));
+        $this->db->group_by("mth, a.category_id");
+        $this->db->having("mth", $month);
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0){
+            return $query->result();
+        }
+    }
+    
+    
+    /**
+     * Get Spendings of past months.
+     * 
+     * @return array
+     */
+    private function spendings_of_past_months()
+    {
+        $user_id = $this->session->userdata(SITE_SESSION_NAME."session")['wealthfund_user_id'];
+        $default_cat = array(5, 12, 13, 22);
+        
+        $this->db->select(array("DATE_FORMAT(a.post_date,'%Y%m') AS mth", "a.category_id", "SUM(a.amount) AS amt"));
+        $this->db->from($this->tbl_transactions." AS a");
+        $this->db->where(array("a.user_id" => $user_id));
+        $this->db->where_in('a.category_id',$default_cat);
+        $this->db->group_by("mth, a.category_id");
+        $this->db->order_by("mth", "desc");
+        $query = $this->db->get();
+        if($query->num_rows() > 0){
+            $result = $query->result();
+        }
+        
+        /** Arrange spendings of previous recent month */
+        $past_exp = array();
+        if(sizeof($result) > 0) {
+            foreach ($result as $past) {
+                if( ! $past_exp[$past->category_id]){
+                    $past_exp[$past->category_id] = ($past->amt > 0) ? $past->amt : 0;
+                }
+            }
+        }
+        return $past_exp;
     }
     
     

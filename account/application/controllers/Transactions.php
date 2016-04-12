@@ -50,7 +50,7 @@ class Transactions extends MY_Controller
         $this->data['budget_category']  = $this->budget_model->get_categories();
         $this->data['budgets']          = $this->budget_model->get_budgets();
         $this->data['spend_of_month']   = $this->budget_model->spendings_of_month();
-
+        
         /** Fast link parameters */
         $this->data['rsession_token']   = $_SESSION['userSessionToken'];
         $this->data['finapp_id']        = $_SESSION['fastlink_finapp_id'];

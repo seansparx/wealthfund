@@ -12,12 +12,12 @@ class Registration_model extends CI_Model {
 
     public function read($id = null) {
         if (intval($id) > 0) {
-            $this->db->select('full_name, user_email, password, salt,user_mobile, country_code, verification_string');
+            $this->db->select('id, full_name, user_email, password, salt,user_mobile, country_code, verification_string');
             $query = $this->db->get_where($this->tbl_users, array('id' => $id, 'is_deleted' => 'no'));            
 
             return $query->row();
         } else {
-            $this->db->select('full_name, user_email, password, salt, user_mobile, country_code, verification_string');
+            $this->db->select('id, full_name, user_email, password, salt, user_mobile, country_code, verification_string');
             $query = $this->db->get_where($this->tbl_users, array('is_deleted' => 'no'));
             
             return $query->result();
