@@ -1,0 +1,843 @@
+.captcha-box, .text-box {
+	margin: 20px 0;
+}
+#captcha-wrap {
+	position: relative;
+}
+.captcha-action {
+	position: absolute;
+	right: 41px;
+	top: 14px;
+}
+.landing-page .nav > li > a.action-link {
+	padding-top: 14px;
+}
+.landing-page .navbar-default {
+	background-color: transparent;
+}
+body.sign-up-page, .bank-account-list, .sign-up-complete {
+	background: url('patterns/shattered.png');
+}
+.sign-up-form-wrap {
+	padding: 77px;
+}
+
+.title-name {
+	padding-right: 0;
+}
+.user-name, .icheckbox_square-green {
+	/*position: static !important;*/
+}
+
+.middle-box.signup-screen {
+	width: 100%;
+}
+.activation_code {
+	color: #676a6c;
+	font-family: 'Open Sans', helvetica, arial, sans-serif;
+	font-size: 14px;
+	display: block;
+	padding: 5px;
+	margin-top: 5px;
+	outline: none;
+}
+.activation_code:hover, .activation_code:focus {
+	color: #676a6c;
+	outline: none;
+}
+.reset-password {
+	margin-top: 83px;
+}
+.reset-password h4 a, .investment-account h4 a {
+	color: #676a6c;
+	border-bottom: 1px solid #676a6c;
+}
+.reset-password h4 a:hover, .investment-account h4 a:hover {
+	border-bottom: 1px solid transparent;
+}
+.bank-info {
+	margin-top: 50px;
+	padding-top: 30px;
+}
+.bank-account-list .bank-info .btn-lg {
+	font-size: 18px;
+}
+.banking-list {
+	margin-top: 30px;
+	padding-left: 15px;
+	padding-right: 15px;
+	-webkit-box-shadow: 0 5px 5px 0 #a8a8a8;
+	-moz-box-shadow: 0 5px 5px 0 #a8a8a8;
+	box-shadow: 0 5px 5px 0 #a8a8a8;
+	padding-bottom: 30px;
+}
+.m-t-lg {
+	margin-top: 35px;
+}
+.bank-listing-wrap {
+	padding: 0px 30px 24px;
+	margin-top: 30px;
+	border-right: 1px solid #a8a8a8;
+}
+.bank-listing-wrap  li {
+	float: left;
+	width: 25%;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 30px;
+}
+.wallet-list li {
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+.bank-listing-wrap  li a, .wallet-list li a {
+	background: #ffffff;
+	display: inline-block;
+}
+#user_signup .form-group {
+	position: relative;
+}
+#user_signup .form-group label {
+	position: absolute;
+	left: 100%;
+	padding-left: 15px;
+	width: 100%;
+	top: 6px;
+	text-align: left;
+}
+#user_signup .form-group .checkbox > label {
+	position: static;
+	text-align: center;
+}
+#user_signup .form-group  .icheckbox_square-green label {
+	top: 1px;
+	font-weight: 700;
+}
+.sign-up-complete h2 {
+	text-transform: uppercase;
+	color: #f00;
+	font-weight: 700;
+}
+.signup-complete-msg {
+	padding-top: 50px;
+	margin-top: 77px;
+	min-height: 300px;
+}
+.signup-complete-msg h3 {
+	color: #004F00;
+}
+.search-form > span {
+	font-size: 15px;
+	display: block;
+	margin-bottom: 20px;
+}
+#modal-form > div button.btn.btn-sm.btn-primary.pull-right {
+	position: relative;
+	z-index: 99999;
+}
+.wallet-list {
+	margin-top: 30px;
+	border-left: 1px solid #a8a8a8;
+}
+.cash-other {
+	border-left: none;
+}
+.cash-other li a {
+	width: 120px;
+	height: 58px;
+	font-size: 14px;
+	text-transform: uppercase;
+	padding: 20px 10px;
+	text-align: center;
+	font-weight: 700;
+	color: #676a66;
+}
+.other-section {
+	margin-top: 8px;
+}
+.other-section li a {
+	padding: 20px 10px;
+}
+.other-bank-pay {
+	padding-top: 18px;
+}
+.credentials_info {
+	padding: 50px 20px;
+}
+.credentials_info .form-group input, .credentials_info .form-group select {
+	width: 70%;
+	display: inline-block;
+	background: #ffffff;
+}
+.bank-level-securtiy {
+	display: inline-block;
+	width: 51%;
+}
+.bank-level-securtiy a {
+	font-size: 15px;
+	color: #676a6c;
+	float: left;
+	position: relative;
+	top: 8px;
+}
+.bank-account-list .popover {
+	z-index: 999999;
+}
+.redirect-bank {
+	font-size: 15px;
+	margin-top: 10px;
+	display: inline-block;
+}
+
+.redirect-bank:hover {
+	text-decoration: underline;
+}
+.circle-success .fa {
+	font-size: 200px;
+	color: #09c875;
+}
+#myModal22  .credentials_info {
+	padding: 10px 20px 20px;
+}
+
+label.resend-otp {
+	display: block;
+}
+label.error {
+	color: #cc5965 !important;
+}
+
+label.valid {
+	color: green !important;
+}
+.overview-btn {
+	margin-left: 15px;
+}
+.basic-button {
+	margin-top: 20px;
+}
+.landing-page .navbar-default .nav.logout-wrap li a {
+	text-transform: capitalize;
+}
+#user_login .form-group {
+	position: relative;
+	z-index: 99;
+}
+.investment-plan {
+	padding: 50px 0;
+	background: #f4f4f4;
+	text-align: center;
+}
+
+.landing-page .investment-plan p {
+	font-size: 16px;
+	line-height: 40px;
+	margin-bottom: 40px;
+}
+.investment-plan p input, .investment-plan p select {
+	line-height: 20px;
+	border: solid #1ab394;
+	border-width: 0 0 1px 0;
+	height: 25px;
+	width: 100%;
+	text-align: center;
+	color: #1ab394;
+	outline: none;
+	background: none;
+}
+.investment-plan p span {
+	margin: 0 8px;
+	position: relative;
+	display: inline-block;
+	color: #1ab394;
+}
+.investment-plan p span.age {
+	width: 50px;
+}
+.investment-plan p span.retirement {
+	width: 130px;
+}
+.investment-plan h1 {
+	text-align: center;
+	margin-bottom: 40px;
+}
+.plan-desc {
+	padding-top: 40px;
+}
+.landing-page .plan-desc p {
+	line-height: 25px;
+}
+.chosen-container-single .chosen-single {
+	border-radius: 0px;
+	background: #fff;
+	border: 1px solid #e5e6e7;
+	height: 32px;
+	line-height: 32px;
+	box-shadow: none;
+	padding-left: 12px;
+	text-align: left;
+	color: #999;
+}
+.chosen-container-single .chosen-single div b {
+	background-position: 0 7px;
+}
+/*Account Overview Styling*/
+html, body {
+	background: #f3f3f4;
+}
+.landing-page .navbar-wrapper .navbar {
+	border-radius: 0;
+}
+.account-details {
+	margin-top: 77px;
+}
+.account-overview {
+	/*box-shadow: 12px 0 12px -12px rgba(0, 0, 0, 0.3);*/
+	/*padding-top: 15px;*/
+	color: #a7b1c2;
+}
+.account-details > .container, .account-details > .container-fluid {
+	background: #2f4050;
+}
+.dashboard-content, .banklist > .container {
+	background: #f3f3f4;
+}
+.dashboard-content {
+	padding-top: 15px;
+}
+.dashboard-content h2 {
+	font-size: 16px;
+	font-weight: 600;
+}
+.module-accounts-header h2 {
+	float: left;
+	margin: 0;
+	font-weight: 600;
+	font-size: 13px;
+	color: #ffffff;
+}
+.module-accounts-header {
+	margin: 20px 0;
+}
+.module-accounts-header .tooltip-demo {
+	float: right;
+	/*margin-top: 5px;*/
+}
+.module-accounts-header .tooltip-demo a {
+	color: #fff;
+	margin: 0 10px;
+}
+.dashboard-page .navbar-default {
+	background-color: #2f4050;
+}
+.metismenu .arrow {
+	margin-left: 15px;
+	font-weight: bold;
+	min-width: 13px;
+}
+.account-overview  .nav > li > a:focus, .account-overview  .nav > li > a:hover {
+	background-color: #293846;
+	/*margin-bottom: 2px;*/
+	outline: none;
+	color: #ffffff;
+}
+.account-overview  .nav > li.active {
+	border-left: 4px solid #19aa8d;
+}
+.account-overview .nav > li.active > a, .account-overview .nav > li > a {
+	/*color: #676a6c;*/
+	font-size: 13px;
+	padding: 15px 10px;
+}
+.account-overview .pull-right, .account-overview .nav > li > a > i {
+	/*color: #1ab394;*/
+}
+.account-overview  .nav-second-level li a {
+	padding-left: 40px;
+	/*background-color: #fafaf7;*/
+}
+.account-overview  .nav-second-level li.active {
+	border: none;
+}
+.account-overview table {
+	font-size: 13px;
+	margin-top: 20px;
+}
+.account-overview .table tr th, .account-overview .table tr td {
+	border-top: 1px solid #a7b1c2;
+}
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+
+}
+.account-overview table tr td:nth-of-type(2), .account-overview table tr th:nth-of-type(2) {
+	text-align: right;
+}
+.account-overview .btn-primary {
+	width: 100%;
+}
+.separator {
+	margin: 0 20px;
+}
+.property-types a {
+	display: inline-block;
+	margin: 0 30px;
+}
+.property-types span {
+	color: #676a6c;
+	display: block;
+	font-size: 20px;
+	margin: 0 0 18px;
+}
+.property-types .fa {
+	font-size: 100px;
+}
+.property-types .fa-home {
+	color: #87d6c6;
+}
+.property-types .fa-briefcase {
+	color: #0ac775;
+}
+.property-types .fa-automobile {
+	color: #ef1d3b;
+}
+.property-types .fa-database {
+	color: #ffdb4e;
+}
+
+.account-details #morris-donut-chart {
+	margin: 0 auto;
+	box-shadow: 0 12px 9px -11px #676a6c;
+}
+.account-details #morris-bar-chart, .account-details #morris-one-line-chart {
+	/*max-height: 250px;*/
+}
+.account-details .ibox {
+	margin-bottom: 15px;
+}
+.account-details .ibox-content {
+	padding-bottom: 0;
+}
+.account-overview .nav-second-level table {
+	margin: 0;
+}
+.account-overview .nav-second-level table td {
+	border: none;
+	line-height: 1.3;
+}
+.btn-back {
+	float: left;
+}
+.central-form {
+	max-width: 550px;
+	width: 100%;
+	margin: 0 auto;
+	padding: 10px;
+}
+.central-form .form-group select, .central-form .form-group input[type="text"] {
+	width: 100%;
+}
+.profile-element {
+	margin: 0 -15px;
+	padding: 20px 15px;
+	background: url(../img/header-profile.png) center top no-repeat;
+	background-size: cover;
+}
+.profile-element a {
+	color: #fff;
+}
+.profile-element .text-muted {
+	color: #8095a8;
+}
+/*Bank account Page  Styling*/
+.bank-lists {
+	border: 1px solid #1ab394;
+	border-radius: 5px;
+	font-size: 14px;
+	margin-bottom: 20px;
+}
+.bank-lists h2 {
+	text-align: center;
+	margin-top: 0;
+	background: #1ab394;
+	padding: 10px;
+	font-weight: 600;
+	color: #fff;
+}
+.bank-lists span {
+	display: block;
+	padding: 10px;
+}
+.bank-lists table {
+	margin-bottom: 0;
+}
+.bank-lists table i, .bank-lists span {
+	font-weight: bold;
+}
+#timeout {
+	display: block;
+}
+.btn-wrp {
+	padding: 10px;
+	margin-bottom: 50px;
+}
+
+/*Transaction Page  Styling*/
+
+.account-overview .nav-second-level li table td:first-child span, .account-overview .nav-second-level li table td:first-child small {
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 230px;
+}
+.account-overview .nav-second-level li table td:first-child {
+	padding-left: 20px;
+}
+.account-overview .nav-second-level li small {
+	display: block;
+	font-size: 10px;
+	/*color: #1ab394;*/
+	font-weight: 600;
+}
+.trasaction-details .input-sm {
+	height: 43px;
+}
+.trasaction-details h2 {
+	/*font-weight: 600;*/
+	margin-bottom: 15px;
+}
+.trasaction-details .fee {
+	font-size: 15px;
+	background: #fff;
+	text-align: left;
+	margin-bottom: 0;
+}
+.trasaction-details .btn-wrp {
+	margin-bottom: 9px;
+	padding: 0;
+}
+.trasaction-details .btn-wrp .btn {
+	margin: 0 5px;
+}
+.account-search {
+	overflow: hidden;
+	min-height: 120px;
+	padding: 30px 15px 20px;
+	background: #fff;
+}
+.account-search h2 {
+	float: left;
+	width: 40%;
+	margin-top: 0;
+}
+.account-search h2 small {
+	display: block;
+	line-height: 1.4;
+	font-size: 13px;
+}
+.account-search .input-group {
+	float: right;
+	width: 60%;
+}
+.login-dialog {
+	width: 90%;
+}
+.login-dialog .modal-content {
+	padding-top: 68%;
+}
+.login-dialog .modal-body {
+	height: 100%;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	padding: 10px;
+}
+.login-dialog .btn-close {
+	cursor: pointer;
+	font-size: 30px;
+	position: absolute;
+	right: -15px;
+	top: -15px;
+	z-index: 9999;
+}
+.sign-up-form-wrap .icheckbox_square-green {
+	position: static !important;
+}
+div.dataTables_wrapper div.dataTables_paginate a {
+	padding: 5px 10px;
+	border: 1px solid #dddddd;
+}
+div.dataTables_wrapper div.dataTables_paginate a:hover, div.dataTables_wrapper div.dataTables_paginate a.current {
+	background: #f4f4f4;
+}
+.trasaction-details .table-responsive {
+	position: relative;
+}
+.edit-option {
+	position: absolute;
+	width: 100%;
+	left: 0;
+	top: 123px;
+	z-index: 99;
+	border: 1px solid #676a6c;
+	background: #f3f3f4;
+}
+.edit-header {
+	background: #676a6c;
+}
+.edit-option .table {
+	margin: 0;
+}
+.edit-option input[type="text"], .edit-option select {
+	width: 100%;
+	height: 25px;
+}
+.edit-option .edit-btn {
+	background: #676a6c;
+	border-radius: 5px;
+	color: #ffffff;
+	left: 0;
+	margin: 0 auto;
+	padding: 3px;
+	position: absolute;
+	right: 0;
+	text-align: center;
+	top: 42px;
+	width: 74px;
+}
+.edit-option .table tr td {
+	border: none;
+}
+.edit-option .table tr td:nth-of-type(1) {
+	width: 6%;
+}
+.edit-option .table tr td:nth-of-type(2) {
+	width: 14%;
+}
+.edit-option .table tr td:nth-of-type(3) {
+	width: 42%;
+}
+.edit-option .table tr td:nth-of-type(4) {
+	width: 24%;
+}
+.add-transaction {
+	top: 123px;
+}
+.edit-elements {
+	float: right;
+	width: 90%;
+	overflow: hidden;
+	border-left: 1px solid #676a6c;
+}
+.edit-option-body ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.edit-option-body li {
+	overflow: hidden;
+	border-top: 1px solid #676a6c;
+}
+.edit-option-body li span {
+	float: left;
+	width: 10%;
+	text-align: right;
+}
+.edit-elements, .edit-option-body li span {
+	padding: 10px;
+}
+.edit-elements select {
+	height: auto;
+	float: left;
+	width: 30%;
+}
+.edit-elements label {
+	margin: 0 20px;
+}
+.edit-options-list {
+	display: none;
+}
+.period {
+	text-align: center;
+	margin-bottom: 20px;
+}
+.period  #doughnutChart{
+	box-shadow: 0 12px 9px -11px #676a6c;	 
+}
+.period .row, .period h2 {
+	text-align: left;
+	margin-bottom: 30px;
+}
+.period h2 {
+	font-size: 16px;
+	font-weight: 600;
+	margin-bottom: 10px;
+}
+.bar-wrapper {
+	padding-bottom: 20px;
+	overflow: hidden;
+	padding: 0 14px 24px;
+	border-radius: 10px;
+	position: relative;
+}
+.bar-wrapper > span {
+	line-height: 2;
+}
+.text-income {
+	float: left;
+}
+.text-spent {
+	float: right;
+}
+.bar-wrapper .progress {
+	clear: both;
+	border: 1px solid #f15c5e;
+	margin: 0;
+}
+.bar-wrapper .progress-bar{
+	background-color: #f15c5e;
+}
+.bar-wrapper:hover {
+	border: 2px solid #1ab394;
+	padding: 0 10px 20px;
+}
+.bar-wrapper a, .bar-wrapper small {
+	position: absolute;
+	left: 20px;
+	bottom: 2px;
+	color: #1ab394;
+	display: none;
+}
+.caunter {
+	position: absolute;
+	top: 4px;
+	right: 150px;
+	line-height: 16px;
+	background: #f3f3f4;
+	display: none;
+}
+.caunter i {
+	margin: 0 10px;
+	font-size: 16px;
+	cursor: pointer;
+}
+.bar-wrapper small {
+	left: auto;
+	right: 20px;
+}
+.bar-wrapper:hover a, .bar-wrapper:hover small, .bar-wrapper:hover .caunter {
+	display: block;
+}
+.period .btn-wrp {
+	text-align: center;
+}
+.create-budget-form input[type="radio"], .create-budget-form input[type="checkbox"] {
+	width: auto;
+	margin: 0 10px;
+}
+.sorting-account {
+	padding-bottom: 20px;
+}
+.module-accounts-header .sk-spinner-circle.sk-spinner{
+	position: absolute;
+	top: -4px;
+}
+.module-accounts-header .tooltip-demo{
+	position: relative;
+}
+@media (min-width: 768px) {
+	.bank-account-list .navbar > .container .navbar-brand, .bank-account-list .navbar > .container-fluid .navbar-brand {
+		/*margin-left: 0;*/
+	}
+}
+@media only screen and (max-width: 1400px) {
+	.account-overview .nav-second-level li table td:first-child span, .account-overview .nav-second-level li table td:first-child small {
+		width: 180px;
+	}
+}
+@media only screen and (max-width: 1023px) {
+	.landing-page .navbar-default .nav li a, .landing-page .navbar-default .navbar-nav > .active > a, .landing-page .navbar-default .navbar-nav > .active > a:hover {
+		color: #fff;
+	}
+}
+@media only screen and (max-width: 1199px) {
+	.landing-page .navbar-default .nav li a {
+		font-size: 12px;
+	}
+	.navbar-right {
+		margin-right: 0;
+	}
+	.bank-listing-wrap li img {
+		width: 100%;
+	}
+	.bank-listing-wrap {
+		padding: 0;
+	}
+	.account-overview .nav-second-level li table td:first-child span, .account-overview .nav-second-level li table td:first-child small {
+		width: 120px;
+	}
+}
+
+@media only screen and (max-width: 1023px) {
+	.account-overview .nav-second-level li a {
+		padding-left: 10px;
+	}
+	.bank-listing-wrap li {
+		width: 33.3%;
+	}
+}
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+	.landing-page .navbar-default .nav li a {
+		font-size: 10px;
+	}
+	.landing-page .navbar .navbar-header {
+		float: left;
+	}
+	.landing-page .navbar-nav > li > a, .landing-page .navbar-scroll .navbar-nav > li > a {
+		padding: 16px 5px;
+	}
+	.landing-page .nav > li > a.action-link {
+		padding: 5px 0;
+	}
+	.landing-page .navbar .navbar-brand {
+		font-size: 12px;
+		padding: 10px;
+	}
+	.account-details {
+		margin-top: 58px;
+	}
+}
+@media only screen and (max-width: 767px) {
+	.account-details .ibox-content {
+		padding: 0;
+	}
+	.landing-page .navbar-nav > li > a, .landing-page .navbar-scroll .navbar-nav > li > a {
+		padding: 10px 10px 0;
+	}
+	.landing-page .navbar-wrapper .navbar {
+		padding-right: 15px;
+	}
+	.navbar-collapse {
+		border: none;
+	}
+	.navbar-toggle {
+		margin-right: 0;
+	}
+	.navbar-right {
+		margin-right: -15px;
+	}
+	.landing-page .navbar-wrapper .navbar, .landing-page .navbar-wrapper .navbar.navbar-scroll {
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+	.account-search {
+		margin-top: 30px;
+	}
+	.account-search h2, .account-search .input-group {
+		width: 100%;
+		float: none;
+	}
+}
