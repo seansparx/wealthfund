@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-white" data-dismiss="modal">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
                     Back
                 </button>
                 

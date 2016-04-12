@@ -28,7 +28,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-white" data-dismiss="modal">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
                     Back
                 </button>
                 <button type="button" id="resend_otp" token="<?php echo encode('otp'); ?>" class="btn btn-primary">

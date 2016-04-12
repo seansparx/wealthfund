@@ -29,7 +29,7 @@
             <div class="modal-footer">
                 <span  class="bank-level-securtiy text-capitalize"><a href="#"   data-container="body" data-toggle="popover" data-placement="top" data-title="Bank level security" data-content="The same 128-bit encryption and physical security standards as your bank. "  ><i class="fa fa-lock"></i> bank lavel security</a></span>
 
-                <button type="button" class="btn btn-white" data-dismiss="modal">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
                     Close
                 </button>
 

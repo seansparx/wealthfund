@@ -436,6 +436,10 @@ html, body {
 	margin: 0 auto;
 	padding: 10px;
 }
+.central-form label{
+	line-height: 34px;
+	margin: 0;
+}
 .central-form .form-group select, .central-form .form-group input[type="text"] {
 	width: 100%;
 }
@@ -450,6 +454,19 @@ html, body {
 }
 .profile-element .text-muted {
 	color: #8095a8;
+}
+.form-horizontal label.error{
+	display: block;
+}
+.remove-list{
+	position: absolute;
+	top: 10px;
+	left: 45%;
+	display: none;
+	cursor: pointer;
+}
+.nav-second-level li:hover > .remove-list{
+	display: block;
 }
 /*Bank account Page  Styling*/
 .bank-lists {
@@ -664,8 +681,14 @@ div.dataTables_wrapper div.dataTables_paginate a:hover, div.dataTables_wrapper d
 	text-align: center;
 	margin-bottom: 20px;
 }
-.period  #doughnutChart{
-	box-shadow: 0 12px 9px -11px #676a6c;	 
+.period  #doughnutChart {
+	/*box-shadow: 0 12px 9px -11px #676a6c;*/
+}
+.doughnut-wrapper {
+	box-shadow: 0 12px 9px -11px #676a6c;
+	display: inline-block;
+	padding-bottom: 20px;
+	width: 300px;
 }
 .period .row, .period h2 {
 	text-align: left;
@@ -697,7 +720,7 @@ div.dataTables_wrapper div.dataTables_paginate a:hover, div.dataTables_wrapper d
 	border: 1px solid #f15c5e;
 	margin: 0;
 }
-.bar-wrapper .progress-bar{
+.bar-wrapper .progress-bar {
 	background-color: #f15c5e;
 }
 .bar-wrapper:hover {
@@ -741,12 +764,16 @@ div.dataTables_wrapper div.dataTables_paginate a:hover, div.dataTables_wrapper d
 .sorting-account {
 	padding-bottom: 20px;
 }
-.module-accounts-header .sk-spinner-circle.sk-spinner{
+.module-accounts-header .sk-spinner-circle.sk-spinner {
 	position: absolute;
 	top: -4px;
 }
-.module-accounts-header .tooltip-demo{
+.module-accounts-header .tooltip-demo {
 	position: relative;
+}
+.account-overview .label{
+	float: right;
+	font-style: normal;
 }
 @media (min-width: 768px) {
 	.bank-account-list .navbar > .container .navbar-brand, .bank-account-list .navbar > .container-fluid .navbar-brand {
