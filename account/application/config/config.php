@@ -24,7 +24,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 
-$config['base_url'] = 'http://'.$_SERVER['HTTP_HOST'].'/wealthfund/account/';
+if($_SERVER['HTTP_HOST'] == 'localhost'){
+    $config['base_url'] = 'http://'.$_SERVER['HTTP_HOST'].'/wealthfund/account/';
+}
+else{
+    $config['base_url'] = 'http://'.$_SERVER['HTTP_HOST'].'/CSS5134/wealthfund/account/';
+}
 
 /*
 |--------------------------------------------------------------------------

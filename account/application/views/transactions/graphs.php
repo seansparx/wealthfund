@@ -23,7 +23,7 @@
             </select>
         </div>
     </div>
-    <canvas id="doughnutChart" width="300" height="300"></canvas>
+    <div class="doughnut-wrapper"><canvas id="doughnutChart" width="300" height="300"></canvas></div>    
     <?php include 'budgets.php'; ?>
 
 </div>

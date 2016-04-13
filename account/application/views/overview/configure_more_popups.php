@@ -35,11 +35,11 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-white btn-back" data-toggle="modal" data-target="#myModal-properties"  data-dismiss="modal">
+                <button type="button" class="btn btn-primary btn-back" data-toggle="modal" data-target="#myModal-properties"  data-dismiss="modal">
                     Back
                 </button>
                 <span  class="bank-level-securtiy text-capitalize"><a href="#"   data-container="body" data-toggle="popover" data-placement="top" data-title="Bank level security" data-content="The same 128-bit encryption and physical security standards as your bank. "  ><i class="fa fa-lock"></i> bank lavel security</a></span>
-                <button type="button" class="btn btn-white" data-dismiss="modal">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
                     Close
                 </button>
 
@@ -67,7 +67,7 @@
             </div>
             <div class="modal-footer">
                 <span  class="bank-level-securtiy text-capitalize"><a href="#"   data-container="body" data-toggle="popover" data-placement="top" data-title="Bank level security" data-content="The same 128-bit encryption and physical security standards as your bank. "  ><i class="fa fa-lock"></i> bank lavel security</a></span>
-                <button type="button" class="btn btn-white" data-dismiss="modal">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
                     Close
                 </button>
             </div>
@@ -94,12 +94,12 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-white btn-back" data-toggle="modal" data-target="#myModal2" data-dismiss="modal">
+                <button type="button" class="btn btn-primary btn-back" data-toggle="modal" data-target="#myModal2" data-dismiss="modal">
                     Back
                 </button>
                 <span  class="bank-level-securtiy text-capitalize"><a href="#"   data-container="body" data-toggle="popover" data-placement="top" data-title="Bank level security" data-content="The same 128-bit encryption and physical security standards as your bank. "  ><i class="fa fa-lock"></i> bank lavel security</a></span>
 
-                <button type="button" class="btn btn-white" data-dismiss="modal">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
                     Close
                 </button>
 
@@ -137,11 +137,11 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-white btn-back" data-toggle="modal" data-target="#myModal-properties"  data-dismiss="modal">
+                <button type="button" class="btn btn-primary btn-back" data-toggle="modal" data-target="#myModal-properties"  data-dismiss="modal">
                     Back
                 </button>
                 <span  class="bank-level-securtiy text-capitalize"><a href="#"   data-container="body" data-toggle="popover" data-placement="top" data-title="Bank level security" data-content="The same 128-bit encryption and physical security standards as your bank. "  ><i class="fa fa-lock"></i> bank lavel security</a></span>
-                <button type="button" class="btn btn-white" data-dismiss="modal">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
                     Close
                 </button>
             </div>
@@ -198,11 +198,11 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-white btn-back" data-toggle="modal" data-target="#myModal-realState"  data-dismiss="modal">
+                <button type="button" class="btn btn-primary btn-back" data-toggle="modal" data-target="#myModal-realState"  data-dismiss="modal">
                     Back
                 </button>
                 <span  class="bank-level-securtiy text-capitalize"><a href="#"   data-container="body" data-toggle="popover" data-placement="top" data-title="Bank level security" data-content="The same 128-bit encryption and physical security standards as your bank. "  ><i class="fa fa-lock"></i> bank lavel security</a></span>
-                <button type="button" class="btn btn-white" data-dismiss="modal">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
                     Close
                 </button>
             </div>
@@ -227,7 +227,7 @@
             </div>
             <div class="modal-footer">
                 <span  class="bank-level-securtiy text-capitalize"><a href="#"   data-container="body" data-toggle="popover" data-placement="top" data-title="Bank level security" data-content="The same 128-bit encryption and physical security standards as your bank. "  ><i class="fa fa-lock"></i> bank lavel security</a></span>
-                <button type="button" class="btn btn-white" data-dismiss="modal">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
                     Close
                 </button>
             </div>
@@ -262,11 +262,11 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-white btn-back" data-toggle="modal"  data-dismiss="modal" data-target="#myModal-properties" >
+                <button type="button" class="btn btn-primary btn-back" data-toggle="modal"  data-dismiss="modal" data-target="#myModal-properties" >
                     Back
                 </button>
                 <span  class="bank-level-securtiy text-capitalize"><a href="#"   data-container="body" data-toggle="popover" data-placement="top" data-title="Bank level security" data-content="The same 128-bit encryption and physical security standards as your bank. "  ><i class="fa fa-lock"></i> bank lavel security</a></span>
-                <button type="button" class="btn btn-white" data-dismiss="modal">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
                     Close
                 </button>
 
@@ -313,11 +313,11 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-white btn-back" data-toggle="modal" data-target="#myModal-vahicle"  data-dismiss="modal">
+                <button type="button" class="btn btn-primary btn-back" data-toggle="modal" data-target="#myModal-vahicle"  data-dismiss="modal">
                     Back
                 </button>
                 <span  class="bank-level-securtiy text-capitalize"><a href="#"   data-container="body" data-toggle="popover" data-placement="top" data-title="Bank level security" data-content="The same 128-bit encryption and physical security standards as your bank. "  ><i class="fa fa-lock"></i> bank lavel security</a></span>
-                <button type="button" class="btn btn-white" data-dismiss="modal">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
                     Close
                 </button>
             </div>
@@ -382,11 +382,11 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-white btn-back" data-toggle="modal" data-target="#myModal-vahicle"  data-dismiss="modal">
+                <button type="button" class="btn btn-primary btn-back" data-toggle="modal" data-target="#myModal-vahicle"  data-dismiss="modal">
                     Back
                 </button>
                 <span  class="bank-level-securtiy text-capitalize"><a href="#"   data-container="body" data-toggle="popover" data-placement="top" data-title="Bank level security" data-content="The same 128-bit encryption and physical security standards as your bank. "  ><i class="fa fa-lock"></i> bank lavel security</a></span>
-                <button type="button" class="btn btn-white" data-dismiss="modal">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
                     Close
                 </button>
             </div>
@@ -432,11 +432,11 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-white btn-back" data-toggle="modal" data-target="#myModal-vahicle"  data-dismiss="modal">
+                <button type="button" class="btn btn-primary btn-back" data-toggle="modal" data-target="#myModal-vahicle"  data-dismiss="modal">
                     Back
                 </button>
                 <span  class="bank-level-securtiy text-capitalize"><a href="#"   data-container="body" data-toggle="popover" data-placement="top" data-title="Bank level security" data-content="The same 128-bit encryption and physical security standards as your bank. "  ><i class="fa fa-lock"></i> bank lavel security</a></span>
-                <button type="button" class="btn btn-white" data-dismiss="modal">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
                     Close
                 </button>
             </div>
@@ -475,11 +475,11 @@
                 <?php echo form_close(); ?>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-white btn-back" data-toggle="modal" data-target="#myModal-properties"  data-dismiss="modal">
+                <button type="button" class="btn btn-primary btn-back" data-toggle="modal" data-target="#myModal-properties"  data-dismiss="modal">
                     Back
                 </button>
                 <span  class="bank-level-securtiy text-capitalize"><a href="#"   data-container="body" data-toggle="popover" data-placement="top" data-title="Bank level security" data-content="The same 128-bit encryption and physical security standards as your bank. "  ><i class="fa fa-lock"></i> bank lavel security</a></span>
-                <button type="button" class="btn btn-white" data-dismiss="modal">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
                     Close
                 </button>
 
@@ -526,11 +526,11 @@
                 <?php echo form_close(); ?>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-white btn-back" data-toggle="modal" data-target="#myModal-otherinfo"  data-dismiss="modal">
+                <button type="button" class="btn btn-primary btn-back" data-toggle="modal" data-target="#myModal-otherinfo"  data-dismiss="modal">
                     Back
                 </button>
                 <span  class="bank-level-securtiy text-capitalize"><a href="#"   data-container="body" data-toggle="popover" data-placement="top" data-title="Bank level security" data-content="The same 128-bit encryption and physical security standards as your bank. "  ><i class="fa fa-lock"></i> bank lavel security</a></span>
-                <button type="button" class="btn btn-white" data-dismiss="modal">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
                     Close
                 </button>
             </div>

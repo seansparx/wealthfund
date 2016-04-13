@@ -42,8 +42,8 @@ class Crons extends CI_Controller
      */
     public function budget_notification() 
     {
-        $users            = $this->registration_model->read();
-        //pr($users);
+        $users = $this->registration_model->read();
+        $cn = 0;
         
         foreach ($users as $user) {
             $budgets        = $this->budget_model->get_user_budget($user->id);
@@ -55,12 +55,12 @@ class Crons extends CI_Controller
                     $spent[$spend->category_id] = $spend->amt;
                 }
             }
-            //pr($spent);
             
             $full_name   = $user->full_name;
             $user_email  = $user->user_email;
             $user_mobile = $user->country_code.$user->user_mobile;
-            $limit       = 50;
+            $limit       = 90;
+            
             if(sizeof($budgets) > 0) {
                 foreach ($budgets as $budget) {
                     $amount   = $budget->amount;
@@ -69,15 +69,17 @@ class Crons extends CI_Controller
                     $hv_spent = isset($spent[$budget->category_id]) ? $spent[$budget->category_id] : 0;
                     $spent_percent = ceil(($hv_spent * 100) / $amount);
                     if($spent_percent >= $limit) {
-                        $text = 'Hi '.$full_name.', This month you have spent '.number_format($hv_spent, 2).' INR of your budget amount '.number_format($amount, 2).' INR';
-                        //$this->send_sms('+919910124603', $text);
-                        email_send('rakesh.kumar@sparxitsolutions.com', 'Budget Reminder', $text);
-                        //echo 'Send notification to '.$user_email;
+                        $text = 'Hi '.$full_name.', This month you have spent '.number_format($hv_spent, 2).' INR on '.$cat_name.' of your budget amount '.number_format($amount, 2).' INR - Wealthfund';
+                        $this->send_sms($user_mobile, $text);
+                        email_send($user_email, 'Budget Reminder', $text);
+                        email_send('sean@sparxitsolutions.com', 'Budget Reminder', $text.'<br/>'.json_encode($budget));
+                        $cn++;
                     }
                 }
             }
-            //pr($budgets);
         }
+        
+        echo $cn.' notifications sent.';
         
     }
     

@@ -27,7 +27,7 @@ $html_loans = '';
 $html_property = '';
 if ($no_of_accounts > 0) {
     foreach ($bank_accounts as $sites) {
-        $li = '<li>
+        $li = '<li> <i class="label label-warning remove-list">Remove</i>
                     <table class="table">
                         <tbody>
                             <tr>
@@ -249,7 +249,7 @@ if ($no_of_accounts > 0) {
                             <a href="javascript:;"><i class="glyphicon glyphicon-signal"></i> <span class="nav-label">Investments</span> <span class="fa arrow"></span><span class="pull-right"><?php echo $currency_code . number_format($investments_total, 2); ?></span></a>
                             <ul class="nav nav-second-level collapse">
                                 <li>
-                                    <a href="javascript:;"><i class="fa fa-plus-square openfastlink"></i><span class="fa arrow"></span>Stocks</a>
+                                    <a href="javascript:;"><span class="fa arrow"></span><i class="label label-primary openfastlink">add</i>Stocks</a>
                                     <ul class="nav nav-second-level collapse">
                                         <?php echo $html_stocks; ?>
                                     </ul>
@@ -258,7 +258,7 @@ if ($no_of_accounts > 0) {
                                     <a href="#">Mutual Funds</a>
                                 </li>
                                 <li>
-                                    <a id="gold" href="javascript:;"><i class="fa fa-plus-square"></i><span class="fa arrow"></span>Gold</a>
+                                    <a id="gold" href="javascript:;"><span class="fa arrow"></span><i class="label label-primary">add</i>Gold</a>
                                     <ul class="nav nav-second-level collapse">
                                         <?php
                                         if (trim($html_gold) != '') {
@@ -274,7 +274,7 @@ if ($no_of_accounts > 0) {
                                     <a href="javascript:;"><span class="fa arrow"></span>Insurance</a>
                                     <ul class="insurance-block nav nav-second-level collapse">
                                         <li>
-                                            <a id="life_insurance" href="javascript:;"><i class="fa fa-plus-square"></i><span class="fa arrow"></span>Life Insurance</a>
+                                            <a id="life_insurance" href="javascript:;"><span class="fa arrow"></span><i class="label label-primary">add</i>Life Insurance</a>
                                             <ul class="nav nav-second-level collapse">
                                                 <?php
                                                 if (trim($html_life_insurance) != '') {
@@ -284,7 +284,7 @@ if ($no_of_accounts > 0) {
                                             </ul>
                                         </li>
                                         <li>
-                                            <a id="health_insurance" href="javascript:;"><i class="fa fa-plus-square"></i><span class="fa arrow"></span>Health Insurance</a>
+                                            <a id="health_insurance" href="javascript:;"><span class="fa arrow"></span><i class="label label-primary">add</i>Health Insurance</a>
                                             <ul class="nav nav-second-level collapse">
                                                 <?php
                                                 if (trim($html_health_insurance) != '') {
@@ -294,7 +294,7 @@ if ($no_of_accounts > 0) {
                                             </ul>
                                         </li>
                                         <li>
-                                            <a id="disable_coverage" href="javascript:;"><i class="fa fa-plus-square"></i><span class="fa arrow"></span>Long-Term Disability Coverage</a>
+                                            <a id="disable_coverage" href="javascript:;"><span class="fa arrow"></span><i class="label label-primary">add</i>Long-Term Disability Coverage</a>
                                             <ul class="nav nav-second-level collapse">
                                                 <?php
                                                 if (trim($html_disability_insurance) != '') {
@@ -304,7 +304,7 @@ if ($no_of_accounts > 0) {
                                             </ul>
                                         </li>
                                         <li>
-                                            <a id="auto_insurance" href="javascript:;"><i class="fa fa-plus-square"></i><span class="fa arrow"></span>Auto Insurance</a>
+                                            <a id="auto_insurance" href="javascript:;"><span class="fa arrow"></span><i class="label label-primary">add</i>Auto Insurance</a>
                                             <ul class="nav nav-second-level collapse">
                                                 <?php
                                                 if (trim($html_auto_insurance) != '') {
@@ -321,7 +321,7 @@ if ($no_of_accounts > 0) {
                                     </ul>
                                 </li>
                                 <li>
-                                    <a id="fd" href="javascript:;"><i class="fa fa-plus-square"></i><span class="fa arrow"></span>FD</a>
+                                    <a id="fd" href="javascript:;"><span class="fa arrow"></span><i class="label label-primary">add</i>FD</a>
                                     <ul class="nav nav-second-level collapse">
                                         <?php
                                         if (trim($html_fd) != '') {
@@ -497,7 +497,7 @@ $this->load->view('popups/fastlink');
             </div>
             <div class="modal-footer">
                 <span  class="bank-level-securtiy text-capitalize"><a href="#"   data-container="body" data-toggle="popover" data-placement="top" data-title="Bank level security" data-content="The same 128-bit encryption and physical security standards as your bank. "  ><i class="fa fa-lock"></i> bank lavel security</a></span>
-                <button type="button" class="btn btn-white" data-dismiss="modal">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
                     Close
                 </button>
             </div>

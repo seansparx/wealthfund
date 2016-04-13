@@ -74,9 +74,9 @@ $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
-        'hostname' => ($_SERVER['HTTP_HOST'] == 'localhost' ? 'localhost' : 'host1.mysql.db'),
+        'hostname' => ($_SERVER['HTTP_HOST'] == 'localhost' ? 'localhost' : 'localhost'),
 	'username' => ($_SERVER['HTTP_HOST'] == 'localhost' ? 'root' : 'CSS5134'),
-	'password' => ($_SERVER['HTTP_HOST'] == 'localhost' ? 'sparx' : 'jXPzRrHe27vLmwdT'),
+	'password' => ($_SERVER['HTTP_HOST'] == 'localhost' ? 'sparx' : 'j@A#y%aC$&hL8'),
 	'database' => 'CSS5134',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => 'wf_',
