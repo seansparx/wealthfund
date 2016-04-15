@@ -52,9 +52,9 @@ foreach ($categories as $cat) {
 					<label>
 						<input type="checkbox" name="t_tags[]" value="vacation" />
 						Vacation </label>
-					<button type="button" class="btn btn-outline btn-info">
+<!--					<button type="button" class="btn btn-outline btn-info">
 						Edit Tags
-					</button>
+					</button>-->
 				</div>
 			</li>
 			<li>
@@ -150,9 +150,9 @@ foreach ($categories as $cat) {
 					<label>
 						<input type="checkbox" name="t_tags[]" value="vacation" />
 						Vacation </label>
-					<button type="button" class="btn btn-outline btn-info" data-dismiss="modal"  data-toggle="modal" data-target="#manageTags">
+<!--					<button type="button" class="btn btn-outline btn-info" data-dismiss="modal"  data-toggle="modal" data-target="#manageTags">
 						Edit Tags
-					</button>
+					</button>-->
 				</div>
 			</li>
 			<li>

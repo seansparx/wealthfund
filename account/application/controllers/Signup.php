@@ -19,6 +19,7 @@ class Signup extends MY_Controller
     
     private function init()
     {
+		$this->load->helper('mail');
         $this->load->model('registration_model');
         $this->load->helper(array('otp','cookie'));
         if(loginCheck()){
@@ -34,6 +35,8 @@ class Signup extends MY_Controller
      */
     public function index() 
     {
+		//email_send('rakesh.kumar@sparxitsolutions.com', 'aws-smtp-test', 'the quick..');
+		//die;
         $this->data = array();
         
         $step = 1;

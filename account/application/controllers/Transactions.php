@@ -155,6 +155,34 @@ class Transactions extends MY_Controller
     
     
     /**
+     * Refresh budget entries.
+     * 
+     * @return bool
+     */
+    public function refresh_budget()
+    {
+        if(match_token()) {
+            $this->data['budgets'] = $this->budget_model->get_budgets();
+            $this->load->view('transactions/budgets', $this->data);
+        }
+    }
+    
+    
+    /**
+     * Delete budget entry.
+     * 
+     * @return bool
+     */
+    public function del_budget()
+    {
+        if(match_token()) {
+            $id = decode($this->input->get('budget_id'));
+            echo $this->budget_model->delete_budget($id);
+        }
+    }
+    
+    
+    /**
      * Set new budget.
      * 
      * @return bool
@@ -240,6 +268,7 @@ class Transactions extends MY_Controller
             if($this->input->get('action') == 'spending') {
                 $graph_data = array();
                 $spendings = $this->bank_model->get_expenses_by_category();
+                //pr($spendings);
                 if(count($spendings) > 0) {
                     $c = 1;
                     foreach ($spendings as $expense) {

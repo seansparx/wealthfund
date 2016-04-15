@@ -49,6 +49,7 @@ class Budget_model extends CI_Model
         $this->db->from($this->tbl_budgets." AS a");
         $this->db->join($this->categories." AS b", "b.category_id = a.category_id", "left");
         $this->db->join($this->category_types." AS c", "c.type_id = b.category_type_id", "left");
+        $this->db->order_by('id', 'asc');
         if(intval($id) > 0) {
             $this->db->where(array("a.id" => $id, "a.user_id" => $user_id));
             $query = $this->db->get();
@@ -59,6 +60,19 @@ class Budget_model extends CI_Model
             $query = $this->db->get();
             return $query->result();
         }
+    }
+
+    
+    /**
+     * delete budgets.
+     * 
+     * @return array
+     */
+    public function delete_budget($id)
+    {
+        $user_id = $this->session->userdata(SITE_SESSION_NAME."session")['wealthfund_user_id'];        
+        $this->db->where(array("id" => $id, "user_id" => $user_id));
+        return $this->db->delete($this->tbl_budgets);
     }
     
     
@@ -99,10 +113,10 @@ class Budget_model extends CI_Model
             }
             else{
                 $entry = array(
-                    "user_id"       => $user_id, 
-                    "category_id"   => (isset($post_data['b_category']) ? $post_data['b_category'] : ''),
-                    "amount"        => (isset($post_data['b_amount']) ? $post_data['b_amount'] : ''),
-                    "term"          => 'monthly');
+                    "user_id"      => $user_id, 
+                    "category_id"  => (isset($post_data['b_category']) ? $post_data['b_category'] : ''),
+                    "amount"       => (isset($post_data['b_amount']) ? $post_data['b_amount'] : ''),
+                    "term"         => 'monthly');
                 
                 $this->db->insert($this->tbl_budgets, $entry);
                 if($this->db->insert_id() > 0) {

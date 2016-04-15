@@ -3,19 +3,20 @@
 function email_send($address, $subject, $message) 
 {
     $CI = & get_instance();
+    $CI->load->library('email');
     
     $config = Array(
         'protocol' => 'smtp',
-        'smtp_host' => 'ssl://smtp.googlemail.com',
+        'smtp_host' => 'ssl://smtp.gmail.com',
         'smtp_port' => 465,
-        'smtp_user' => 'corephp0@gmail.com',
-        'smtp_pass' => 'Sparx@09871',
+        'smtp_user' => 'info.seanrock@gmail.com',
+        'smtp_pass' => '#ab123456',
         'mailtype' => 'html',
         'charset' => 'utf-8',
         'wordwrap' => TRUE
     );
     
-    $CI->load->library('email', $config);
+    $CI->email->initialize($config);
     
     $CI->email->clear();
     $CI->email->set_newline("\r\n");
@@ -26,9 +27,9 @@ function email_send($address, $subject, $message)
     $CI->email->from('noreply@wealthfund.in');
     $CI->email->subject($subject);
     $CI->email->message($message);
-    $CI->email->send();
+    //echo $CI->email->send();
 
-    //echo $this->email->print_debugger();
+    echo $CI->email->print_debugger();
 }
 
 ?>

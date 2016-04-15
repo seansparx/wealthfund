@@ -26,6 +26,31 @@ function refresh_doughnut(acc_id)
     });
 }
 
+
+function refresh_doughnut_by_duration(duration) 
+{
+    var acc_id = $("#graph-acc_filter").val();
+    
+    if (DoughnutChart != null) {
+        DoughnutChart.destroy();
+    }
+    
+    $.getJSON(site_url('transactions/graph_data'), {
+        "action": 'spending', "acc_id": acc_id, "duration": duration, "token": site_token()
+    }, function (result) {
+        if (result.success) {
+            var doughnutOptions = {
+                segmentShowStroke: true, segmentStrokeColor: "#fff", segmentStrokeWidth: 2, percentageInnerCutout: 70, // This is 0 for Pie charts
+                animationSteps: 100, animationEasing: "easeOutBounce", animateRotate: true, animateScale: false
+            };
+            DoughnutChart = new Chart(ctx).Doughnut(result.graph_data, doughnutOptions);
+        } else {
+            ctx.font = "15px bold";
+            ctx.fillText(result.message, 50, 150);
+        }
+    });
+}
+
     
 $(document).ready(function () {
     
@@ -39,6 +64,12 @@ $(document).ready(function () {
     $('#graph-acc_filter').change(function () {
         var acc_id = $(this).val();
         refresh_doughnut(acc_id);
+    });
+    
+    
+    $('#graph-acc_during').change(function () {
+        var duration = $(this).val();
+        refresh_doughnut_by_duration(duration);
     });
 
 
@@ -463,7 +494,7 @@ function init_autocomplete()
 $(document).ready(function () {
 
     /** Bind event on create budget.*/
-    $('#create-budget #btn_save').bind('click', function () {
+    $('#create-budget #btn_save').bind('click', function() {
         if($("#form_create_budget").valid()) {
             $('#create-budget #btn_save').attr('disabled', true);            
             var param = $("#form_create_budget").serialize()+'&token='+site_token();            
@@ -472,18 +503,42 @@ $(document).ready(function () {
                 $('#create-budget #btn_save').attr('disabled', false);
 
                 if(response == 1) {
+                    refresh_budget_progress_bar();
                     $("#create-budget").modal('hide');
                     $("#budget-success").modal('show');
                     
                     $('#form_create_budget')[0].reset();
-                    document.location.reload();
+                    //document.location.reload();
+                    
                 }
                 else{
                     alert(response);
                 }
             });
         }
-    } );
+    });
+    
+    
+    /** Bind event on update budget.*/
+    $('#edit-budget #btn_save').bind('click', function() {
+        if($("#form_edit_budget").valid()) {
+            $('#edit-budget #btn_save').attr('disabled', true);            
+            var param = $("#form_edit_budget").serialize()+'&token='+site_token();            
+            $.post(base_url('transactions/create_budget'), param, function(response){
+
+                $('#edit-budget #btn_save').attr('disabled', false);
+
+                if(response == 1) {
+                    refresh_budget_progress_bar();
+                    $("#edit-budget").modal('hide');                    
+                    $('#form_edit_budget')[0].reset();                    
+                }
+                else{
+                    alert(response);
+                }
+            });
+        }
+    });
     
     
     /** button create budget .*/
@@ -491,63 +546,13 @@ $(document).ready(function () {
         $("#create-budget .modal-title").text('Create a Budget');
         $("#create-budget").modal('show');
     } );
+        
     
-    /** Bind event on edit budget .*/
-    $('.edit_budget').bind('click', function () {
-        
-        if(ajax_req){ ajax_req.abort(); }
-        
-        $("#create-budget .modal-title").text('Edit Your Budget');
-        $("#create-budget").modal('show');
-        var budget_id = $(this).parent().attr('id');
-        
-        ajax_req = $.getJSON(base_url('transactions/get_budget'), {"budget_id":budget_id, "token" : site_token()}, function(response) {
-                        $("#form_create_budget #b_category").val(response.category_id);
-                        $("#form_create_budget #b_amount").val(response.amount);
-                    });
-        
-    } );
+    init_edit_budget();   
     
+    init_del_budget();   
     
-    /** decrease budget counter .*/
-    $('.pre-count').click(function () {
-        var elment = $(this);
-        if(ajax_req){ ajax_req.abort(); }
-        
-        var valuePre = parseInt(elment.siblings('span').text());
-        var nexvalue = --valuePre;
-        
-        if(nexvalue < 0){ return false; }
-        
-        elment.siblings('span').text(nexvalue);
-        var budget_id = elment.parent().parent().attr('id');
-        
-        ajax_req = $.post(base_url('transactions/update_budget'), {"budget_id" : budget_id, "amount" : nexvalue, "token" : site_token()}, function(response){
-            console.log(response);
-            var b_limit = currency_symbol()+' '+number_format(nexvalue, 2);
-            elment.parent().parent().children('span').eq(1).children('strong').eq(1).html(b_limit);
-        });
-    }); 
-    
-    /** increase budget counter .*/
-    $('.next-count').click(function () {
-        var elment = $(this);
-        if(ajax_req){ ajax_req.abort(); }
-        
-        var valuePre = parseInt(elment.siblings('span').text());
-        var nexvalue = ++valuePre;
-        
-        if(nexvalue < 0){ return false; }
-        
-        elment.siblings('span').text(nexvalue);
-        var budget_id = elment.parent().parent().attr('id');
-                
-        ajax_req = $.post(base_url('transactions/update_budget'), {"budget_id" : budget_id, "amount" : nexvalue, "token" : site_token()}, function(response){
-            console.log(response);
-            var b_limit = currency_symbol()+' '+number_format(nexvalue, 2);
-            elment.parent().parent().children('span').eq(1).children('strong').eq(1).html(b_limit);
-        });
-    });
+    init_budget_count();   
     
     validate_createbudget_form();
 });
@@ -556,7 +561,7 @@ $(document).ready(function () {
 
 function validate_createbudget_form()
 {
-    $("#form_create_budget").validate({
+    $("#form_create_budget, #form_edit_budget").validate({
         // Specify the validation rules
         "onkeyup":true,
         rules: {
@@ -590,4 +595,107 @@ function validate_createbudget_form()
         }
     });
         
+}
+
+
+/** 
+ * Bind budget counter 
+ * */
+function init_budget_count()
+{
+    /** decrease budget counter .*/
+    $('.pre-count').unbind('click').bind('click', function () {
+        var elment = $(this);
+        if(ajax_req){ ajax_req.abort(); }
+
+        var valuePre = parseInt(elment.siblings('span').text());
+        var nexvalue = --valuePre;
+
+        if(nexvalue < 0){ return false; }
+
+        elment.siblings('span').text(nexvalue);
+        var budget_id = elment.parent().parent().attr('id');
+
+        ajax_req = $.post(base_url('transactions/update_budget'), {"budget_id" : budget_id, "amount" : nexvalue, "token" : site_token()}, function(response){
+            console.log(response);
+            var b_limit = currency_symbol()+' '+number_format(nexvalue, 2);
+            elment.parent().parent().children('span').eq(1).children('strong').eq(1).html(b_limit);
+        });
+    }); 
+
+    /** increase budget counter .*/
+    $('.next-count').unbind('click').bind('click', function () {
+        var elment = $(this);
+        if(ajax_req){ ajax_req.abort(); }
+
+        var valuePre = parseInt(elment.siblings('span').text());
+        var nexvalue = ++valuePre;
+
+        if(nexvalue < 0){ return false; }
+
+        elment.siblings('span').text(nexvalue);
+        var budget_id = elment.parent().parent().attr('id');
+
+        ajax_req = $.post(base_url('transactions/update_budget'), {"budget_id" : budget_id, "amount" : nexvalue, "token" : site_token()}, function(response){
+            console.log(response);
+            var b_limit = currency_symbol()+' '+number_format(nexvalue, 2);
+            elment.parent().parent().children('span').eq(1).children('strong').eq(1).html(b_limit);
+        });
+    });
+}
+    
+    
+/** 
+ * Bind event on delete budget button.
+ * */
+function init_del_budget() {
+    $('.del_budget').unbind('click').bind('click', function (){
+
+        if(ajax_req){ ajax_req.abort(); }
+
+        var budget_id = $(this).parent().attr('id');
+        if(confirm("Are you sure want to delete budget?")){
+            ajax_req = $.getJSON(base_url('transactions/del_budget'), {"budget_id":budget_id, "token" : site_token()}, function(response) {
+                            if(response){
+                                refresh_budget_progress_bar();
+                            }
+                        });
+        }
+
+    });
+}
+    
+    /** 
+     * Bind event on edit budget .
+     * */
+    function init_edit_budget() {
+        $('.edit_budget').unbind('click').bind('click', function () {
+
+            if(ajax_req){ ajax_req.abort(); }
+
+            $("#edit-budget .modal-title").text('Edit Your Budget');
+            $("#edit-budget").modal('show');
+            var budget_id = $(this).parent().attr('id');
+
+            ajax_req = $.getJSON(base_url('transactions/get_budget'), {"budget_id":budget_id, "token" : site_token()}, function(response) {
+                            $("#form_edit_budget #b_category").val(response.category_id);
+                            $("#form_edit_budget #b_amount").val(response.amount);
+                        });
+
+        } );
+    }
+    
+/** 
+ * Refresh budget progress bars.
+ * 
+ * @return void
+ */
+function refresh_budget_progress_bar()
+{
+    $.get(base_url('transactions/refresh_budget'), {"token" : site_token()}, function(response) {
+        $("div#budget_bars").html(response);
+        init_edit_budget();       
+        init_del_budget();   
+        init_budget_count();
+    });
 }

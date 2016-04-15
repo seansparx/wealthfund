@@ -1,5 +1,5 @@
 <!-- model for Create Budget-->
-<div class="modal inmodal" id="create-budget" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal inmodal" id="edit-budget" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">
@@ -9,7 +9,7 @@
                 <h4 class="modal-title">Create a Budget</h4>
             </div>
             <div class="modal-body credentials_info">
-                <form id="form_create_budget" class="form-horizontal create-budget-form">
+                <form id="form_edit_budget" class="form-horizontal edit-budget-form">
                     <div class="central-form">
                         <div class="row form-group">
                             <div class="col-sm-5">
@@ -20,9 +20,6 @@
                                     <option value=""> -- Select -- </option>
                                     <?php
                                     foreach ($budget_category as $cat) {
-                                        if(in_array($cat->category_id, $budget_ids)) {
-                                            continue;
-                                        }
                                         echo '<option value="' . $cat->category_id . '">' . $cat->category_name . '</option>';
                                     }
                                     ?>

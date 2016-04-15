@@ -102,6 +102,31 @@ class Bank_model extends CI_Model
     public function get_expenses_by_category()
     {
         $account_id = $this->input->get('acc_id') ? $this->input->get('acc_id') : '';
+        $duration   = $this->input->get('duration') ? $this->input->get('duration') : '';
+        
+        $end_date = date("Ymd");
+        
+        switch($duration) {
+            case '7'        : $start_date = date("Ymd", strtotime("-7 days")); break;
+            
+            case '14'       : $start_date = date("Ymd", strtotime("-14 days")); break;
+            
+            case 'this'     : $start_date = date("Ym").'01'; break;
+            
+            case 'last'     : $start_date = date("Ym", strtotime("-1 month")).'01'; break;
+            
+            case 'last3'    : $start_date = date("Ymd", strtotime("-3 month")); break;
+            
+            case 'last6'    : $start_date = date("Ymd", strtotime("-6 month")); break;
+            
+            case 'last12'   : $start_date = date("Ymd", strtotime("-12 month")); break;
+            case 'thisyear' : $start_date = date("Y").'0101'; break;
+            
+            case 'lastyear' : $start_date = date("Y", strtotime("-1 year")).'0101'; 
+                              $end_date = date("Y").'1231'; break;
+        }
+        
+        
         
         $user_id = $this->session->userdata(SITE_SESSION_NAME."session")['wealthfund_user_id'];
         
@@ -112,10 +137,14 @@ class Bank_model extends CI_Model
             $where = array('user_id' => $user_id, 'transaction_type' => 'debit');
         }
         
-        $this->db->select(array('category_name','category_type_id', 'SUM(amount) AS total_amount', 'currency'));
+        $this->db->select(array('post_date','category_name','category_type_id', 'SUM(amount) AS total_amount', 'currency'));
         $this->db->group_by('category_id');
         $this->db->order_by('total_amount', 'desc');
         
+        if(isset($start_date) && $start_date > 0){
+            $this->db->where('post_date >=', $start_date);
+            $this->db->where('post_date <=', $end_date);
+        }
         // Get Only 6 categories by default.
         if( ! $account_id){
             $this->db->limit(6);
