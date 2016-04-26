@@ -50,6 +50,18 @@ class MY_Controller extends CI_Controller {
     }
 
     
+       /**
+        * @access  protected
+        * @param string $view_name 
+        * @return NULL
+        */
+       protected function render_page($view_name)
+       {
+            $this->load->view('admin/Layout/header',  $this->header_data);
+            $this->load->view('admin/'.$view_name,  $this->data);
+            $this->load->view('admin/Layout/footer',  $this->footer_data);
+       }
+    
     /**
      * private function to get country codes with country names
      * @return string

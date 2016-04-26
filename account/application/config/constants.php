@@ -107,6 +107,16 @@ define('TBL_COUNTRY', PREFIX.'country');
 define('TBL_COUNTRY_CODES', PREFIX.'country_codes');
 define('TBL_USERS', PREFIX.'users');
 
+/*new table by rajesh*/
+define('TBL_ADMINLOGIN', PREFIX.'adminlogin');
+define('TBL_MENU', PREFIX.'menu');
+define('TBL_MENUPOSITION', PREFIX.'menuposition');
+define('TBL_SESSIONDETAIL', PREFIX.'sessiondetail');
+define('TBL_ADMINPERMISSION', PREFIX.'adminpermission');
+define('TBL_ADMINLEVEL', PREFIX.'adminlevel');
+define('TBL_SYSTEMCONFIG', PREFIX.'system_config');
+define('TBL_CONTACTS', PREFIX.'contacts');
+define('TBL_MACHINE', PREFIX.'machine');
 
 /*
 |--------------------------------------------------------------------------

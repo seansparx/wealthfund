@@ -34,18 +34,25 @@ function verification_string($string) {
 
 function loginCheck()
 {   
-    /*Array
-(
-    [wealthfund_user_id] => 1
-    [wealthfund_name] => Mr Sean Rock
-    [wealthfund_login_string] => cbbe4268f642cfbbbdb58b5f5b27a98cc74118d7aa5ef2bc2f73a60ac76fd3d2036c25aa1e1f617ab75e9ef488c031822027f849c0b6ece1c5ddaae004952b4c
-)*/
     $CI = & get_instance();
     if (intval($CI->session->userdata('wealthfund_session')['wealthfund_user_id']) > 0) {
         return true;
     }else{
         return false;
     }
+}
+
+
+function loginLoginCheck()
+{   
+    $CI = & get_instance();
+    $CI->load->model('login_model');
+    $CI->login_model->checkSession();
+//    if (intval($CI->session->userdata('wealthfund_session')['wealthfund_user_id']) > 0) {
+//        return true;
+//    }else{
+//        return false;
+//    }
 }
 
 
