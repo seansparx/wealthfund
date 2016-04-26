@@ -13,6 +13,7 @@ class Login extends MY_Controller {
     function __construct() {
         parent::__construct();
         $this->load->helper('cookie');
+        
     }
 
     /**
@@ -21,28 +22,27 @@ class Login extends MY_Controller {
      * 
      */
     public function index() {
+        
         if ($this->input->post()) {
-            echo "rajd"; die;
             $this->form_validation->set_rules('userName', 'login ID', 'trim|required|min_length[4]|max_length[20]');
-            $this->form_validation->set_rules('userPassword', 'password', 'trim|required|min_length[4]|max_length[20]');
+            $this->form_validation->set_rules('userPassword', 'userPassword', 'trim|required|min_length[6]|max_length[20]');
             $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
             if ($this->form_validation->run() == TRUE) {
-                $result = $this->login_model->adminLogin($this->input->post());
+               
+                $result = $this->login_model->adminLogin();
+               
+               //pr($result);die;
                 if ($result) {
-                    if ($this->session->userdata('RETURN_URL')) {
-                        redirect($this->session->userdata('RETURN_URL'));
-                    } else {
+                   
                         redirect('admin/dashboard');
-                    }
+                   
                 } else {
-                    redirect('admin/welcome');
+                  //  echo "welcome"; die;
+                    redirect('admin/login');
                 }
             }
         }
-        $result = $this->login_model->checkSession();
-        if ($result) {
-            redirect('admin/dashboard');
-        }
+        
         $cookie_array = $this->get_cookie();
         $data['remember'] = $cookie_array;
         $this->load->view('admin/login', $data);
@@ -70,8 +70,11 @@ class Login extends MY_Controller {
     /*     * ************* Start function logout() to logout from admin ************** */
 
     public function logout() {
+      // print_r($this->session->all_userdata()); die;
         $this->session->sess_destroy();
-        redirect('welcome');
+       //$this->session->unset_userdata('wealthfund_ADMINID');
+      //  print_r($this->session->all_userdata());die;
+        redirect('admin/login');
     }
 
     /*     * ************* End function logout() ************** */

@@ -8,6 +8,8 @@ class Login_model extends CI_Model {
 
     function __construct() {
         parent::__construct();
+        $this->load->library("session");
+        
         $this->_init();
     }
 
@@ -226,13 +228,141 @@ class Login_model extends CI_Model {
     }
 
     /*     * *************function to check session ************* */
-
-    function checkSession() {
-        if (!$this->session->userdata['wf_admin_session']['admin_user_id']) {
-            $this->session->set_flashdata('flashdata', 'OOPS! your session has been expired!');
+ 
+    
+    public function adminLogin() 
+    {
+        $post = $this->input->post();
+        $username = $post['userName'];
+        $password = $post['userPassword'];
+       // echo $password; die;
+        $this->db->where("username", $username);
+        $this->db->where("status", '1');
+        $query = $this->db->get(TBL_ADMINLOGIN);
+       
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $rows) {
+              
+                if ($this->validate_password($password, $rows->password)) {
+                  
+                     $session_id = session_id();
+                    $lastLogin = date("d M Y h:i a", strtotime($rows->lastLogin));
+                    
+                    $newdata = array(
+                        SITE_SESSION_NAME.'ADMINID' => $rows->id,
+                        SITE_SESSION_NAME.'ADMINNNAME' => $rows->username,
+                        SITE_SESSION_NAME.'USERIMAGE' => $rows->userImage,
+                        SITE_SESSION_NAME.'ADMINTBL_USERHASH' => $rows->hash,
+                        SITE_SESSION_NAME.'USERLEVELID' => $rows->adminLevelId,
+                        SITE_SESSION_NAME.'PHPSESSIONID' => $session_id,
+                        SITE_SESSION_NAME.'ADMIN_LAST_LOGIN' => $lastLogin
+                    );
+                    
+                    $updatedata = array(
+                        'lastLogin' => date('Y-m-d H:i:s'),
+                    );
+                    
+                    $this->db->where('id', $rows->id);
+                    $this->db->update(TBL_ADMINLOGIN, $updatedata);
+                    
+                    $insertdata = array(
+                        'sessionId' => $session_id,
+                        'adminId' => $rows->id,
+                        'ipAddress' => $_SERVER['REMOTE_ADDR'],
+                        'signInDateTime' => date('Y-m-d H:i:s'),
+                        'signDate' => date('Y-m-d'),
+                    );
+                    
+                    $this->db->insert(TBL_SESSIONDETAIL, $insertdata);
+                    $this->session->set_userdata($newdata);
+                   // print_r($this->session->all_userdata());
+                    $this->remember_me($this->input->post('remember'));
+                    
+                    return true;
+                } 
+                else {
+                    $this->session->set_flashdata('flashdata', 'Login Authentication Failed');
+                    return false;
+                }
+            }
+        } else {
+            $this->session->set_flashdata('flashdata', 'Login Authentication Failed');
             return false;
         }
+    }
+    
+    
+     public function validate_password($plain, $encrypted) {
+        // echo $plain; die;
+        if (!is_null($plain) && !is_null($encrypted)) {
+            // split apart the hash / salt
+            $stack = explode(':', $encrypted);
+            if (sizeof($stack) != 2)
+                return false;
+            if (md5($stack[1] . $plain) == $stack[0]) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    
+      private function remember_me($remember = NULL)
+    {
+        $cookie_name   = PREFIX."ADMNUSR";
+        setcookie($cookie_name,'',time()-3600, "/");
+        if($remember == '1')
+        {
+            $cookie_val    = base64_encode($this->input->post('userName'))."#####".base64_encode($this->input->post('userPassword'));
+            $cookie_expire = time() + (86400 * COOKIE_EXPIRES);
+            setcookie($cookie_name, $cookie_val,$cookie_expire, "/");
+        }
+    }
+    
+    
+     function checkSession() {
+        if (!$this->session->userdata(SITE_SESSION_NAME.'ADMINID')) {
+            
+            $newdata = array(
+                'RETURN_URL' => $this->curPageURL()
+            );
+            //print_r($newdata);
+            $this->session->set_userdata($newdata);
+            $this->session->set_flashdata('flashdata', 'OOPS! your session has been expired!');
+            return false;
+        } else {
+            $this->db->where("id", $this->session->userdata(SITE_SESSION_NAME.'ADMINID'));
+            $query = $this->db->get(TBL_ADMINLOGIN);
+            //echo $this->db->last_query();die;
+            foreach ($query->result() as $rows) {
+                $adminUserHash = $rows->hash;
+            }
+            if ($adminUserHash != $this->session->userdata(SITE_SESSION_NAME.'ADMINTBL_USERHASH')) {
+               // $this->session->set_flashdata('flashdata', 'OOPS! your session has been expired!');
+                $newdata = array(
+                    SITE_SESSION_NAME.'RETURN_URL' => $this->curPageURL()
+                );
+                $this->session->set_userdata($newdata);
+                return false;
+            }
+            return true;
+        }
         return true;
+    }
+    
+    
+    function curPageURL() {
+        $pageURL = 'http';
+        if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {
+            $pageURL .= "s";
+        }
+        $pageURL .= "://";
+        if ($_SERVER["SERVER_PORT"] != "80") {
+            $pageURL .= $_SERVER["SERVER_NAME"] . ":" . $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
+        } else {
+            $pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+        }
+        return $pageURL;
     }
 
 }

@@ -28,18 +28,22 @@
             <h3>Welcome to Admin Panel</h3>
             
             <p>Login in. To see it in action.</p>
-           <?php $js = 'name="frmUser" id="validateSubmitForm"  class="frmUser form-horizontal margin-none form-validate" enctype="multipart/form-data"'; ?>
-                                                                    <?php echo form_open("admin/login", $js); ?>
+            <form class="m-t" method="post" role="form" action="<?php echo site_url('admin/login')?>">
                 <div class="form-group">
-                    <input type="email" class="form-control" placeholder="Username" required="">
+                    <input type="text" name='userName' value="" class="form-control" placeholder="Username" required="">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Password" required="">
+                    <input type="password" name='userPassword' value="" class="form-control" placeholder="Password" required="">
                 </div>
+                
+                <div class="remember">
+                                            <input type="checkbox" name="remember" class='icheck-me' <?php if(isset($remember)){?>checked="" <?php }?> data-skin="square" data-color="blue" id="remember" value="1">
+						<label for="remember">Remember me</label>
+					</div>
                 <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
 
                 <a href="#"><small>Forgot password?</small></a>
-            <?php echo form_close(); ?>
+            </form>
             <p class="m-t"> <small>Wealthfund &copy; <?php echo date('Y');?></small> </p>
         </div>
     </div>
