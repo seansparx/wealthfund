@@ -39,16 +39,7 @@
                                     Every Month</label>
                             </div>
                         </div>
-                        <!--						<div class="row form-group">
-                        <div class="col-sm-5">
-
-                        </div>
-                        <div class="col-sm-7">
-                        <label>
-                        <input type="checkbox" />
-                        Start each new month with the previuos month's leftover amount </label>
-                        </div>
-                        </div>-->
+                        
                         <div class="row form-group">
                             <div class="col-sm-5">
                                 <label>Amount</label>
@@ -59,7 +50,7 @@
                         </div>
 
                         <div class="form-group text-center">
-                            <button class="btn btn-lg btn-primary" type="reset" >
+                            <button class="btn btn-lg btn-primary" type="reset" data-dismiss="modal">
                                 Cancel
                             </button>
                             <button id="btn_save" class="btn btn-lg btn-primary" type="button" >

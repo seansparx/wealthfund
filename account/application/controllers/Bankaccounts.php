@@ -124,7 +124,7 @@ class BankAccounts extends MY_Controller
      */
     public function remove()
     {
-        if(match_token()){
+        if(match_token()){ 
             $ids = explode(":::XXXX:::", decode($this->input->post('item_id')));
             $itemAccountId = $ids[1];
             /** remove from database */

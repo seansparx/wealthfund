@@ -163,6 +163,7 @@ class Transactions extends MY_Controller
     {
         if(match_token()) {
             $this->data['budgets'] = $this->budget_model->get_budgets();
+            $this->data['spend_of_month'] = $this->budget_model->spendings_of_month();
             $this->load->view('transactions/budgets', $this->data);
         }
     }
@@ -268,7 +269,7 @@ class Transactions extends MY_Controller
             if($this->input->get('action') == 'spending') {
                 $graph_data = array();
                 $spendings = $this->bank_model->get_expenses_by_category();
-                //pr($spendings);
+                
                 if(count($spendings) > 0) {
                     $c = 1;
                     foreach ($spendings as $expense) {
@@ -296,7 +297,7 @@ class Transactions extends MY_Controller
                     echo json_encode(array('success' => true, 'graph_data' => $graph_data));
                 }
                 else{
-                    $msg = 'Sorry, there are no transactions that match your selections.To fix this, please change your filters above.';
+                    $msg = 'Sorry, there are no transactions.';
                     echo json_encode(array('success' => false, 'message' => $msg));
                 }
             }

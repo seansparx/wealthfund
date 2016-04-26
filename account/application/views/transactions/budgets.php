@@ -8,9 +8,10 @@
                     $spent[$spend->category_id] = $spend->amt;
                 }
             }
-        
+//pr($spent);die;
             /** Display Budget bars */
             if(sizeof($budgets) > 0) {
+                
                 foreach ($budgets as $budget) {
                     $budget_ids[]  = $budget->category_id;
                     $amount        = $budget->amount;
@@ -18,8 +19,18 @@
                     $cat_name      = ucwords($budget->category_name);
                     $hv_spent      = isset($spent[$budget->category_id]) ? $spent[$budget->category_id] : 0;
                     $spent_percent = ($hv_spent * 100) / $amount;
-                    $bar_border    = ($spent_percent > 50) ? 'border-color: #f15c5e;' : 'border-color: #1ab394;';
-                    $bar_color     = ($spent_percent > 50) ? 'background-color: #f15c5e;' : 'background-color: #1ab394;';
+                    $bg_color      = '#1ab394'; //green.
+                    
+                    if($spent_percent >= 75) {
+                        $bg_color = '#f8ac59;'; //orange.
+                    }
+
+                    if($spent_percent >= 99.99) {
+                        $bg_color = '#f15c5e;'; //red.
+                    }
+                    
+                    $bar_border = 'border-color: '.$bg_color;
+                    $bar_color  = 'background-color: '.$bg_color;
                     ?>
                     <div class="col-sm-6">
                         <div id="<?php echo encode($budget->id);?>" class="bar-wrapper">
@@ -37,6 +48,7 @@
                                 <i class="fa fa-caret-left pre-count">&nbsp;</i>
                                 <span><?php echo $budget->amount; ?></span>
                                 <i class="fa fa-caret-right next-count">&nbsp;</i>
+                                <input type="hidden" class="hv-spent" value="<?php echo $hv_spent; ?>"/>
                             </div>
                         </div>
                     </div>

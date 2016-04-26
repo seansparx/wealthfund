@@ -43,7 +43,7 @@ class Budget_model extends CI_Model
      * @return array
      */
     public function get_budgets($id = null)
-    {        
+    {
         $user_id = $this->session->userdata(SITE_SESSION_NAME."session")['wealthfund_user_id'];
         $this->db->select('a.*, b.category_name, c.type_name');
         $this->db->from($this->tbl_budgets." AS a");
@@ -168,12 +168,12 @@ class Budget_model extends CI_Model
     public function spendings_of_month()
     {
         $user_id = $this->session->userdata(SITE_SESSION_NAME."session")['wealthfund_user_id'];
-        $month   = date("Ym", strtotime("-1 month"));
+        $month   = date("Ym");
         
         $this->db->select(array("DATE_FORMAT(b.post_date,'%Y%m') AS mth", "a.category_id", "SUM(b.amount) AS amt"));
         $this->db->from($this->tbl_budgets." AS a");
-        $this->db->join($this->tbl_transactions." AS b", "b.category_id = a.category_id", "left");
-        $this->db->where(array("b.user_id" => $user_id));
+        $this->db->join($this->tbl_transactions." AS b", "b.category_id = a.category_id AND b.user_id = '".$user_id."'", "left");
+        $this->db->where(array("a.user_id" => $user_id));
         $this->db->group_by("mth, a.category_id");
         $this->db->having("mth", $month);
         $query = $this->db->get();
@@ -192,12 +192,12 @@ class Budget_model extends CI_Model
      */
     public function spendings_of_month_by_user($user_id)
     {
-        $month   = date("Ym", strtotime("-1 month"));
+        $month   = date("Ym");
         
         $this->db->select(array("DATE_FORMAT(b.post_date,'%Y%m') AS mth", "a.category_id", "SUM(b.amount) AS amt"));
         $this->db->from($this->tbl_budgets." AS a");
-        $this->db->join($this->tbl_transactions." AS b", "b.category_id = a.category_id", "left");
-        $this->db->where(array("b.user_id" => $user_id));
+        $this->db->join($this->tbl_transactions." AS b", "b.category_id = a.category_id AND b.user_id = '".$user_id."'", "left");
+        $this->db->where(array("a.user_id" => $user_id));
         $this->db->group_by("mth, a.category_id");
         $this->db->having("mth", $month);
         $query = $this->db->get();

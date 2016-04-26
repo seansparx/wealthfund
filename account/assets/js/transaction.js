@@ -4,22 +4,25 @@ var availableDesc;
 var canvas = document.getElementById("doughnutChart");
 var ctx = canvas.getContext("2d");
 var DoughnutChart;
+var have_spent;
 
 function refresh_doughnut(acc_id) 
 {
+    var duration = $("#graph-acc_during").val();
+    
     if (DoughnutChart != null) {
         DoughnutChart.destroy();
     }
-    $.getJSON(site_url('transactions/graph_data'), {
-        "action": 'spending', "acc_id": acc_id, "token": site_token()
-    }, function (result) {
+    
+    $.getJSON(site_url('transactions/graph_data'), {"action": 'spending', "acc_id": acc_id, "duration": duration, "token": site_token()}, function (result) {
         if (result.success) {
             var doughnutOptions = {
                 segmentShowStroke: true, segmentStrokeColor: "#fff", segmentStrokeWidth: 2, percentageInnerCutout: 70, // This is 0 for Pie charts
                 animationSteps: 100, animationEasing: "easeOutBounce", animateRotate: true, animateScale: false
             };
             DoughnutChart = new Chart(ctx).Doughnut(result.graph_data, doughnutOptions);
-        } else {
+        } 
+        else {
             ctx.font = "15px bold";
             ctx.fillText(result.message, 50, 150);
         }
@@ -27,6 +30,33 @@ function refresh_doughnut(acc_id)
 }
 
 
+/** 
+ * Calculate percentage & move progress bar of budget amount.
+ * 
+ * @param {double} valueSpent
+ * @param {int} nexvalue
+ */
+function move_progress_bar(element, hv_spent, amount) 
+{
+    var percentage = ((hv_spent * 100) / amount);
+    var bg_color = '#1ab394'; //green.
+    
+    if(percentage >= 75){
+        bg_color = '#f8ac59'; //orange.
+    }
+    
+    if(percentage >= 99.99){
+        bg_color = '#f15c5e'; //red.
+    }
+    
+    $(element).find('.progress-bar-default').css({"border-color":bg_color});
+    $(element).find('.progress-bar').css({"width":percentage+"%", "background-color":bg_color});
+}
+
+
+/** 
+ * Calculate spend percentage of budget amount.
+ */
 function refresh_doughnut_by_duration(duration) 
 {
     var acc_id = $("#graph-acc_filter").val();
@@ -521,9 +551,15 @@ $(document).ready(function () {
     
     /** Bind event on update budget.*/
     $('#edit-budget #btn_save').bind('click', function() {
-        if($("#form_edit_budget").valid()) {
-            $('#edit-budget #btn_save').attr('disabled', true);            
+        var amt = $("#form_edit_budget #b_amount").val();
+        if(amt < have_spent) {
+            alert("You cannot set your budget less than of your spendings, you have spent "+currency_symbol()+number_format(have_spent)+" this month.");
+        }
+        else if($("#form_edit_budget").valid()) {
+            
+            $('#edit-budget #btn_save').attr('disabled', true);
             var param = $("#form_edit_budget").serialize()+'&token='+site_token();            
+            
             $.post(base_url('transactions/create_budget'), param, function(response){
 
                 $('#edit-budget #btn_save').attr('disabled', false);
@@ -607,19 +643,21 @@ function init_budget_count()
     $('.pre-count').unbind('click').bind('click', function () {
         var elment = $(this);
         if(ajax_req){ ajax_req.abort(); }
+        
+        var valueSpent = parseFloat(elment.siblings('input').val());
+        var valuePre   = parseInt(elment.siblings('span').text());
+        var nexvalue   = --valuePre;
 
-        var valuePre = parseInt(elment.siblings('span').text());
-        var nexvalue = --valuePre;
-
-        if(nexvalue < 0){ return false; }
+        if(nexvalue < valueSpent){ return false; }
 
         elment.siblings('span').text(nexvalue);
-        var budget_id = elment.parent().parent().attr('id');
+        var b_div = elment.parent().parent();
+        var budget_id = b_div.attr('id');
 
         ajax_req = $.post(base_url('transactions/update_budget'), {"budget_id" : budget_id, "amount" : nexvalue, "token" : site_token()}, function(response){
-            console.log(response);
             var b_limit = currency_symbol()+' '+number_format(nexvalue, 2);
             elment.parent().parent().children('span').eq(1).children('strong').eq(1).html(b_limit);
+            move_progress_bar(b_div, valueSpent, nexvalue);
         });
     }); 
 
@@ -628,18 +666,21 @@ function init_budget_count()
         var elment = $(this);
         if(ajax_req){ ajax_req.abort(); }
 
-        var valuePre = parseInt(elment.siblings('span').text());
-        var nexvalue = ++valuePre;
+        var valueSpent = parseFloat(elment.siblings('input').val());
+        var valuePre   = parseInt(elment.siblings('span').text());
+        var nexvalue   = ++valuePre;
 
         if(nexvalue < 0){ return false; }
-
+                
         elment.siblings('span').text(nexvalue);
-        var budget_id = elment.parent().parent().attr('id');
+        var b_div = elment.parent().parent();
+        var budget_id = b_div.attr('id');
 
         ajax_req = $.post(base_url('transactions/update_budget'), {"budget_id" : budget_id, "amount" : nexvalue, "token" : site_token()}, function(response){
             console.log(response);
             var b_limit = currency_symbol()+' '+number_format(nexvalue, 2);
             elment.parent().parent().children('span').eq(1).children('strong').eq(1).html(b_limit);
+            move_progress_bar(b_div, valueSpent, nexvalue);
         });
     });
 }
@@ -648,7 +689,8 @@ function init_budget_count()
 /** 
  * Bind event on delete budget button.
  * */
-function init_del_budget() {
+function init_del_budget() 
+{
     $('.del_budget').unbind('click').bind('click', function (){
 
         if(ajax_req){ ajax_req.abort(); }
@@ -665,25 +707,27 @@ function init_del_budget() {
     });
 }
     
-    /** 
-     * Bind event on edit budget .
-     * */
-    function init_edit_budget() {
-        $('.edit_budget').unbind('click').bind('click', function () {
+/** 
+ * Bind event on edit budget .
+ * */
+function init_edit_budget() {
+    $('.edit_budget').unbind('click').bind('click', function () {
 
-            if(ajax_req){ ajax_req.abort(); }
+        if(ajax_req){ ajax_req.abort(); }
 
-            $("#edit-budget .modal-title").text('Edit Your Budget');
-            $("#edit-budget").modal('show');
-            var budget_id = $(this).parent().attr('id');
+        var budget_id = $(this).parent().attr('id');
+        have_spent  = $(this).parent().find('.hv-spent').val();
 
-            ajax_req = $.getJSON(base_url('transactions/get_budget'), {"budget_id":budget_id, "token" : site_token()}, function(response) {
-                            $("#form_edit_budget #b_category").val(response.category_id);
-                            $("#form_edit_budget #b_amount").val(response.amount);
-                        });
+        $("#edit-budget .modal-title").text('Edit Your Budget');
+        $("#edit-budget").modal('show');
+        
+        ajax_req = $.getJSON(base_url('transactions/get_budget'), {"budget_id":budget_id, "token" : site_token()}, function(response) {
+                        $("#form_edit_budget #b_category").val(response.category_id);
+                        $("#form_edit_budget #b_amount").val(response.amount);
+                    });
 
-        } );
-    }
+    } );
+}
     
 /** 
  * Refresh budget progress bars.

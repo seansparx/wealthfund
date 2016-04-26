@@ -149,7 +149,7 @@ class Bank_model extends CI_Model
         if( ! $account_id){
             $this->db->limit(6);
         }
-        
+                
         $query = $this->db->get_where($this->tbl_transactions, $where);
         return $query->result();
     }
@@ -348,6 +348,7 @@ class Bank_model extends CI_Model
     {
         $user_id = $this->session->userdata(SITE_SESSION_NAME."session")['wealthfund_user_id'];
         $this->db->delete($this->tbl_accounts, array('account_id' => $account_id, 'user_id' => $user_id));
+        $this->delete_transactions($account_id);
         
         /** remove from yodlee */
         if(substr($account_id, 0, 1) != 'P') { // 'P' used for Private id.
@@ -356,6 +357,19 @@ class Bank_model extends CI_Model
         
         return true;
     }
+    
+    
+    /**
+     * Remove account already linked.
+     * 
+     * @return bool
+     */
+    public function delete_transactions($account_id)
+    {
+        $user_id = $this->session->userdata(SITE_SESSION_NAME."session")['wealthfund_user_id'];
+        return $this->db->delete($this->tbl_transactions, array('item_account_id' => $account_id, 'user_id' => $user_id));
+    }
+    
     
     /**
      * Get User Transactions.

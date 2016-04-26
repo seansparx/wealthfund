@@ -27,7 +27,7 @@ $html_loans = '';
 $html_property = '';
 if ($no_of_accounts > 0) {
     foreach ($bank_accounts as $sites) {
-        $li = '<li> <i class="label label-warning remove-list">Remove</i>
+        $li = '<li> <i id="'.encode($sites->site_account_id.":::XXXX:::".$sites->account_id).'" class="label label-warning remove-list">Remove</i>
                     <table class="table">
                         <tbody>
                             <tr>
@@ -249,7 +249,7 @@ if ($no_of_accounts > 0) {
                             <a href="javascript:;"><i class="glyphicon glyphicon-signal"></i> <span class="nav-label">Investments</span> <span class="fa arrow"></span><span class="pull-right"><?php echo $currency_code . number_format($investments_total, 2); ?></span></a>
                             <ul class="nav nav-second-level collapse">
                                 <li>
-                                    <a href="javascript:;"><span class="fa arrow"></span><i class="label label-primary openfastlink">add</i>Stocks</a>
+                                    <a href="javascript:;"><span class="fa arrow"></span><i class="label label-primary openfastlink">Add</i>Stocks</a>
                                     <ul class="nav nav-second-level collapse">
                                         <?php echo $html_stocks; ?>
                                     </ul>
@@ -258,7 +258,7 @@ if ($no_of_accounts > 0) {
                                     <a href="#">Mutual Funds</a>
                                 </li>
                                 <li>
-                                    <a id="gold" href="javascript:;"><span class="fa arrow"></span><i class="label label-primary">add</i>Gold</a>
+                                    <a id="gold" href="javascript:;"><span class="fa arrow"></span><i class="label label-primary">Add</i>Gold</a>
                                     <ul class="nav nav-second-level collapse">
                                         <?php
                                         if (trim($html_gold) != '') {
@@ -274,7 +274,7 @@ if ($no_of_accounts > 0) {
                                     <a href="javascript:;"><span class="fa arrow"></span>Insurance</a>
                                     <ul class="insurance-block nav nav-second-level collapse">
                                         <li>
-                                            <a id="life_insurance" href="javascript:;"><span class="fa arrow"></span><i class="label label-primary">add</i>Life Insurance</a>
+                                            <a id="life_insurance" href="javascript:;"><span class="fa arrow"></span><i class="label label-primary">Add</i>Life Insurance</a>
                                             <ul class="nav nav-second-level collapse">
                                                 <?php
                                                 if (trim($html_life_insurance) != '') {
@@ -284,7 +284,7 @@ if ($no_of_accounts > 0) {
                                             </ul>
                                         </li>
                                         <li>
-                                            <a id="health_insurance" href="javascript:;"><span class="fa arrow"></span><i class="label label-primary">add</i>Health Insurance</a>
+                                            <a id="health_insurance" href="javascript:;"><span class="fa arrow"></span><i class="label label-primary">Add</i>Health Insurance</a>
                                             <ul class="nav nav-second-level collapse">
                                                 <?php
                                                 if (trim($html_health_insurance) != '') {
@@ -294,7 +294,7 @@ if ($no_of_accounts > 0) {
                                             </ul>
                                         </li>
                                         <li>
-                                            <a id="disable_coverage" href="javascript:;"><span class="fa arrow"></span><i class="label label-primary">add</i>Long-Term Disability Coverage</a>
+                                            <a id="disable_coverage" href="javascript:;"><span class="fa arrow"></span><i class="label label-primary">Add</i>Long-Term Disability Coverage</a>
                                             <ul class="nav nav-second-level collapse">
                                                 <?php
                                                 if (trim($html_disability_insurance) != '') {
@@ -304,7 +304,7 @@ if ($no_of_accounts > 0) {
                                             </ul>
                                         </li>
                                         <li>
-                                            <a id="auto_insurance" href="javascript:;"><span class="fa arrow"></span><i class="label label-primary">add</i>Auto Insurance</a>
+                                            <a id="auto_insurance" href="javascript:;"><span class="fa arrow"></span><i class="label label-primary">Add</i>Auto Insurance</a>
                                             <ul class="nav nav-second-level collapse">
                                                 <?php
                                                 if (trim($html_auto_insurance) != '') {
@@ -321,7 +321,7 @@ if ($no_of_accounts > 0) {
                                     </ul>
                                 </li>
                                 <li>
-                                    <a id="fd" href="javascript:;"><span class="fa arrow"></span><i class="label label-primary">add</i>FD</a>
+                                    <a id="fd" href="javascript:;"><span class="fa arrow"></span><i class="label label-primary">Add</i>FD</a>
                                     <ul class="nav nav-second-level collapse">
                                         <?php
                                         if (trim($html_fd) != '') {

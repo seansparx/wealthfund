@@ -39,6 +39,6 @@
     <div id="budget_bars">
         <?php include 'budgets.php'; ?>
     </div>
-    </div>
+</div>
 <?php include_once 'create_budget.php'; ?>
 <?php include_once 'edit_budget.php'; ?>
