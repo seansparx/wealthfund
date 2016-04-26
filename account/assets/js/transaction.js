@@ -16,6 +16,8 @@ function refresh_doughnut(acc_id)
     
     $.getJSON(site_url('transactions/graph_data'), {"action": 'spending', "acc_id": acc_id, "duration": duration, "token": site_token()}, function (result) {
         if (result.success) {
+            $("#no_transaction").hide();
+            $("#doughnutChart").show();
             var doughnutOptions = {
                 segmentShowStroke: true, segmentStrokeColor: "#fff", segmentStrokeWidth: 2, percentageInnerCutout: 70, // This is 0 for Pie charts
                 animationSteps: 100, animationEasing: "easeOutBounce", animateRotate: true, animateScale: false
@@ -23,6 +25,8 @@ function refresh_doughnut(acc_id)
             DoughnutChart = new Chart(ctx).Doughnut(result.graph_data, doughnutOptions);
         } 
         else {
+            $("#doughnutChart").hide();
+            $("#no_transaction").show();
             ctx.font = "15px bold";
             ctx.fillText(result.message, 50, 150);
         }

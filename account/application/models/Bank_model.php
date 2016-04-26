@@ -113,17 +113,53 @@ class Bank_model extends CI_Model
             
             case 'this'     : $start_date = date("Ym").'01'; break;
             
-            case 'last'     : $start_date = date("Ym", strtotime("-1 month")).'01'; break;
+            case 'last'     : $year  = date("Y", strtotime("-1 month"));
+                              $month = date("m", strtotime("-1 month"));
+                              $fday  = '01';
+                              $lday  = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+                              
+                              $start_date = $year.$month.$fday; 
+                              $end_date   = $year.$month.$lday; 
+                              break;
             
-            case 'last3'    : $start_date = date("Ymd", strtotime("-3 month")); break;
             
-            case 'last6'    : $start_date = date("Ymd", strtotime("-6 month")); break;
+            case 'last3'    : $fyear  = date("Y", strtotime("-3 month"));
+                              $fmonth = date("m", strtotime("-3 month"));
+                              $fday  = '01';
+                              $start_date = $fyear.$fmonth.$fday; 
+                              
+                              $lyear  = date("Y", strtotime("-1 month"));
+                              $lmonth = date("m", strtotime("-1 month"));
+                              $lday  = cal_days_in_month(CAL_GREGORIAN, $lmonth, $lyear);
+                              $end_date   = $lyear.$lmonth.$lday; 
+                              break;
             
-            case 'last12'   : $start_date = date("Ymd", strtotime("-12 month")); break;
+            case 'last6'    : $fyear  = date("Y", strtotime("-6 month"));
+                              $fmonth = date("m", strtotime("-6 month"));
+                              $fday  = '01';
+                              $start_date = $fyear.$fmonth.$fday; 
+                              
+                              $lyear  = date("Y", strtotime("-1 month"));
+                              $lmonth = date("m", strtotime("-1 month"));
+                              $lday  = cal_days_in_month(CAL_GREGORIAN, $lmonth, $lyear);
+                              $end_date   = $lyear.$lmonth.$lday; 
+                              break;
+            
+            case 'last12'   : $fyear  = date("Y", strtotime("-12 month"));
+                              $fmonth = date("m", strtotime("-12 month"));
+                              $fday  = '01';
+                              $start_date = $fyear.$fmonth.$fday; 
+                              
+                              $lyear  = date("Y", strtotime("-1 month"));
+                              $lmonth = date("m", strtotime("-1 month"));
+                              $lday  = cal_days_in_month(CAL_GREGORIAN, $lmonth, $lyear);
+                              $end_date   = $lyear.$lmonth.$lday; 
+                              break;
+                          
             case 'thisyear' : $start_date = date("Y").'0101'; break;
             
             case 'lastyear' : $start_date = date("Y", strtotime("-1 year")).'0101'; 
-                              $end_date = date("Y").'1231'; break;
+                              $end_date = date("Y", strtotime("-1 year")).'1231'; break;
         }
         
         
@@ -145,6 +181,7 @@ class Bank_model extends CI_Model
             $this->db->where('post_date >=', $start_date);
             $this->db->where('post_date <=', $end_date);
         }
+        
         // Get Only 6 categories by default.
         if( ! $account_id){
             $this->db->limit(6);

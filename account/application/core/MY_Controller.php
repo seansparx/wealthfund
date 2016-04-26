@@ -30,7 +30,8 @@ class MY_Controller extends CI_Controller {
             $this->load->view('common/signup_header', $this->data);
             $this->load->view($page, $this->data);
             $this->load->view('common/signup_footer', $this->data);
-        } else if ($page == 'resetpassword' || $page == 'forgetPasswordComplete' || $page == 'resetPasswordComplete' || $page == 'signup-complete') {
+        } 
+        else if ($page == 'resetpassword' || $page == 'forgetPasswordComplete' || $page == 'resetPasswordComplete' || $page == 'signup-complete') {
             if ($this->input->get('e')) {
                 $email = $this->input->get('e');
                 $this->data['email'] = $email;
@@ -39,7 +40,8 @@ class MY_Controller extends CI_Controller {
             $this->load->view('common/resetpassword_header', $this->data);
             $this->load->view($page, $this->data);
             $this->load->view('common/resetpassword_footer', $this->data);
-        } else {
+        } 
+        else {
 
             $this->load->view('common/dashboard_header', $this->data);
             $this->load->view($page, $this->data);
@@ -47,12 +49,13 @@ class MY_Controller extends CI_Controller {
         }
     }
 
+    
     /**
      * private function to get country codes with country names
      * @return string
      */
-    private function getCountryCodes() {
-
+    private function getCountryCodes() 
+    {
         $countryCodes = array();
         $query = $this->db->select('cnt.countryIsd,dsc.countryName')->from(TBL_COUNTRY . " as cnt")
                 ->join(TBL_COUNTRY_CODES . " as dsc", 'dsc.countryId=cnt.id')

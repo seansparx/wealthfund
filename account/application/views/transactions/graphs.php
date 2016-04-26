@@ -23,7 +23,12 @@
             </select>
         </div>
     </div>
-    <div class="doughnut-wrapper"><canvas id="doughnutChart" width="300" height="300"></canvas></div>  
+    <div class="doughnut-wrapper">
+        <div class="alert alert-danger" id="no_transaction" style="display: none;">
+            Sorry, there are no transactions.
+        </div>
+        <canvas id="doughnutChart" width="300" height="300"></canvas>
+    </div>  
     <div class="row">
         <div class="col-sm-6">
             <div class="btn-wrp">
