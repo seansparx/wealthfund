@@ -43,8 +43,7 @@ class Users extends MY_Controller
     public function admin_permission($id)
     {
         $this->data = array();
-        $this->data['menuOptions']  = $this->users_model->geteditMenurecord($id);
-        //pr($this->data['menuOptions']); die;
+        $this->data['menuOptions']  = $this->users_model->getPermissions($id);
         $this->render_page('manage_permissions');
         
     }
