@@ -57,8 +57,13 @@
                                     <td><?php echo $records->username;?></td>
                                     <td><?php echo $records->emailId; ?></td>
                                     <td><?php echo $records->addDate; ?></td>
+                            <?php        if ($records->adminLevelId == SUPER_ADMIN_LVL_ID) {
+                        ?>
+                                    <td>&nbsp;--</td>
+                                  <?php }
+                     else { ?>
                                     <td><a href="users/admin_permission/<?php echo $records->id ?>">Permission</a></td>
-                                   
+                     <?php } ?> 
                                 </tr>
                                 <?php } ?>
                             </tbody>
