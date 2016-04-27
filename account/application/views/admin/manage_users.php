@@ -23,7 +23,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Basic Data Tables example with responsive plugin</h5>
+                    <h5>Here you can manage admin users.</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link"> <i class="fa fa-chevron-up"></i> </a>
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-wrench"></i> </a>
@@ -57,8 +57,9 @@
                                     <td><?php echo $records->username;?></td>
                                     <td><?php echo $records->emailId; ?></td>
                                     <td><?php echo $records->addDate; ?></td>
-                                    <td><a href="users/admin_permission/<?php echo $records->id ?>">Permission</a></td>
-                                   
+                                    <td>
+                                        <a class="btn btn-outline btn-warning dim" title="Access Permissions" href="users/admin_permission/<?php echo $records->id ?>"><i class="fa fa-lock"></i></a>
+                                    </td>
                                 </tr>
                                 <?php } ?>
                             </tbody>
@@ -71,8 +72,8 @@
     </div>
 </div>
 
-
-<script src="<?php echo site_url('assets/js/plugins/dataTables/datatables.min.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/plugins/slimscroll/jquery.slimscroll.min.js');?>"></script>
+<script src="<?php echo base_url('assets/js/plugins/dataTables/datatables.min.js'); ?>"></script>
 
 <!-- Page-Level Scripts -->
 <script>
@@ -99,25 +100,6 @@
                     }
                 }]
 
-        });
-
-        /* Init DataTables */
-        var oTable = $('#editable').DataTable();
-
-        /* Apply the jEditable handlers to the table */
-        oTable.$('td').editable('../example_ajax.php', {
-            "callback": function (sValue, y) {
-                var aPos = oTable.fnGetPosition(this);
-                oTable.fnUpdate(sValue, aPos[0], aPos[1]);
-            },
-            "submitdata": function (value, settings) {
-                return {
-                    "row_id": this.parentNode.getAttribute('id'),
-                    "column": oTable.fnGetPosition(this)[2]
-                };
-            },
-            "width": "90%",
-            "height": "100%"
         });
 
     });
