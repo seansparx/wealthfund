@@ -31,7 +31,7 @@
                 </a>
                 <ul class="nav nav-second-level">
                     <li><a href="<?php echo site_url('admin/users'); ?>">Administrators</a></li>
-                    <li><a href="<?php echo site_url('admin/configuration'); ?>">System Config</a></li>
+                    <li><a href="<?php echo site_url('admin/configuration'); ?>">System Configuration</a></li>
                 </ul>
             </li>
         </ul>

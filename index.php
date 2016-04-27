@@ -42,7 +42,7 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="http://10.0.4.4/CSS5134/">Wealth Fund</a>
+						<a class="navbar-brand" href="http://<?php echo $_SERVER['HTTP_HOST']; ?>/">Wealth Fund</a>
 					</div>
 					<div id="navbar" class="navbar-collapse collapse">
 						<ul class="nav navbar-nav navbar-right">
