@@ -34,7 +34,7 @@ class Users_model extends CI_Model {
         );
         $this->db->where($con);
         $this->db->order_by("menuId", "ASC");
-        $query = $this->db->get(TBL_MENU);
+        $query = $this->db->get(TBL_ADMIN_MENU);
         //echo $this->db->last_query(); die;
         $resulttbl='';
         foreach ($query->result() as $rowMenu) {
@@ -43,7 +43,7 @@ class Users_model extends CI_Model {
                 'parentId !='   => '0'
             );
             $this->db->where($con1);
-            $query1 = $this->db->get(TBL_MENU);
+            $query1 = $this->db->get(TBL_ADMIN_MENU);
             //echo $this->db->last_query(); die;
             $countSubMenu = $query1->num_rows();
             if ($countSubMenu == 0) {
@@ -64,9 +64,9 @@ class Users_model extends CI_Model {
                     'onclick'   => 'checkAllSingle(' . $rowMenu->menuId . ',' . $rowMenu->menu_type . ')',
                     'checked'   => $checked
                 );
-                $resulttbl .= form_checkbox($data);
-                $resulttbl .= '&nbsp;&nbsp;<b>' . $menuName = $rowMenu->menuName . '</b></td>
-							                <td align="center" >';
+                $resulttbl .= "<div class='checkbox checkbox-success'>".form_checkbox($data)."<label for='checkbox3'><b>" . $menuName = $rowMenu->menuName . "</b></label></div>";
+                $resulttbl .= '&nbsp;&nbsp;
+							                </td><td align="center" >';
                 
                 if ($rowMenu->menu_type == 1) {
                     $resulttbl .= '-';
@@ -82,7 +82,7 @@ class Users_model extends CI_Model {
                         'value'     => '1',
                         'checked'   => $addchecked
                     );
-                    $resulttbl .= form_checkbox($adddata);
+                    $resulttbl .= "<div class='checkbox checkbox-success'>".form_checkbox($adddata)."<label for='checkbox3'></label></div>";
                 }
                 $resulttbl .= '</td><td align="center" >';
                 if ($rowMenu->menu_type == 1) {
@@ -99,7 +99,7 @@ class Users_model extends CI_Model {
                         'value'     => '1',
                         'checked'   => $editchecked
                     );
-                    $resulttbl .= form_checkbox($editdata);
+                    $resulttbl .= "<div class='checkbox checkbox-success'>".form_checkbox($editdata)."<label for='checkbox3'></label></div>";
                 }
                 $resulttbl .= '</td><td align="center" >';
                 if ($rowMenu->menu_type == 1) {
@@ -116,7 +116,7 @@ class Users_model extends CI_Model {
                         'value'     => '1',
                         'checked'   => $delchecked
                     );
-                    $resulttbl .= form_checkbox($deldata);
+                    $resulttbl .= "<div class='checkbox checkbox-success'>".form_checkbox($deldata)."<label for='checkbox3'></label></div>";
                 }
                 $resulttbl .= '</td></tr>';
                
@@ -135,8 +135,8 @@ class Users_model extends CI_Model {
                     'onclick'   => 'checkAll(' . $countSubMenu . ',' . $i . ',' . $rowMenu->menuId . ',' . $rowMenu->menu_type . ')',
                     'checked'   => $checked1
                 );
-                $resulttbl .= form_checkbox($data1);
-                $resulttbl .= "&nbsp;&nbsp;<b>" . $rowMenu->menuName . "</b><br />";
+                $resulttbl .= "<div class='checkbox checkbox-success'>".form_checkbox($data1)."<label for='checkbox3'><b>" . $rowMenu->menuName . "</b></label></div>";
+                $resulttbl .= "&nbsp;&nbsp;<br />";
                 $resulttbl .= '</td><td align="center" >';
                 if ($rowMenu->menu_type == 1) {
                     $resulttbl .= '-';
@@ -152,7 +152,7 @@ class Users_model extends CI_Model {
                         'value'     => '1',
                         'checked'   => $checked1add
                     );
-                    $resulttbl .= form_checkbox($dataadd);
+                    $resulttbl .= "<div class='checkbox checkbox-success'>".form_checkbox($dataadd)."<label for='checkbox3'></label></div>";
                 }
                 $resulttbl .= '</td><td align="center" >';
                 if ($rowMenu->menu_type == 1) {
@@ -169,7 +169,7 @@ class Users_model extends CI_Model {
                         'value'     => '1',
                         'checked'   => $checked1edit
                     );
-                    $resulttbl .= form_checkbox($data_edit);
+                    $resulttbl .= "<div class='checkbox checkbox-success'>".form_checkbox($data_edit)."<label for='checkbox3'></label></div>";
                 }
                 $resulttbl .= '</td><td align="center" >';
                 if ($rowMenu->menu_type == 1) {
@@ -186,7 +186,7 @@ class Users_model extends CI_Model {
                         'value'     => '1',
                         'checked'   => $checked1del
                     );
-                    $resulttbl  .= form_checkbox($data_del);
+                    $resulttbl  .= "<div class='checkbox checkbox-success'>".form_checkbox($data_del)."<label for='checkbox3'></label></div>";
                 }
                 $resulttbl      .= '</td></tr>';
             //    echo '<pre>';                print_r($query1->result());exit;
@@ -210,8 +210,8 @@ class Users_model extends CI_Model {
                         'checked'   => $checked2
                     );
                  
-                    $resulttbl .= form_checkbox($data2);
-                    $resulttbl .= "&nbsp;&nbsp;" . $rowSubMenu->menuName . "<br/>";
+                    $resulttbl .= "<div class='checkbox checkbox-success'>".form_checkbox($data2)."<label for='checkbox3'>" . $rowSubMenu->menuName . "</label></div>";
+                    $resulttbl .= "&nbsp;&nbsp;<br/>";
                     $resulttbl .= '</td><td align="center" >';
                     if ($rowSubMenu->menu_type == 1) {
                         $resulttbl .= '-';
@@ -228,7 +228,7 @@ class Users_model extends CI_Model {
                             'value'     => '1',
                             'checked'   => $checked2add
                         );
-                        $resulttbl .= form_checkbox($data_add);
+                        $resulttbl .= "<div class='checkbox checkbox-success'>".form_checkbox($data_add)."<label for='checkbox3'></label></div>";
                     }
                     $resulttbl .= '</td><td align="center" >';
                     if ($rowSubMenu->menu_type == 1) {
@@ -246,7 +246,7 @@ class Users_model extends CI_Model {
                             'value'     => '1',
                             'checked'   => $checked2edit
                         );
-                        $resulttbl .= form_checkbox($data_edit);
+                        $resulttbl .= "<div class='checkbox checkbox-success'>".form_checkbox($data_edit)."<label for='checkbox3'></label></div>";
                     }
                     $resulttbl .= '</td><td align="center" >';
                     if ($rowSubMenu->menu_type == 1) {
@@ -264,7 +264,7 @@ class Users_model extends CI_Model {
                             'value'     => '1',
                             'checked'   => $checked2del
                         );
-                        $resulttbl .= form_checkbox($data__del);
+                        $resulttbl .= "<div class='checkbox checkbox-success'>".form_checkbox($data__del)."<label for='checkbox3'></label></div>";
                     }
                     $resulttbl .= '</td></tr>';
 

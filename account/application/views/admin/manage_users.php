@@ -57,9 +57,13 @@
                                     <td><?php echo $records->username;?></td>
                                     <td><?php echo $records->emailId; ?></td>
                                     <td><?php echo $records->addDate; ?></td>
-                                    <td>
-                                        <a class="btn btn-outline btn-warning dim" title="Access Permissions" href="users/admin_permission/<?php echo $records->id ?>"><i class="fa fa-lock"></i></a>
-                                    </td>
+                            <?php        if ($records->adminLevelId == SUPER_ADMIN_LVL_ID) {
+                        ?>
+                                    <td>&nbsp;--</td>
+                                  <?php }
+                     else { ?>
+                                    <td><a class="btn btn-outline btn-warning dim" title="Access Permissions" href="users/admin_permission/<?php echo $records->id ?>"><i class="fa fa-lock"></i></a></td>
+                     <?php } ?> 
                                 </tr>
                                 <?php } ?>
                             </tbody>
