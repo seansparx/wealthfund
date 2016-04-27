@@ -11,9 +11,12 @@ class Dashboard extends MY_Controller
     function __construct() 
     {
         parent::__construct();
-       // $this->_init();
-        
+        $result = $this->login_model->checkSession();
+        if (!$result) {
+            redirect('admin/login');
+        }
         $this->load->helper('cookie');
+        
     }
 
     
@@ -29,13 +32,7 @@ class Dashboard extends MY_Controller
      */
     public function index() 
     {
-        
-         $result = $this->login_model->checkSession();
-       
-        if (!$result) {
-            redirect('admin/login');
-        }
-        
+      // pr($this->session->all_userdata()); die;  
         $this->data = array();
         $this->render_page('dashboard');
     }

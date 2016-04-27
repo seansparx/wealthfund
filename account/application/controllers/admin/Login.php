@@ -24,26 +24,30 @@ class Login extends MY_Controller {
     public function index() {
         
         if ($this->input->post()) {
-            $this->form_validation->set_rules('userName', 'login ID', 'trim|required|min_length[4]|max_length[20]');
+            $this->form_validation->set_rules('userName', 'User Name', 'trim|required|min_length[4]|max_length[20]');
             $this->form_validation->set_rules('userPassword', 'userPassword', 'trim|required|min_length[6]|max_length[20]');
             $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
             if ($this->form_validation->run() == TRUE) {
                
                 $result = $this->login_model->adminLogin();
-               
-               //pr($result);die;
+               //echo $result; die;
                 if ($result) {
-                   
                         redirect('admin/dashboard');
                    
                 } else {
-                  //  echo "welcome"; die;
+                   // echo "fdf";die;
                     redirect('admin/login');
                 }
             }
         }
         
+          $result = $this->login_model->checkSession();
+         // echo 
+        if ($result) {
+            redirect('admin/dashboard');
+        }   
         $cookie_array = $this->get_cookie();
+        //pr($cookie_array); die;
         $data['remember'] = $cookie_array;
         $this->load->view('admin/login', $data);
     }
