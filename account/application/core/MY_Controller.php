@@ -57,6 +57,7 @@ class MY_Controller extends CI_Controller {
         */
        protected function render_page($view_name)
        {
+          
             $this->load->view('admin/Layout/header',  $this->header_data);
             $this->load->view('admin/'.$view_name,  $this->data);
             $this->load->view('admin/Layout/footer',  $this->footer_data);

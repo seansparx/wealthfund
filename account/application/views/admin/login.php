@@ -28,19 +28,31 @@
             <h3>Welcome to Admin Panel</h3>
             
             <p>Login in. To see it in action.</p>
-            <form class="m-t" method="post" role="form" action="<?php echo site_url('admin/login')?>">
+            <?php if ($this->session->flashdata('flashdata')) { ?>
+                                <div class="">
+                                    <p class="error" style="color:#368EE0"><i></i><?php echo $this->session->flashdata('flashdata'); ?></p>
+                                </div>
+                            <?php } ?>
+            <form class="m-t" method="post" onsubmit="return validationLogin();" role="form" action="<?php echo site_url('admin/login')?>">
                 <div class="form-group">
-                    <input type="text" name='userName' value="" class="form-control" placeholder="Username" required="">
-                </div>
+                    <div class="username">
+                    <input type="text" name='userName' id="userName" value="<?=(isset($remember['userName']))?$remember['userName']:''?>" class="form-control" placeholder="Username" >
+                    <?php echo form_error('userName'); ?>
+                    </div>
+                    </div>
                 <div class="form-group">
-                    <input type="password" name='userPassword' value="" class="form-control" placeholder="Password" required="">
+                    <div class="password">
+                    <input type="password" name='userPassword' id="userPassword" value="<?=(isset($remember['userPassword']))?$remember['userPassword']:''?>" class="form-control" placeholder="Password" >
+                   <?php echo form_error('userPassword'); ?>
+                    </div>
                 </div>
+                
                 
                 <div class="remember">
                                             <input type="checkbox" name="remember" class='icheck-me' <?php if(isset($remember)){?>checked="" <?php }?> data-skin="square" data-color="blue" id="remember" value="1">
 						<label for="remember">Remember me</label>
 					</div>
-                <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+                <button type="submit" id= "submit" class="btn btn-primary block full-width m-b">Login</button>
 
                 <a href="#"><small>Forgot password?</small></a>
             </form>
@@ -51,7 +63,7 @@
     <!-- Mainly scripts -->
     <script src="<?php echo base_url()?>assets/js/jquery-2.1.1.js"></script>
     <script src="<?php echo base_url()?>assets/js/bootstrap.min.js"></script>
-
+    <script src="<?php echo base_url()?>assets/js/signup.js"></script>
 </body>
 
 </html>

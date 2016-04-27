@@ -315,8 +315,10 @@ class Login_model extends CI_Model {
         {
             $cookie_val    = base64_encode($this->input->post('userName'))."#####".base64_encode($this->input->post('userPassword'));
             $cookie_expire = time() + (86400 * COOKIE_EXPIRES);
+             //echo $cookie_name; die;
             setcookie($cookie_name, $cookie_val,$cookie_expire, "/");
         }
+       
     }
     
     
@@ -328,7 +330,7 @@ class Login_model extends CI_Model {
             );
             //print_r($newdata);
             $this->session->set_userdata($newdata);
-            $this->session->set_flashdata('flashdata', 'OOPS! your session has been expired!');
+          //  $this->session->set_flashdata('flashdata', 'OOPS! your session has been expired!');
             return false;
         } else {
             $this->db->where("id", $this->session->userdata(SITE_SESSION_NAME.'ADMINID'));

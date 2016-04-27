@@ -117,6 +117,7 @@ define('TBL_ADMINLEVEL', PREFIX.'adminlevel');
 define('TBL_SYSTEMCONFIG', PREFIX.'system_config');
 define('TBL_CONTACTS', PREFIX.'contacts');
 define('TBL_MACHINE', PREFIX.'machine');
+define('COOKIE_EXPIRES',30);
 
 /*
 |--------------------------------------------------------------------------
