@@ -343,6 +343,16 @@ function list_dir_content($dir) {
 }
 
 
+/** Set date time format.
+ * 
+ * @param string
+ * @return string
+ */
+function date_time($date)
+{
+    return date("d M, Y h:i a", strtotime($date));
+}
+
 /**
  * Function to convert time in words format
  * @param datetime $date

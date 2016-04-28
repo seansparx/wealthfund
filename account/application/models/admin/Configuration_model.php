@@ -80,7 +80,7 @@ public function savestemconfigdata() {
      * @return array
      */
     public function read_menu() {
-        $query = $this->db->get_where(TBL_ADMIN_MENU, array('status' => '1', 'parentId' => 0, 'menuName!=' => 'Dashboard'));
+        $query = $this->db->order_by('sort_order')->get_where(TBL_ADMIN_MENU, array('status' => '1', 'parentId' => 0, 'menuName!=' => 'Dashboard'));
         return $parentMenu = $query->result();
     }
     
