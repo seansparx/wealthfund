@@ -1,6 +1,4 @@
-<?php
-
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Users_model extends CI_Model {
 
@@ -23,259 +21,299 @@ class Users_model extends CI_Model {
         
     }
     
-    public function geteditMenurecord($id) {
-       
-         $c= 0;
-        $result = $this->getdataResult($id);
-        $i = 0;
-        $j = 0;
-        $con = array('parentId' => '0',
-                     'status'   => '1'
-        );
+    /**
+     * @todo seems too lengthy, need to short this method.
+     */
+    public function getPermissions($id) {
+        $con = array('parentId' => '0', 'status' => '1');
         $this->db->where($con);
         $this->db->order_by("menuId", "ASC");
+
         $query = $this->db->get(TBL_ADMIN_MENU);
-        //echo $this->db->last_query(); die;
-        $resulttbl='';
-        foreach ($query->result() as $rowMenu) {
-            $con1 = array('parentId' => $rowMenu->menuId,
-                'status'        => '1',
-                'parentId !='   => '0'
-            );
-            $this->db->where($con1);
-            $query1 = $this->db->get(TBL_ADMIN_MENU);
-            //echo $this->db->last_query(); die;
-            $countSubMenu = $query1->num_rows();
-            if ($countSubMenu == 0) {
-                
-                $insertMenue1 = $rowMenu->menuId;
-                $resulttbl   .= '	<tr><td>';
-                if ($this->fetchValue(TBL_ADMINPERMISSION, "menuid", "adminLevelId = '" . $result->adminLevelId . "' and menuid = '" . $insertMenue1 . "'") > '0') {
-                    
-                    $checked  = 'TRUE';
-                } else {
-                    $checked = '';
-                }
-                
-                $data = array(
-                    'name'      => 'menuCheck[]',
-                    'id'        => 'menuCheck',
-                    'value'     => $insertMenue1,
-                    'onclick'   => 'checkAllSingle(' . $rowMenu->menuId . ',' . $rowMenu->menu_type . ')',
-                    'checked'   => $checked
-                );
-                $resulttbl .= "<div class='checkbox checkbox-success'>".form_checkbox($data)."<label for='checkbox3'><b>" . $menuName = $rowMenu->menuName . "</b></label></div>";
-                $resulttbl .= '&nbsp;&nbsp;
-							                </td><td align="center" >';
-                
-                if ($rowMenu->menu_type == 1) {
-                    $resulttbl .= '-';
-                } else {
-                    if ($this->fetchValue(TBL_ADMINPERMISSION, "add_record", "adminLevelId = '" . $result->adminLevelId . "' and menuid = '" . $insertMenue1 . "'") == '1') {
-                        $addchecked = 'TRUE';
+
+        /* create html for menus */
+        $resulttbl = $this->main_menus($id, $query->result(), true);
+
+        return $resulttbl;
+    }
+    
+    
+    private function main_menus($id, $result, $editable = false) 
+    {
+        $menu_html = '';
+
+        foreach ($result as $rowMenu) {
+
+            $adminuserid = $id;
+            $user_level_id = $this->get_level_id($adminuserid);
+            
+            if ($id) {
+                $main_menu_status = ($this->get_menu_status($rowMenu->menuId, $user_level_id->adminLevelId)) ? 'checked' : '';
+            } else {
+                $main_menu_status = '';
+            }
+
+            $query = $this->db->get_where(TBL_ADMIN_MENU, array(
+                'parentId' => $rowMenu->menuId,
+                'status' => '1',
+                'parentId !=' => '0'
+            ));
+
+            $countSubMenu = $query->num_rows();
+
+            if ($countSubMenu > 0) {
+                if ($id) {
+                    if ($this->fetchValue(TBL_ADMINPERMISSION, "menuid", "adminLevelId = '" . $user_level_id->adminLevelId . "' and menuid = '" . $rowMenu->menuId . "'") > '0') {
+                        $checked1 = 'TRUE';
                     } else {
-                        $addchecked = '';
+                        $checked1 = '';
                     }
-                    $adddata = array(
-                        'name'      => 'menuCheck_' . $insertMenue1 . '_add',
-                        'id'        => 'menuCheck_' . $insertMenue1 . '_add',
-                        'value'     => '1',
-                        'checked'   => $addchecked
-                    );
-                    $resulttbl .= "<div class='checkbox checkbox-success'>".form_checkbox($adddata)."<label for='checkbox3'></label></div>";
-                }
-                $resulttbl .= '</td><td align="center" >';
-                if ($rowMenu->menu_type == 1) {
-                    $resulttbl .= '-';
-                } else {
-                    if ($this->fetchValue(TBL_ADMINPERMISSION, "edit_record", "adminLevelId = '" . $result->adminLevelId . "' and menuid = '" . $insertMenue1 . "'") == '1') {
-                        $editchecked = 'TRUE';
-                    } else {
-                        $editchecked = '';
-                    }
-                    $editdata = array(
-                        'name'      => 'menuCheck_' . $insertMenue1 . '_edit',
-                        'id'        => 'menuCheck_' . $insertMenue1 . '_edit',
-                        'value'     => '1',
-                        'checked'   => $editchecked
-                    );
-                    $resulttbl .= "<div class='checkbox checkbox-success'>".form_checkbox($editdata)."<label for='checkbox3'></label></div>";
-                }
-                $resulttbl .= '</td><td align="center" >';
-                if ($rowMenu->menu_type == 1) {
-                    $resulttbl .= '-';
-                } else {
-                    if ($this->fetchValue(TBL_ADMINPERMISSION, "delete_record", "adminLevelId = '" . $result->adminLevelId . "' and menuid = '" . $insertMenue1 . "'") == '1') {
-                        $delchecked = 'TRUE';
-                    } else {
-                        $delchecked = '';
-                    }
-                    $deldata = array(
-                        'name'      => 'menuCheck_' . $insertMenue1 . '_del',
-                        'id'        => 'menuCheck_' . $insertMenue1 . '_del',
-                        'value'     => '1',
-                        'checked'   => $delchecked
-                    );
-                    $resulttbl .= "<div class='checkbox checkbox-success'>".form_checkbox($deldata)."<label for='checkbox3'></label></div>";
-                }
-                $resulttbl .= '</td></tr>';
-               
-            } else { 
-               $divName = "divId" . $rowMenu->menuId;
-                $resulttbl .= '<tr><td >';
-                if ($this->fetchValue(TBL_ADMINPERMISSION, "menuid", "adminLevelId = '" . $result->adminLevelId . "' and menuid = '" . $rowMenu->menuId . "'") > '0') {
-                    $checked1 = 'TRUE';
                 } else {
                     $checked1 = '';
                 }
-                $data1 = array(
-                    'name'      => 'menuCheck[]',
-                    'id'        => 'menuCheckA' . $rowMenu->menuId,
-                    'value'     => $rowMenu->menuId,
-                    'onclick'   => 'checkAll(' . $countSubMenu . ',' . $i . ',' . $rowMenu->menuId . ',' . $rowMenu->menu_type . ')',
-                    'checked'   => $checked1
-                );
-                $resulttbl .= "<div class='checkbox checkbox-success'>".form_checkbox($data1)."<label for='checkbox3'><b>" . $rowMenu->menuName . "</b></label></div>";
-                $resulttbl .= "&nbsp;&nbsp;<br />";
-                $resulttbl .= '</td><td align="center" >';
-                if ($rowMenu->menu_type == 1) {
-                    $resulttbl .= '-';
-                } else {
-                    if ($this->fetchValue(TBL_ADMINPERMISSION, "add_record", "adminLevelId = '" . $result->adminLevelId . "' and menuid = '" . $rowMenu->menuId . "'") == '1') {
-                        $checked1add = 'TRUE';
-                    } else {
-                        $checked1add = '';
-                    }
-                    $dataadd = array(
-                        'name'      => 'menuCheck_' . $rowMenu->menuId . '_add',
-                        'id'        => 'menuCheck_' . $rowMenu->menuId . '_add',
-                        'value'     => '1',
-                        'checked'   => $checked1add
-                    );
-                    $resulttbl .= "<div class='checkbox checkbox-success'>".form_checkbox($dataadd)."<label for='checkbox3'></label></div>";
-                }
-                $resulttbl .= '</td><td align="center" >';
-                if ($rowMenu->menu_type == 1) {
-                    $resulttbl .= '-';
-                } else {
-                    if ($this->fetchValue(TBL_ADMINPERMISSION, "edit_record", "adminLevelId = '" . $result->adminLevelId . "' and menuid = '" . $rowMenu->menuId . "'") == '1') {
-                        $checked1edit = 'TRUE';
-                    } else {
-                        $checked1edit = '';
-                    }
-                    $data_edit = array(
-                        'name'      => 'menuCheck_' . $rowMenu->menuId . '_edit',
-                        'id'        => 'menuCheck_' . $rowMenu->menuId . '_edit',
-                        'value'     => '1',
-                        'checked'   => $checked1edit
-                    );
-                    $resulttbl .= "<div class='checkbox checkbox-success'>".form_checkbox($data_edit)."<label for='checkbox3'></label></div>";
-                }
-                $resulttbl .= '</td><td align="center" >';
-                if ($rowMenu->menu_type == 1) {
-                    $resulttbl .= '-';
-                } else {
-                    if ($this->fetchValue(TBL_ADMINPERMISSION, "delete_record", "adminLevelId = '" . $result->adminLevelId . "' and menuid = '" . $rowMenu->menuId . "'") == '1') {
-                        $checked1del = 'TRUE';
-                    } else {
-                        $checked1del = '';
-                    }
-                    $data_del = array(
-                        'name'      => 'menuCheck_' . $rowMenu->menuId . '_del',
-                        'id'        => 'menuCheck_' . $rowMenu->menuId . '_del',
-                        'value'     => '1',
-                        'checked'   => $checked1del
-                    );
-                    $resulttbl  .= "<div class='checkbox checkbox-success'>".form_checkbox($data_del)."<label for='checkbox3'></label></div>";
-                }
-                $resulttbl      .= '</td></tr>';
-            //    echo '<pre>';                print_r($query1->result());exit;
-              
-               //echo count($query1->result());exit;
-               $rest=$query1->result();
-                foreach ($rest as $rowSubMenu) {
-                    $insertMenue    = $rowSubMenu->menuId;
-                    $resulttbl     .= '<tr><td >&nbsp;&nbsp;';
-                    if ($this->fetchValue(TBL_ADMINPERMISSION, "menuid", "adminLevelId = '" . $result->adminLevelId . "' and menuid = '" . $rowSubMenu->menuId . "'") > 0) {                 
-                        $checked2   = 'TRUE';
-                    } else {
-                        $checked2   = '';
-                    }
-                    
-                    $data2 = array(
-                        'name'      => 'menuCheck[]',
-                        'id'        => 'menuCheckB' . $i,
-                        'value'     => $insertMenue,
-                        'onclick'   => 'checkMenu(' . $i . ',' . $rowSubMenu->menu_type . ')',
-                        'checked'   => $checked2
-                    );
-                 
-                    $resulttbl .= "<div class='checkbox checkbox-success'>".form_checkbox($data2)."<label for='checkbox3'>" . $rowSubMenu->menuName . "</label></div>";
-                    $resulttbl .= "&nbsp;&nbsp;<br/>";
-                    $resulttbl .= '</td><td align="center" >';
-                    if ($rowSubMenu->menu_type == 1) {
-                        $resulttbl .= '-';
-                    } else {
-                        if ($this->fetchValue(TBL_ADMINPERMISSION, "add_record", "adminLevelId = '" . $result->adminLevelId . "' and menuid = '" . $rowSubMenu->menuId . "'") == '1') {
-                            $checked2add = 'TRUE';
-                        } else {
-                            $checked2add = '';
-                        }
-                        $data_add = array(
-                            'name'      => 'menuCheck_' . $rowSubMenu->menuId . '_add',
-                            'id'        => 'menuCheckB' . $i . '_add',
-                            'class'     => 'single_chk',
-                            'value'     => '1',
-                            'checked'   => $checked2add
-                        );
-                        $resulttbl .= "<div class='checkbox checkbox-success'>".form_checkbox($data_add)."<label for='checkbox3'></label></div>";
-                    }
-                    $resulttbl .= '</td><td align="center" >';
-                    if ($rowSubMenu->menu_type == 1) {
-                        $resulttbl .= '-';
-                    } else {
-                        if ($this->fetchValue(TBL_ADMINPERMISSION, "edit_record", "adminLevelId = '" . $result->adminLevelId . "' and menuid = '" . $rowSubMenu->menuId . "'") == '1') {
-                            $checked2edit = 'TRUE';
-                        } else {
-                            $checked2edit = '';
-                        }
-                        $data_edit = array(
-                            'name'      => 'menuCheck_' . $rowSubMenu->menuId . '_edit',
-                            'id'        => 'menuCheckB' . $i . '_edit',
-                            'class'     => 'single_chk',
-                            'value'     => '1',
-                            'checked'   => $checked2edit
-                        );
-                        $resulttbl .= "<div class='checkbox checkbox-success'>".form_checkbox($data_edit)."<label for='checkbox3'></label></div>";
-                    }
-                    $resulttbl .= '</td><td align="center" >';
-                    if ($rowSubMenu->menu_type == 1) {
-                        $resulttbl .= '-';
-                    } else {
-                        if ($this->fetchValue(TBL_ADMINPERMISSION, "delete_record", "adminLevelId = '" . $result->adminLevelId . "' and menuid = '" . $rowSubMenu->menuId . "'") == '1') {
-                            $checked2del = 'TRUE';
-                        } else {
-                            $checked2del = '';
-                        }
-                        $data__del = array(
-                            'name'      => 'menuCheck_' . $rowSubMenu->menuId . '_del',
-                            'class'     => 'single_chk',
-                            'id'        => 'menuCheckB' . $i . '_del',
-                            'value'     => '1',
-                            'checked'   => $checked2del
-                        );
-                        $resulttbl .= "<div class='checkbox checkbox-success'>".form_checkbox($data__del)."<label for='checkbox3'></label></div>";
-                    }
-                    $resulttbl .= '</td></tr>';
 
-                    $i++;
-                }
+                $menu_html .= '<tr><td colspan="4" class="main">';
+                $menu_html .= "<b class=\"main-menu\">&nbsp;&nbsp;";
+                $menu_html .= ($editable) ? "<input type=\"checkbox\" class=\"main_menu\" name=\"main_menu[]\" value=\"" . $rowMenu->menuId . "\" id=\"mainSelect" . $rowMenu->menuId . "\" " . $main_menu_status . " onchange=\"checkMain(this, " . $rowMenu->menuId . ");\" >&nbsp;&nbsp;" : '';//  data-can-change=\"" . ($this->get_menu_status($rowMenu->menuId, getSessionData('USERLEVELID')) ? 1 : 0 ) . "\"
+                $menu_html .= $rowMenu->menuName . "(" . $countSubMenu . ")</b>";
+                $menu_html .= '</td></tr>';
 
-                $j++;
+                /* create sub-menus */
+                $menu_html .= $this->sub_menus($id, $query->result(), $editable);
             }
         }
-        return $resulttbl;
+
+        return $menu_html;
     }
+    
+    
+    /**
+     * Create html for sub menus.
+     * 
+     * @access private
+     * 
+     * @param array $rest
+     * @return html
+     */
+    private function sub_menus($id, $rest, $editable) 
+    {
+        $HTML = '';
+        if ($id) {
+            $result = $this->getdataResult($id);
+        } else {
+            $result = '';
+        }
+
+        foreach ($rest as $rowSubMenu) {
+            if ($id) {
+                if ($this->fetchValue(TBL_ADMINPERMISSION, "menuid", "adminLevelId = '" . $result->adminLevelId . "' and menuid = '" . $rowSubMenu->menuId . "'") > 0) {
+                    $checked2 = 'TRUE';
+                } else {
+                    $checked2 = '';
+                }
+            } else {
+                $checked2 = '';
+            }
+
+            $data2 = array(
+                'name' => 'menuCheck[]',
+                'id' => 'menuCheckB' . $rowSubMenu->menuId,
+                'class' => 'sub_menu' . $rowSubMenu->parentId,
+                'value' => $rowSubMenu->menuId,
+                'onchange' => 'checkMenu(' . $rowSubMenu->menuId . ',' . $rowSubMenu->menu_type . ')',
+                'checked' => $checked2
+            );
+
+
+            $HTML .= '<tr><td>&nbsp;&nbsp;';
+            $HTML .= ($editable) ? form_checkbox($data2) . $rowSubMenu->menuName : $rowSubMenu->menuName;
+            $HTML .= '</td><td align="center" >';
+            $HTML .= $this->can_add($id, $rowSubMenu, $result, $editable);
+            $HTML .= '</td><td align="center" >';
+            $HTML .= $this->can_edit($id, $rowSubMenu, $result, $editable);
+            $HTML .= '</td><td align="center" >';
+            $HTML .= $this->can_delete($id, $rowSubMenu, $result, $editable);
+            $HTML .= '</td></tr>';
+        }
+        return $HTML;
+    }
+    
+    /**
+     * Check if user allowed to add records.
+     * 
+     * @access private
+     * 
+     * @param object $row
+     * @param object $result
+     * @param bool $editable
+     * @return string
+     */
+    private function can_add($id, $row, $result, $editable) {
+        $chk_attr = array(
+            'name' => 'menuCheck_' . $row->menuId . '_add',
+            'id' => 'menuCheck_' . $row->menuId . '_add',
+            'value' => '1',
+            'checked' => false);
+        if ($id) {
+            if ($this->fetchValue(TBL_ADMINPERMISSION, "add_record", "adminLevelId = '" . $result->adminLevelId . "' and menuid = '" . $row->menuId . "'") == '1') {
+
+                if ($editable == true) {
+                    $chk_attr['checked'] = true;
+                    return form_checkbox($chk_attr);
+                }
+
+                return '<span class="label label-success">Yes</span>';
+            } else {
+
+                if ($editable == true) {
+                    $chk_attr['checked'] = false;
+                    return form_checkbox($chk_attr);
+                }
+
+                return '<span class="label label-important">No</span>';
+            }
+        } else {
+            if ($editable == true) {
+                $chk_attr['checked'] = false;
+                return form_checkbox($chk_attr);
+            }
+        }
+    }
+
+    /**
+     * Check if user allowed to edit records.
+     * 
+     * @access private
+     * 
+     * @param object $row
+     * @param object $result
+     * @param bool $editable
+     * @return string
+     */
+    private function can_edit($id, $row, $result, $editable) {
+        $chk_attr = array(
+            'name' => 'menuCheck_' . $row->menuId . '_edit',
+            'id' => 'menuCheck_' . $row->menuId . '_edit',
+            'value' => '1',
+            'checked' => false);
+        if ($id) {
+            if ($this->fetchValue(TBL_ADMINPERMISSION, "edit_record", "adminLevelId = '" . $result->adminLevelId . "' and menuid = '" . $row->menuId . "'") == '1') {
+
+                if ($editable == true) {
+                    $chk_attr['checked'] = true;
+                    return form_checkbox($chk_attr);
+                }
+
+                return '<span class="label label-success">Yes</span>';
+            } else {
+
+                if ($editable == true) {
+                    $chk_attr['checked'] = false;
+                    return form_checkbox($chk_attr);
+                }
+                return '<span class="label label-important">No</span>';
+            }
+        } else {
+            if ($editable == true) {
+                $chk_attr['checked'] = false;
+                return form_checkbox($chk_attr);
+            }
+        }
+    }
+
+    /**
+     * Check if user allowed to delete records.
+     * 
+     * @access private
+     * 
+     * @param object $row
+     * @param object $result
+     * @param bool $editable
+     * @return string
+     */
+    private function can_delete($id, $row, $result, $editable) {
+        $chk_attr = array(
+            'name' => 'menuCheck_' . $row->menuId . '_del',
+            'id' => 'menuCheck_' . $row->menuId . '_del',
+            'value' => '1',
+            'checked' => false);
+        if ($id) {
+            if ($this->fetchValue(TBL_ADMINPERMISSION, "delete_record", "adminLevelId = '" . $result->adminLevelId . "' and menuid = '" . $row->menuId . "'") == '1') {
+
+                if ($editable == true) {
+                    $chk_attr['checked'] = true;
+                    return form_checkbox($chk_attr);
+                }
+
+                return '<span class="label label-success">Yes</span>';
+            } else {
+
+                if ($editable == true) {
+                    $chk_attr['checked'] = false;
+                    return form_checkbox($chk_attr);
+                }
+
+                return '<span class="label label-important">No</span>';
+            }
+        } else {
+            if ($editable == true) {
+                $chk_attr['checked'] = false;
+                return form_checkbox($chk_attr);
+            }
+        }
+    }
+    
+    
+    /**
+     * @todo need to fix alignment.
+     */
+    private function fetchValue($table, $field, $where) {
+        $this->db->select($field);
+        $this->db->where($where);
+        $query = $this->db->get($table);
+        $row = $query->row_array();
+        if ($row)
+            return $row[$field];
+        else
+            return 0;
+    }
+    
+    
+    /**
+     * Function to get user level id.
+     * 
+     * @access private 
+     * @return array
+     */
+    private function get_level_id($user_id) {
+        $this->db->select('adminLevelId');
+        $this->db->from(TBL_ADMINLOGIN);
+        $this->db->where(array('id' => $user_id));
+        $query = $this->db->get();
+        return $query->row();
+    }
+    
+    
+    /**
+     * Function to check existing status for menu id from permission table.
+     * 
+     * @access private 
+     * @return bool
+     */
+    private function get_menu_status($id, $levelid) {
+        $this->db->select('menuid');
+        $this->db->from(TBL_ADMINPERMISSION);
+        $this->db->where(array('menuid' => $id, 'adminLevelId' => $levelid));
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return true;
+        } else {
+
+            return false;
+        }
+    }
+    
     
     public function getdataResult($id) {
         $this->db->where('id', $id);
@@ -285,17 +323,6 @@ class Users_model extends CI_Model {
                 return $value;
             }
         }
-    }
-    
-    
- public function fetchValue($table, $field, $where) {
-        $this->db->select($field);
-        $this->db->where($where);
-        $query  = $this->db->get($table);
-        $row    = $query->row_array();
-        if($row)
-        return $row[$field];      
-        return 0;
     }
 
 }
