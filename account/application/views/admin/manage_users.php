@@ -61,14 +61,16 @@
                                             else {
                                                 ?>
                                                 <td>
-                                                    <a title="Edit Details" href="users/edit/<?php echo $records->id ?>">
+                                                    <a title="Edit Details" href="users/editUser/<?php echo $records->id ?>">
                                                         <button type="button" class="btn btn-outline btn-success dim"><i class="fa fa-edit"></i></button>
                                                     </a>
                                                     <a title="Access Permissions" href="users/admin_permission/<?php echo $records->id ?>">
                                                         <button type="button" class="btn btn-outline btn-warning dim"><i class="fa fa-lock"></i></button>
                                                     </a>
-                                                    <button title="Delete" type="button" class="btn btn-outline btn-danger dim"><i class="fa fa-trash-o"></i></button>
-                                                </td>
+                                                    <a href="users/delete/<?php echo $records->id; ?>"  title="Delete">
+                                                    <button title="Delete" type="button" onclick="return confirm('Are you sure you want to delete?')" class="btn btn-outline btn-danger dim"><i class="fa fa-trash-o"></i></button>
+                                                    </a>
+                                                    </td>
                                                 <?php 
                                             } 
                                             ?> 

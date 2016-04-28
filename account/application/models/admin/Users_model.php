@@ -13,13 +13,92 @@ class Users_model extends CI_Model {
     public function getAdminUsers()
     {
         //echo "rajfd"; die;
-       $query =  $this->db->select('*')->from(TBL_ADMINLOGIN)->where('is_deleted !=',NULL)->get();
+       $query =  $this->db->select('*')->from(TBL_ADMINLOGIN)->where('is_deleted','0')->get();
        if($query->num_rows()>0){
            return $query->result();
        }
        return NULL;
         
     }
+    
+    
+    /**
+     * Function to change permission.
+     * access public 
+     * return bool
+     */
+    public function edit_panel_record() {
+        $user_id = $this->input->post('adminLevelId');
+       // echo $user_id; die;
+        $user_level_id = $this->get_level_id($user_id);
+        //pr($user_level_id); die;
+        $user_level_id->adminLevelId;
+        //echo $user_id
+        $postarray = $this->input->post();
+        //pr($postarray); die;
+        $menuid = $this->get_menu_id();
+        //pr($menuid); die;
+
+
+        $this->db->where('adminLevelId', $user_level_id->adminLevelId);
+        $this->db->delete(TBL_ADMINPERMISSION);
+
+        if (isset($postarray['main_menu'])) {
+
+            foreach ($postarray['main_menu'] as $main_menu) {
+
+
+                $data = array(
+                    'adminLevelId' => $user_level_id->adminLevelId,
+                    'menuid' => $main_menu,
+                    'add_record' => '1',
+                    'edit_record' => '1',
+                    'delete_record' => '1'
+                );
+
+                $this->db->insert(TBL_ADMINPERMISSION, $data);
+            }
+        }
+
+        if (isset($postarray['menuCheck'])) {
+            foreach ($postarray['menuCheck'] as $post_id) {
+
+                $add = 'menuCheck_' . $post_id . '_add';
+                $edit = 'menuCheck_' . $post_id . '_edit';
+                $del = 'menuCheck_' . $post_id . '_del';
+
+                $data = array(
+                    'adminLevelId' => $user_level_id->adminLevelId,
+                    'menuid' => $post_id,
+                    'add_record' => (isset($postarray[$add]) ? '1' : '0'),
+                    'edit_record' => (isset($postarray[$edit]) ? '1' : '0'),
+                    'delete_record' => (isset($postarray[$del]) ? '1' : '0')
+                );
+
+                $this->db->insert(TBL_ADMINPERMISSION, $data);
+            }
+        }
+
+        return true;
+    }
+    
+     /**
+     * Function to get menu id from  adminpermission.
+     * access public 
+     * return array
+     */
+    public function get_menu_id() {
+
+        $get_menu_id = array();
+        $query = $this->db->get(TBL_ADMINPERMISSION);
+        $i = 0;
+        foreach ($query->result() as $row) {
+            $get_menu_id[$i] = $row->menuid;
+            $i++;
+        }
+        return $get_menu_id;
+    }
+    
     
     /**
      * @todo seems too lengthy, need to short this method.
@@ -158,7 +237,7 @@ class Users_model extends CI_Model {
      *  
      */
     
-    public function edit_panel_record() {
+    public function edit_panel_recordss() {
         $post         = $this->input->post();
         $adminLevelId = $this->input->post('adminLevelId');
         $this->db->where('adminLevelId', $adminLevelId);
@@ -368,6 +447,119 @@ class Users_model extends CI_Model {
             }
         }
     }
+    
+    public function addUser()
+    {
+        $post = $this->input->post();
+        $password       = $this->encrypt_password($post['password']);
+        $hash           = md5($post['username'] . ":" . $password);
+        $filename1      = (isset($filename)!=NULL)? $filename:'logo.png';
+        $data1 = array(
+            'username'      => $post['username'],
+            'password'      => $password,
+            'emailId'       => $post['user_email'],
+            'hash'          => $hash,
+            //'adminLevelId'  => $inserted_id,
+            'addDate'       => date('Y-m-d H:i:s'),
+            'addedBy'       => '-1',
+            'status'        => '1'
+        );
+        $this->db->insert(TBL_ADMINLOGIN, $data1);
+        $last_inserted_id = $this->db->insert_id();
+        $data = array('adminLevelId'=>$last_inserted_id);
+        $this->db->where('id',$last_inserted_id)->update(TBL_ADMINLOGIN, $data);
+        $this->session->set_flashdata('success', 'Information has been added successfully!');
+        redirect("admin/users");
+    }
+    
+    /*
+     * Function for get admin user details
+     * @access public
+     * @param int $id
+     * @return array
+     */
+    
+ public function userDetails($id)
+ {
+     $query = $this->db->select('*')->from(TBL_ADMINLOGIN)->where(array('id'=>$id, 'is_deleted'=>'0'))->get();
+     //echo $this->db->last_query(); die;
+     if($query->num_rows()>0){
+         return $query->result();
+     }
+     return NULL;
+ }
+ 
+ /*
+ * Function for Edit Admin user details
+ * @access public
+ * @param $post array
+ * @param $filename string
+ * return void
+ */
+public function editUser()
+{
+        $post = $this->input->post();
+        $password       = $this->encrypt_password($post['password']);
+        $hash           = md5($post['username'] . ":" . $password);
+        $data = array(
+            'username'     => $post['username'],
+            'password'  => $password,
+           //'userImage' => $filename1,
+            'hash'      => $hash
+        );
+        $this->db->where('id', $post['user_id'])->update(TBL_ADMINLOGIN, $data);
+        $this->session->set_flashdata('success', 'Information has been updated successfully!');
+        redirect("admin/users"); 
+   
+    
+}
 
+/*
+ * Function for delete admin user
+ * @access public
+ * @param $id user id
+ * @return void
+ */
+
+public function deleteUser($id)
+{
+    $data = array(
+        'is_deleted'=>'1'
+    );
+    //pr($data); die;
+    $this->db->where('id',$id)->update(TBL_ADMINLOGIN, $data);
+    $this->session->set_flashdata('success','User has been deleted successfully');
+    redirect('admin/users');
+}
+    /*
+ * Function for Encrypt user password
+ * @access private
+ * @param $plain (User password)
+ * @return string
+ */
+ private function encrypt_password($plain) {
+        $password   = '';
+        for ($i = 0; $i < 10; $i++) {
+            $password .= $this->tep_rand();
+        }
+        $salt       = substr(md5($password), 0, 2);
+        $password   = md5($salt . $plain) . ':' . $salt;
+        return $password;
+    }
+    /*
+ * Function for random result
+ * @access private
+ * @param $min (minimum length)
+ * @param $max (maximum length)
+ * @return string
+ */    
+private function tep_rand($min = null, $max = null) {
+        static $seeded;
+        if (!$seeded) {
+            mt_srand((double) microtime() * 1000000);
+            $seeded = true;
+        }
+    }
+   
 }
 ?>

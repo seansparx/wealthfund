@@ -110,6 +110,7 @@ define('TBL_USERS', PREFIX.'users');
 /*new table by rajesh*/
 define('TBL_ADMINLOGIN', PREFIX.'adminlogin');
 define('TBL_ADMIN_MENU', PREFIX.'admin_menu');
+define('TBL_ADMINLEVEL', PREFIX.'adminlevel');
 define('TBL_MENUPOSITION', PREFIX.'menuposition');
 define('TBL_SESSIONDETAIL', PREFIX.'sessiondetail');
 define('TBL_ADMINPERMISSION', PREFIX.'adminpermission');
