@@ -4,7 +4,7 @@
         <h2>Manage Administrators</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="<?php echo site_url('admin/dashboard');?>">Home</a>
+                <a href="<?php echo site_url('admin/dashboard'); ?>">Home</a>
             </li>
             <li>
                 <a>Settings</a>
@@ -15,7 +15,7 @@
         </ol>
     </div>
     <div class="col-lg-2">
-
+        <a href="<?php echo site_url('admin/users/add');?>" class="btn btn-outline btn-primary">Add User</a>
     </div>
 </div>
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -27,15 +27,6 @@
                     <div class="ibox-tools">
                         <a class="collapse-link"> <i class="fa fa-chevron-up"></i> </a>
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"> <i class="fa fa-wrench"></i> </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li>
-                                <a href="#">Config option 1</a>
-                            </li>
-                            <li>
-                                <a href="#">Config option 2</a>
-                            </li>
-                        </ul>
-                        <a class="close-link"> <i class="fa fa-times"></i> </a>
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -46,26 +37,45 @@
                                 <tr>
                                     <th>Username</th>
                                     <th>Email</th>
-                                    <th>Add Date</th>
+                                    <th>Added On</th>
+                                    <th>Status</th>
                                     <th>Action</th>
-                                   
+
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach($all_users as $records) { ?>
-                                <tr class="gradeX">
-                                    <td><?php echo $records->username;?></td>
-                                    <td><?php echo $records->emailId; ?></td>
-                                    <td><?php echo $records->addDate; ?></td>
-                            <?php        if ($records->adminLevelId == SUPER_ADMIN_LVL_ID) {
-                        ?>
-                                    <td>&nbsp;--</td>
-                                  <?php }
-                     else { ?>
-                                    <td><a class="btn btn-outline btn-warning dim" title="Access Permissions" href="users/admin_permission/<?php echo $records->id ?>"><i class="fa fa-lock"></i></a></td>
-                     <?php } ?> 
-                                </tr>
-                                <?php } ?>
+                                <?php 
+                                    foreach ($all_users as $records) { 
+                                    ?>
+                                        <tr class="gradeX">
+                                            <td><?php echo $records->username; ?></td>
+                                            <td><?php echo $records->emailId; ?></td>
+                                            <td><?php echo $records->addDate; ?></td>
+                                            <td><?php //echo $records->addDate; ?></td>
+                                            <?php 
+                                            if ($records->adminLevelId == SUPER_ADMIN_LVL_ID) {
+                                                ?>
+                                                <td>&nbsp;--</td>
+                                                <?php 
+                                            } 
+                                            else {
+                                                ?>
+                                                <td>
+                                                    <a title="Edit Details" href="users/edit/<?php echo $records->id ?>">
+                                                        <button type="button" class="btn btn-outline btn-success dim"><i class="fa fa-edit"></i></button>
+                                                    </a>
+                                                    <a title="Access Permissions" href="users/admin_permission/<?php echo $records->id ?>">
+                                                        <button type="button" class="btn btn-outline btn-warning dim"><i class="fa fa-lock"></i></button>
+                                                    </a>
+                                                    <button title="Delete" type="button" class="btn btn-outline btn-danger dim"><i class="fa fa-trash-o"></i></button>
+                                                </td>
+                                                <?php 
+                                            } 
+                                            ?> 
+                                        </tr>
+                                    <?php 
+                                    } 
+                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -76,7 +86,7 @@
     </div>
 </div>
 
-<script src="<?php echo base_url('assets/js/plugins/slimscroll/jquery.slimscroll.min.js');?>"></script>
+<script src="<?php echo base_url('assets/js/plugins/slimscroll/jquery.slimscroll.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/dataTables/datatables.min.js'); ?>"></script>
 
 <!-- Page-Level Scripts -->
@@ -84,6 +94,12 @@
     $(document).ready(function () {
         $('.dataTables-example').DataTable({
             dom: '<"html5buttons"B>lTfgitp',
+            "aoColumns":[
+                {"bSortable": true},
+                {"bSortable": true},
+                {"bSortable": true},
+                {"bSortable": false}
+            ],
             buttons: [{
                     extend: 'copy'
                 }, {

@@ -61,7 +61,8 @@
     </form>
 </div>
 <script>
-function checkAllMenu(ele) {
+    function checkAllMenu(ele) 
+    {
         var checkboxes = document.getElementsByTagName('input');
         if (ele.checked) {
             for (var i = 0; i < checkboxes.length; i++) {
@@ -87,12 +88,10 @@ function checkAllMenu(ele) {
         document.getElementById("menuCheck_" + id + "_del").checked = checked;
     }
     
-    function checkMain(element, id) {
-
+    function checkMain(element, id) 
+    {
         $(".sub_menu" + id).prop('checked', $(element).prop("checked"));
         $(".sub_menu" + id).trigger('change');
-
-
     }
 </script>
 
