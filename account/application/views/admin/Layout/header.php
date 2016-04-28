@@ -28,6 +28,7 @@
     <script src="<?php echo base_url(); ?>assets/js/plugins/jquery-ui/jquery-ui.min.js"></script>
     
     <script src="<?php echo base_url(); ?>assets/js/dev.js"></script>
+    <script src="<?php echo base_url()?>assets/js/admin/login.js"></script>
 
 </head>
 
