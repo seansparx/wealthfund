@@ -70,5 +70,46 @@ public function savestemconfigdata() {
         }
         return $result;
     }
+    
+    
+    /**
+     * Function to fetch admin menu.
+     * 
+     * @access public
+     * 
+     * @return array
+     */
+    public function read_menu() {
+        $query = $this->db->get_where(TBL_ADMIN_MENU, array('status' => '1', 'parentId' => 0, 'menuName!=' => 'Dashboard'));
+        return $parentMenu = $query->result();
+    }
+    
+    
+    /**
+     * Function to  get permitted menu to admins .
+     * 
+     * @access public
+     * @param int $Admin Level Id 
+     * @return boolean 
+     */
+    function checkMenuPermission($menuId) 
+    {
+        $query = $this->db->get_where(TBL_ADMINPERMISSION, array('menuid' => $menuId, 'adminLevelId' => $this->session->userdata(SITE_SESSION_NAME.'USERLEVELID')));
+        return count($query->result());
+    }
+    
+    
+    /**
+     * Function to fetch admin sub menu.
+     * 
+     * @access public
+     * 
+     * @param int $menu_id
+     * @return array
+     */
+    public function read_sub_menu($parentId) {
+        $query = $this->db->get_where(TBL_ADMIN_MENU, array('status' => '1', 'parentId' => $parentId));
+        return $query->result();
+    }
 
 }

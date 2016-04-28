@@ -4,37 +4,36 @@ function custom_rules()
     /** Rule to check duplicate email of user. */
     $.validator.addMethod("admin_unique_email", function (value, element) {
                 
-        if(ajax_req) { ajax_req.abort(); }
-        
-        var flag = false;
-        
-        ajax_req = $.ajax({
-            url : site_url('ajax/unique_email'),
-            data:{"action": "signup", "value": value},
-            type:'post',
-            async: false,
-            success: function(response){
-                if (response) {
-                    flag = true;
-                }
-                else {
-                    flag = false;
-                }
-            },
-            complete:function(response){
-                
-            }
-        });
-       
-        return flag;
+//        if(ajax_req) { ajax_req.abort(); }
+//        
+//        var flag = false;
+//        
+//        ajax_req = $.ajax({
+//            url : site_url('ajax/unique_email'),
+//            data:{"action": "signup", "value": value},
+//            type:'post',
+//            async: false,
+//            success: function(response){
+//                if (response) {
+//                    flag = true;
+//                }
+//                else {
+//                    flag = false;
+//                }
+//            },
+//            complete:function(response){
+//                
+//            }
+//        });
+//       
+//        return flag;
 
     }, "User Already Registered."); 
     
     
     /** Rule to validate mobile no format. */
     $.validator.addMethod("mobile_no", function (value, element) {
-        //var filter = /^(\+\d{2}|0)?\d{10}$/;
-         var filter = /^[\s()+-]*([0-9][\s()+-]*){6,20}$/;
+        var filter = /^(\+\d{2}|0)?\d{10}$/;
         return filter.test(value);
     }, "Enter a valid mobile number.");
 

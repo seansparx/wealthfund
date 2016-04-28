@@ -28,21 +28,21 @@ class Configuration extends MY_Controller
     public function index() 
     {
         if($this->input->post()){
-            $this->form_validation->set_rules('SMTP_HOST', 'Smtp Name', 'trim|required');
-            $this->form_validation->set_rules('SMTP_PORT', 'Smtp Port', 'trim|required');
-            $this->form_validation->set_rules('SMTP_MAIL', 'Smtp Email', 'trim|required');
-            $this->form_validation->set_rules('SMTP_PASSWORD','Smtp Password', 'trim|required|min_length[6]|matches[CONF_SMTP_PASSWORD]');
-            $this->form_validation->set_rules('CONF_SMTP_PASSWORD','Smtp Confirm Password', 'trim|required|min_length[6]');
+            $this->form_validation->set_rules('SMTP_HOST', 'Name', 'trim|required');
+            $this->form_validation->set_rules('SMTP_PORT', 'Port', 'trim|required');
+            $this->form_validation->set_rules('SMTP_MAIL', 'Email', 'trim|required');
+            $this->form_validation->set_rules('SMTP_PASSWORD','Password', 'trim|required|min_length[6]|max_length[30]');
+            $this->form_validation->set_rules('CONF_SMTP_PASSWORD','Confirm Password', 'trim|required|matches[SMTP_PASSWORD]');
             $this->form_validation->set_rules('CURRENCY_CODE', 'Currency Code', 'trim|required');
             $this->form_validation->set_rules('CURRENCY_SYMBOL', 'Currency Symbol','trim|required');
+            $this->form_validation->set_error_delimiters('<label class="error">', '</label>');
             
-             if ($this->form_validation->run() == TRUE) {
-                 
+            if ($this->form_validation->run() == TRUE) {
             
-            if ($this->configuration_model->savestemconfigdata())
+                if ($this->configuration_model->savestemconfigdata())
                 $this->writeOtherSettings();
                 redirect('admin/configuration');
-        }
+            }
         }
          $this->data = $this->configuration_model->getSystemConfigurations();
         $this->render_page('system_config');
