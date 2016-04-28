@@ -26,7 +26,7 @@ class Login extends MY_Controller {
         if ($this->input->post()) {
             $this->form_validation->set_rules('userName', 'User Name', 'trim|required|min_length[4]|max_length[20]');
             $this->form_validation->set_rules('userPassword', 'userPassword', 'trim|required|min_length[6]|max_length[20]');
-            $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+            $this->form_validation->set_error_delimiters('<label class="error">', '</label>');
             if ($this->form_validation->run() == TRUE) {
                
                 $result = $this->login_model->adminLogin();

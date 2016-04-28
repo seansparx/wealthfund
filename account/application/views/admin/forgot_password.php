@@ -9,7 +9,7 @@
         <title>Wealthfund | Forgot password</title>
 
         <link href="<?php echo base_url(); ?>assets/css/bootstrap.min.css" rel="stylesheet">
-        <link href="font-awesome/<?php echo base_url(); ?>assets/css/font-awesome.css" rel="stylesheet">
+        <link href="<?php echo base_url(); ?>font-awesome/assets/css/font-awesome.css" rel="stylesheet">
 
         <link href="<?php echo base_url(); ?>assets/css/animate.css" rel="stylesheet">
         <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet">
@@ -33,9 +33,9 @@
                         <div class="row">
 
                             <div class="col-lg-12">
-                                <form class="m-t" role="form" action="index.html">
+                                <form action="" method="post" id="form-forgot" class="m-t" role="form">
                                     <div class="form-group">
-                                        <input type="email" maxlength="100" class="form-control" placeholder="Email address" required="">
+                                        <input type="text" name="email_id" maxlength="100" class="form-control" placeholder="Email address">
                                     </div>
 
                                     <button type="submit" class="btn btn-primary block full-width m-b">Send new password</button>
@@ -57,7 +57,42 @@
                 </div>
             </div>
         </div>
+        <!-- Mainly scripts -->
+        <script src="<?php echo base_url('assets/js/jquery-2.1.1.js'); ?>"></script>
+        <script src="<?php echo base_url('assets/js/jquery.validate.min.js') ?>"></script>
+        <script src="<?php echo base_url('assets/js/admin/login.js') ?>"></script>
+        <script>
+            validate_forgot_form();
 
+            function validate_forgot_form()
+            {
+                $("#form-forgot").validate({
+                    // Specify the validation rules
+                    rules: {
+                        email_id: {
+                            required: true,
+                            email: true
+                        }
+                    },
+                    // Specify the validation error messages
+                    messages: {
+                        email_id: {
+                            required: "Enter your email address."
+                        }
+                    },
+                    errorPlacement: function (error, element) {
+                        //var el_id = $(element).attr('id');
+                        error.insertAfter(element);
+                    },
+                    success: function (label, element) {
+                        //console.log(element.id);
+                    },
+                    submitHandler: function (form) {
+                        form.submit();
+                    }
+                });
+            }
+        </script>
     </body>
 
 </html>

@@ -34,6 +34,18 @@ class Users extends MY_Controller
         $this->render_page('manage_users');
     }
     
+    
+    /**
+     * Render dashboard page.
+     * 
+     * @return void
+     */
+    public function add() 
+    {
+        $this->data = array();
+        $this->render_page('add_user');
+    }
+    
     /**
      * Function for Admin permission
      * @param id int (user id)

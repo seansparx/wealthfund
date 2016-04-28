@@ -26,12 +26,12 @@
             <li class="active">
                 <a href="javascript:void(0);">
                     <i class="fa fa-gear"></i> 
-                    <span class="nav-label">Settings</span> 
+                    <span class="nav-label">System</span> 
                     <span class="fa arrow"></span>
                 </a>
                 <ul class="nav nav-second-level">
                     <li><a href="<?php echo site_url('admin/users'); ?>">Administrators</a></li>
-                    <li><a href="<?php echo site_url('admin/configuration'); ?>">System Configuration</a></li>
+                    <li><a href="<?php echo site_url('admin/configuration'); ?>">Settings</a></li>
                 </ul>
             </li>
         </ul>

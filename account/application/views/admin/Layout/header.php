@@ -17,6 +17,7 @@
 
     <!-- Mainly scripts -->
     <script src="<?php echo base_url('assets/js/jquery-2.1.1.js'); ?>"></script>
+    <script src="<?php echo base_url('assets/js/jquery.validate.min.js') ?>"></script>
     <script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/plugins/metisMenu/jquery.metisMenu.js'); ?>"></script>
     
@@ -26,8 +27,10 @@
 
     <!-- jQuery UI -->
     <script src="<?php echo base_url(); ?>assets/js/plugins/jquery-ui/jquery-ui.min.js"></script>
-    
     <script src="<?php echo base_url(); ?>assets/js/dev.js"></script>
+    
+    <script src="<?php echo base_url(); ?>assets/js/admin/common.js"></script>    
+    <script src="<?php echo base_url(); ?>assets/js/admin/system.js"></script>
 
 </head>
 

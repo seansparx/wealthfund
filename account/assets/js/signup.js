@@ -36,25 +36,6 @@ function btn_resend_otp()
     });
 }
 
-function validationLogin()
-{
-	if(document.getElementById('userName').value=="")
-	{
-              var message = "Please enter username";
-		$('.username').append('<span style="color:red">'+ message);
-		//document.getElementById('userName').focus();
-		return false;
-	}
-		
-	if(document.getElementById('userPassword').value=="")
-	{
-                 var message = "Please enter valid password";
-		$('.password').append('<span style="color:red">'+message);
-		//document.getElementById('userName').focus();
-		return false;
-	}
-}
-
 function loginModalShow() {
 	$('#modal-form').modal('show');
 }
