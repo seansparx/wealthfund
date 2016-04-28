@@ -32,18 +32,18 @@
                     
                 </div>
                 <div class="ibox-content">
-                    <form action="" method="post" id="form-add-user" class="form-horizontal">
+                    <form action="<?php echo site_url('admin/users/add')?>" method="post" id="form-add-user" class="form-horizontal">
                         <div class="form-group has-error"><label class="col-sm-2 control-label">Username</label>
-                            <div class="col-sm-5 smtp_host"><input type="text"  name="username" id="username" placeholder="Enter username"  class="form-control" data-rule-required="true" value="<?php echo $SMTP_HOST; ?>"><?php echo form_error('SMTP_HOST'); ?></div>
+                            <div class="col-sm-5 smtp_host"><input type="text"  name="username" id="username" placeholder="Enter username"  class="form-control" data-rule-required="true" value=""><?php echo form_error('username'); ?></div>
                         </div>                                                
                         <div class="form-group"><label class="col-sm-2 control-label">User Email</label>
-                            <div class="col-sm-5"><input type="text" name="user_email" id="user_email" placeholder="Enter email address" class="form-control" data-rule-email="true" data-rule-required="true" value="<?php echo $SMTP_MAIL; ?>"><?php echo form_error('SMTP_MAIL'); ?></div>
+                            <div class="col-sm-5"><input type="text" name="user_email" id="user_email" placeholder="Enter email address" class="form-control" data-rule-email="true" data-rule-required="true" value=""><?php echo form_error('user_email'); ?></div>
                         </div>
                         <div class="form-group"><label class="col-sm-2 control-label">New Password</label>
-                            <div class="col-sm-5"><input type="password" name="new_password" id="new_password" placeholder="Choose new password" class="form-control" data-rule-email="true" data-rule-required="true" value="<?php echo $SMTP_PASSWORD; ?>"><?php echo form_error('SMTP_PASSWORD'); ?></div>
+                            <div class="col-sm-5"><input type="password" name="new_password" id="new_password" placeholder="Choose new password" class="form-control" data-rule-email="true" data-rule-required="true" value=""><?php echo form_error('new_password'); ?></div>
                         </div>
                         <div class="form-group"><label class="col-sm-2 control-label">Confirm Password</label>
-                            <div class="col-sm-5"><input type="password" name="confirm_password" id="confirm_password" placeholder="Retype your password" class="form-control" data-rule-email="true" data-rule-required="true" value="<?php echo $CONF_SMTP_PASSWORD; ?>"><?php echo form_error('CONF_SMTP_PASSWORD'); ?></div>
+                            <div class="col-sm-5"><input type="password" name="confirm_password" id="confirm_password" placeholder="Retype your password" class="form-control" data-rule-email="true" data-rule-required="true" value=""><?php echo form_error('confirm_password'); ?></div>
                         </div>
                                                 
                         <div class="hr-line-dashed"></div>

@@ -54,7 +54,7 @@
     </div>
     <div class="form-group">
                             <div class="col-sm-4 col-sm-offset-2">
-                                
+                                <a href="<?php echo site_url('admin/users'); ?>" class="btn btn-white">Cancel</a>
                                 <button class="btn btn-primary" type="submit" >Save changes</button>
                             </div>
                         </div>
