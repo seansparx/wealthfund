@@ -22,6 +22,16 @@ class Users_model extends CI_Model {
     }
     
     
+    public function is_email_exists($email)
+    {
+       $query =  $this->db->select('emailId')->from(TBL_ADMINLOGIN)->where(array("emailId" => $email, "is_deleted" => '0'))->get();
+       if($query->num_rows() > 0){
+           return true;
+       }
+        
+    }
+    
+    
     /**
      * Function to change permission.
      * access public 

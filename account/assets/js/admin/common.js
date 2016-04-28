@@ -1,34 +1,40 @@
+var ajax_req;
+
+function site_url(path)
+{
+    return $("#site_url").val()+path;
+}
 
 function custom_rules()
 {
     /** Rule to check duplicate email of user. */
     $.validator.addMethod("admin_unique_email", function (value, element) {
                 
-//        if(ajax_req) { ajax_req.abort(); }
-//        
-//        var flag = false;
-//        
-//        ajax_req = $.ajax({
-//            url : site_url('ajax/unique_email'),
-//            data:{"action": "signup", "value": value},
-//            type:'post',
-//            async: false,
-//            success: function(response){
-//                if (response) {
-//                    flag = true;
-//                }
-//                else {
-//                    flag = false;
-//                }
-//            },
-//            complete:function(response){
-//                
-//            }
-//        });
-//       
-//        return flag;
+        if(ajax_req) { ajax_req.abort(); }
+        
+        var flag = false;
+        
+        ajax_req = $.ajax({
+            url : site_url('admin/ajax/is_email_exists'),
+            data:{"value": value},
+            type:'post',
+            async: false,
+            success: function(response){
+                if (response) {
+                    flag = true;
+                }
+                else {
+                    flag = false;
+                }
+            },
+            complete:function(response){
+                
+            }
+        });
+       
+        return flag;
 
-    }, "User Already Registered."); 
+    }, "User Already Exists."); 
     
     
     /** Rule to validate mobile no format. */

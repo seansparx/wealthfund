@@ -65,7 +65,7 @@
                                             else {
                                                 ?>
                                                 <td width="100">
-                                                    <a title="Edit Details" href="users/edit/<?php echo $records->id ?>">
+                                                    <a title="Edit Details" href="ManageUsers/edit/<?php echo $records->id ?>">
                                                         <button type="button" class="btn btn-outline btn-success dim"><i class="fa fa-edit"></i></button>
                                                     </a>
                                                     <button title="Delete" type="button" class="btn btn-outline btn-danger dim"><i class="fa fa-trash-o"></i></button>
