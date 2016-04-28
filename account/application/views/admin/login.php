@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-
-
 <html>
 <head>
     <meta charset="utf-8">
@@ -33,7 +31,7 @@
                                     <p class="error" style="color:#368EE0"><i></i><?php echo $this->session->flashdata('flashdata'); ?></p>
                                 </div>
                             <?php } ?>
-            <form class="m-t" method="post" onsubmit="return validationLogin();" role="form" action="<?php echo site_url('admin/login')?>">
+            <form class="m-t" method="post" id="login-form" role="form" action="<?php echo site_url('admin/login')?>">
                 <div class="form-group">
                     <div class="username">
                     <input type="text" name='userName' id="userName" value="<?=(isset($remember['userName']))?$remember['userName']:''?>" class="form-control" placeholder="Username" >
@@ -61,8 +59,10 @@
     </div>
 
     <!-- Mainly scripts -->
-    <script src="<?php echo base_url()?>assets/js/jquery-2.1.1.js"></script>
-    <script src="<?php echo base_url()?>assets/js/bootstrap.min.js"></script>
+    <script src="<?php echo base_url('assets/js/jquery-2.1.1.js')?>"></script>
+    <script src="<?php echo base_url('assets/js/bootstrap.min.js')?>"></script>
+    <script src="<?php echo base_url('assets/js/jquery.validate.min.js') ?>"></script>
+    <script src="<?php echo base_url('assets/js/admin/login.js') ?>"></script>
     
 </body>
 

@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                    <form method="post"  class="form-horizontal" onsubmit="return validationSystemConfig();" action="<?php echo site_url('admin/configuration')?>">
+                    <form method="post"  class="form-horizontal" id="system_config" action="<?php echo site_url('admin/configuration')?>">
                         <div class="form-group has-error"><label class="col-sm-2 control-label">SMTP Host</label>
                             <div class="col-sm-5 smtp_host"><input type="text"  name="SMTP_HOST" id="SMTP_HOST" placeholder="Insert SMTP host"  class="form-control" data-rule-required="true" value="<?php echo $SMTP_HOST; ?>"><?php echo form_error('SMTP_HOST'); ?></div>
                         </div>
@@ -53,10 +53,11 @@
                             <label class="col-sm-2 control-label">SMTP Port</label>
                             <div class="col-sm-2 smtp_port"><input type="text" name="SMTP_PORT" id="SMTP_PORT" placeholder="Insert SMTP port" class="form-control" data-rule-email="true" data-rule-required="true" value="<?php echo $SMTP_PORT; ?>"><?php echo form_error('SMTP_PORT'); ?></div>
                             <label class="col-sm-1 control-label">Enctype</label>
+                           
                             <div class="col-sm-2">
-                                <select class="form-control m-b" name="account">
-                                    <option selected="selected" value="ssl">SSL</option>
-                                    <option value="tsl">TSL</option>
+                                <select class="form-control m-b" name="SMTP_ENCTYPE">
+                                    <option  value="ssl" <?php if($SMTP_ENCTYPE=='ssl') echo 'selected;' ?>>SSL</option>
+                                    <option value="tsl" <?php if($SMTP_ENCTYPE=="tsl")  echo 'selected';  ?>>TSL</option>
                                 </select>
                             </div>
                         </div>
@@ -77,7 +78,7 @@
                             <div class="col-sm-5"><input type="text" name="CURRENCY_CODE" id="CURRENCY_CODE" placeholder="Insert currency code" class="form-control" data-rule-email="true" data-rule-required="true" value="<?php echo $CURRENCY_CODE; ?>"><?php echo form_error('CURRENCY_CODE'); ?></div>
                         </div>
                         <div class="form-group has-success"><label class="col-sm-2 control-label">Currency Symbol</label>
-                           <div class="col-sm-5"><input type="text" name="CURRENCY" id="CURRENCY" placeholder="Insert currency symbol" class="form-control" data-rule-email="true" data-rule-required="true" value="<?php echo $CURRENCY; ?>"><?php echo form_error('CURRENCY'); ?></div>
+                           <div class="col-sm-5"><input type="text" name="CURRENCY_SYMBOL" id="CURRENCY_SYMBOL" placeholder="Insert currency symbol" class="form-control" data-rule-email="true" data-rule-required="true" value="<?php echo $CURRENCY_SYMBOL; ?>"><?php echo form_error('CURRENCY_SYMBOL'); ?></div>
                         </div>
                         
                         <div class="hr-line-dashed"></div>

@@ -19,6 +19,8 @@
     </div>
 </div>
 <div class="wrapper wrapper-content animated fadeInRight">
+    <form  name="frmUser" action="<?php echo site_url('admin/users/admin_permission')?>" method="post" class="form-horizontal">
+    <input type="hidden" name="adminLevelId" id="adminLevelId" value="<?php echo $admin_detail['adminLevelId']?>" >
     <div class="row">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
@@ -50,6 +52,13 @@
             </div>
         </div>
     </div>
+    <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-2">
+                                
+                                <button class="btn btn-primary" type="submit" >Save changes</button>
+                            </div>
+                        </div>
+    </form>
 </div>
 <script>
 function checkAllMenu(ele) {

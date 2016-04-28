@@ -19,6 +19,7 @@ class Configuration_model extends CI_Model {
     
     
 public function savestemconfigdata() {
+    //pr($this->input->post()); die;
        $post = $this->input->post();
         $query = $this->db->get(TBL_SYSTEMCONFIG);
         if ($query->num_rows() > 0) {

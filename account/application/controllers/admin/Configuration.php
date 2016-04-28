@@ -34,7 +34,7 @@ class Configuration extends MY_Controller
             $this->form_validation->set_rules('SMTP_PASSWORD','Smtp Password', 'trim|required|min_length[6]|matches[CONF_SMTP_PASSWORD]');
             $this->form_validation->set_rules('CONF_SMTP_PASSWORD','Smtp Confirm Password', 'trim|required|min_length[6]');
             $this->form_validation->set_rules('CURRENCY_CODE', 'Currency Code', 'trim|required');
-            $this->form_validation->set_rules('CURRENCY', 'Currency Symbol','trim|required');
+            $this->form_validation->set_rules('CURRENCY_SYMBOL', 'Currency Symbol','trim|required');
             
              if ($this->form_validation->run() == TRUE) {
                  

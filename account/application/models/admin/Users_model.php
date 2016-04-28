@@ -138,6 +138,50 @@ class Users_model extends CI_Model {
         return $HTML;
     }
     
+     /***************** Start function getrecord() to get admin login details *****************/
+    
+    public function getrecord($id) {
+        $result = array();
+        $this->db->where('id', $id);
+        $query = $this->db->get(TBL_ADMINLOGIN);
+        if ($query->num_rows() > 0) {
+            foreach ($query->result_array() as $value) {
+                $result = $value;
+            }
+        }
+        return $result;
+    }
+    
+        /**
+     * To store Assign Menu detail
+     * @access public
+     *  
+     */
+    
+    public function edit_panel_record() {
+        $post         = $this->input->post();
+        $adminLevelId = $this->input->post('adminLevelId');
+        $this->db->where('adminLevelId', $adminLevelId);
+        $this->db->delete(TBL_ADMINPERMISSION);
+        if (count($post['menuCheck']) > 0) {
+            foreach ($post['menuCheck'] as $key => $value) {
+                $add    = "menuCheck_" . $value . "_add";
+                $edit   = "menuCheck_" . $value . "_edit";
+                $del    = "menuCheck_" . $value . "_del";
+                $data2  = array(
+                    'adminLevelId'  => $adminLevelId,
+                    'menuid'        => $value,
+                    'add_record'    => @$post[$add],
+                    'edit_record'   => @$post[$edit],
+                    'delete_record' => @$post[$del],
+                );
+                $this->db->insert(TBL_ADMINPERMISSION, $data2);
+            }
+        }
+         
+        return TRUE;
+    }
+    
     /**
      * Check if user allowed to add records.
      * 
