@@ -17,16 +17,12 @@
 
     <!-- Mainly scripts -->
     <script src="<?php echo base_url('assets/js/jquery-2.1.1.js'); ?>"></script>
-    <script src="<?php echo base_url('assets/js/jquery.validate.min.js') ?>"></script>
     <script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/plugins/metisMenu/jquery.metisMenu.js'); ?>"></script>
     
-    <!-- Custom and plugin javascript -->
-    <script src="<?php echo base_url(); ?>assets/js/inspinia.js"></script>
-    <script src="<?php echo base_url(); ?>assets/js/plugins/pace/pace.min.js"></script>
-
     <!-- jQuery UI -->
     <script src="<?php echo base_url(); ?>assets/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="<?php echo base_url('assets/js/jquery.validate.min.js') ?>"></script>
     <script src="<?php echo base_url(); ?>assets/js/dev.js"></script>
     
     <script src="<?php echo base_url(); ?>assets/js/admin/common.js"></script>    

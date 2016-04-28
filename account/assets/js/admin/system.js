@@ -1,7 +1,7 @@
 
 // When the browser is ready...
 $(document).ready(function () {
-
+    
     validate_add_user_form();
     validate_system_config_form();
 
@@ -70,10 +70,8 @@ function validate_add_user_form()
 
 function validate_system_config_form()
 {
-
-    $("#system_config").validate({
+    $("#form_system_config").validate({
         // Specify the validation rules
-        "onkeyup": false,
         rules: {
             SMTP_PORT: {
                 required: true

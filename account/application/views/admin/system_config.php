@@ -45,7 +45,7 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                    <form method="post"  class="form-horizontal" id="system_config" action="<?php echo site_url('admin/configuration')?>">
+                        <?php echo form_open('admin/configuration', array('id'=>'form_system_config','class'=>'form-horizontal')); ?>
                         <div class="form-group has-error"><label class="col-sm-2 control-label">SMTP Host</label>
                             <div class="col-sm-5 smtp_host"><input type="text"  name="SMTP_HOST" id="SMTP_HOST" placeholder="Insert SMTP host"  class="form-control" data-rule-required="true" value="<?php echo $SMTP_HOST; ?>"><?php echo form_error('SMTP_HOST'); ?></div>
                         </div>
@@ -69,7 +69,7 @@
                             <div class="col-sm-5"><input type="password" name="SMTP_PASSWORD" id="SMTP_PASSWORD" placeholder="Insert SMTP password" class="form-control" data-rule-email="true" data-rule-required="true" value="<?php echo $SMTP_PASSWORD; ?>"><?php echo form_error('SMTP_PASSWORD'); ?></div>
                         </div>
                         <div class="form-group"><label class="col-sm-2 control-label">Confirm Password</label>
-                            <div class="col-sm-5"><input type="password" name="CONF_SMTP_PASSWORD" id="SMTP_PASSWORD" placeholder="Insert SMTP confirm password" class="form-control" data-rule-email="true" data-rule-required="true" value="<?php echo $CONF_SMTP_PASSWORD; ?>"><?php echo form_error('CONF_SMTP_PASSWORD'); ?></div>
+                            <div class="col-sm-5"><input type="password" name="CONF_SMTP_PASSWORD" id="SMTP_PASSWORD" placeholder="Insert SMTP confirm password" class="form-control" data-rule-email="true" data-rule-required="true" value="<?php echo $SMTP_PASSWORD; ?>"><?php echo form_error('CONF_SMTP_PASSWORD'); ?></div>
                         </div>
                         
                         <div class="hr-line-dashed"></div>
@@ -88,7 +88,7 @@
                                 <button class="btn btn-primary" type="submit" >Save changes</button>
                             </div>
                         </div>
-                    </form>
+                    <?php echo form_close(); ?>
                 </div>
             </div>
         </div>

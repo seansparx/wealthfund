@@ -1,3 +1,8 @@
+<?php
+
+$mainMenu = $this->configuration_model->read_menu();
+
+?>
 <nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
@@ -20,20 +25,44 @@
                     WF
                 </div>
             </li>
-            <li class="active">
+            <li>
                 <a href="<?php echo site_url('admin/dashboard'); ?>"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
             </li>
-            <li class="active">
-                <a href="javascript:void(0);">
-                    <i class="fa fa-gear"></i> 
-                    <span class="nav-label">System</span> 
-                    <span class="fa arrow"></span>
-                </a>
-                <ul class="nav nav-second-level">
-                    <li><a href="<?php echo site_url('admin/users'); ?>">Administrators</a></li>
-                    <li><a href="<?php echo site_url('admin/configuration'); ?>">Settings</a></li>
-                </ul>
-            </li>
+            <?php
+            $active_menu = '';
+            if (count($mainMenu) > 0) {
+                foreach ($mainMenu as $key => $value) {
+                    //if ($this->configuration_model->checkMenuPermission($value->menuId)) {
+                        ?>
+                        <li class="<?php echo $active_menu == $value->menuName ? 'active' : ''; ?>">
+                            <a href="javascript:void(0);">
+                                <i class="<?php echo $value->menuClass; ?>"></i> 
+                                <span class="nav-label"><?php echo $value->menuName; ?></span> 
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <?php
+                                    $subMenu = $this->configuration_model->read_sub_menu($value->menuId);
+                                    if (count($subMenu) > 0) {
+                                        //echo '<ul class="nav nav-second-level">';
+                                        foreach ($subMenu as $subKey => $subValue) {
+                                            if ($this->configuration_model->checkMenuPermission($subValue->menuId)) {
+                                                ?>
+                                            <li><a href="<?php echo site_url('admin/' . $subValue->menuUrl); ?>"><?php echo $subValue->menuName; ?></a></li>
+                                            <?php
+                                            }
+                                        }
+                                        //echo '</ul>';
+                                    }
+                                ?>
+
+                            </ul>
+                        </li>
+                        <?php
+                    //}
+                }
+            }
+            ?>
         </ul>
 
     </div>
