@@ -1,7 +1,5 @@
 <?php
-
 $mainMenu = $this->configuration_model->read_menu();
-
 ?>
 <nav class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
@@ -11,8 +9,8 @@ $mainMenu = $this->configuration_model->read_menu();
                         <img alt="image" class="img-circle" src="<?php echo base_url('assets/img/profile_small.jpg'); ?>" />
                     </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">David Williams</strong>
-                            </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span> </a>
+                        <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><?php echo ucwords($this->session->userdata(SITE_SESSION_NAME.'ADMINNNAME'));?></strong>
+                            </span> <span class="text-muted text-xs block">Administrator<b class="caret"></b></span> </span> </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li><a href="profile.html">Profile</a></li>
                         <li><a href="contacts.html">Contacts</a></li>
