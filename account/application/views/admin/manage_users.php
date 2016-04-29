@@ -32,7 +32,7 @@
                 <div class="ibox-content">
 
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                        <table id="dataTables-admin_users" class="table table-striped table-bordered table-hover dataTables-example" >
                             <thead>
                                 <tr>
                                     <th>Username</th>
@@ -46,34 +46,22 @@
                             <tbody>
                                 <?php 
                                     foreach ($all_users as $records) { 
+                                        $super_admin = ($records->adminLevelId == SUPER_ADMIN_LVL_ID);
                                     ?>
                                         <tr class="gradeX">
                                             <td><?php echo $records->username; ?></td>
                                             <td><?php echo $records->emailId; ?></td>
-                                            <td><?php echo $records->addDate; ?></td>
-                                            <td><?php //echo $records->addDate; ?></td>
-                                            <?php 
-                                            if ($records->adminLevelId == SUPER_ADMIN_LVL_ID) {
-                                                ?>
-                                                <td>&nbsp;--</td>
+                                            <td><?php echo date_time($records->addDate); ?></td>
+                                            <td>
+                                                <?php echo is_active($records->id, $records->status, $super_admin); ?>
+                                            </td>
+                                            <td>
                                                 <?php 
-                                            } 
-                                            else {
+                                                    echo action_edit($records->id, $super_admin, 'users/editUser'); 
+                                                    echo action_permission($records->id, $super_admin, 'users/admin_permission'); 
+                                                    echo action_delete($records->id, $super_admin, 'users/delete'); 
                                                 ?>
-                                                <td>
-                                                    <a title="Edit Details" href="users/editUser/<?php echo $records->id ?>">
-                                                        <button type="button" class="btn btn-outline btn-success dim"><i class="fa fa-edit"></i></button>
-                                                    </a>
-                                                    <a title="Access Permissions" href="users/admin_permission/<?php echo $records->id ?>">
-                                                        <button type="button" class="btn btn-outline btn-warning dim"><i class="fa fa-lock"></i></button>
-                                                    </a>
-                                                    <a href="users/delete/<?php echo $records->id; ?>"  title="Delete">
-                                                    <button title="Delete" type="button" onclick="return confirm('Are you sure you want to delete?')" class="btn btn-outline btn-danger dim"><i class="fa fa-trash-o"></i></button>
-                                                    </a>
-                                                    </td>
-                                                <?php 
-                                            } 
-                                            ?> 
+                                            </td>
                                         </tr>
                                     <?php 
                                     } 
@@ -94,9 +82,9 @@
 <!-- Page-Level Scripts -->
 <script>
     $(document).ready(function () {
-        $('.dataTables-example').DataTable({
-            dom: '<"html5buttons"B>lTfgitp',
+        $('#dataTables-admin_users').DataTable({
             "aoColumns":[
+                {"bSortable": true},
                 {"bSortable": true},
                 {"bSortable": true},
                 {"bSortable": true},
@@ -125,9 +113,4 @@
         });
 
     });
-
-    function fnClickAddRow() {
-        $('#editable').dataTable().fnAddData(["Custom row", "New row", "New row", "New row", "New row"]);
-
-    }
 </script>

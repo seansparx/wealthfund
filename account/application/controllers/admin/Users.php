@@ -18,7 +18,10 @@ class Users extends MY_Controller
     
     private function _init()
     {
-              
+        $result = $this->login_model->checkSession();
+        if (!$result) {
+            redirect('admin/login');
+        }
     }
     
     /**
@@ -28,6 +31,8 @@ class Users extends MY_Controller
      */
     public function index() 
     {
+        //email_send('sean@sparxitsolutions.com', "SES Mail", 'Mail from admin panel');
+                
         $this->data = array();
         $this->data['all_users'] = $this->users_model->getAdminUsers();
         //pr($data); die;

@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-require "twilio/Services/Twilio.php";
+require_once __DIR__ . '../../../twilio/Services/Twilio.php';
 
 /**
  * function to create new otp.

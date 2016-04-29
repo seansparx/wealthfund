@@ -5,6 +5,12 @@ function site_url(path)
     return $("#site_url").val()+path;
 }
 
+function get_token()
+{
+    return $("#token").val();
+}
+
+
 function custom_rules()
 {
     /** Rule to check duplicate email of user. */
@@ -16,7 +22,7 @@ function custom_rules()
         
         ajax_req = $.ajax({
             url : site_url('admin/ajax/is_email_exists'),
-            data:{"value": value},
+            data:{"value": value, "token" : get_token()},
             type:'post',
             async: false,
             success: function(response){
@@ -69,3 +75,29 @@ function custom_rules()
     }, "Enter valid characters");
 
 }
+
+
+$(document).ready(function () {
+
+    // Bind normal buttons
+    $('.ladda-button').ladda('bind', {timeout: 2000});
+
+    //    Bind progress buttons and simulate loading progress
+    //    Ladda.bind('.progress-demo .ladda-button', {
+    //        callback: function (instance) {
+    //            var progress = 0;
+    //            var interval = setInterval(function () {
+    //                progress = Math.min(progress + Math.random() * 0.1, 1);
+    //                instance.setProgress(progress);
+    //
+    //                if (progress === 1) {
+    //                    instance.stop();
+    //                    clearInterval(interval);
+    //                }
+    //            }, 200);
+    //        }
+    //    });
+
+});
+
+

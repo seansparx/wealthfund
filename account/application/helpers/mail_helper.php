@@ -1,35 +1,69 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-function email_send($address, $subject, $message) 
+require_once __DIR__ . '../../../vendor/autoload.php';
+
+use Aws\Ses\SesClient;
+
+function email_send($to, $subject, $message) 
 {
-    $CI = & get_instance();
-    $CI->load->library('email');
+    $from_email = 'noreply@wealthfund.in';
     
-    $config = Array(
-        'protocol' => 'smtp',
-        'smtp_host' => 'ssl://smtp.gmail.com',
-        'smtp_port' => 465,
-        'smtp_user' => 'info.seanrock@gmail.com',
-        'smtp_pass' => '#ab123456',
-        'mailtype' => 'html',
-        'charset' => 'utf-8',
-        'wordwrap' => TRUE
-    );
-    
-    $CI->email->initialize($config);
-    
-    $CI->email->clear();
-    $CI->email->set_newline("\r\n");
-    $CI->email->set_mailtype("html");
+    # Region where the sample will be run.
+    $region = 'us-east-1';
 
-    $CI->email->to($address);
-    $CI->email->cc('sean@sparxitsolutions.com'); //karan1bh@gmail.com
-    $CI->email->from('noreply@wealthfund.in');
-    $CI->email->subject($subject);
-    $CI->email->message($message);
-    //echo $CI->email->send();
+    # Create the client for Simple Email Service.
+    $ses_client = SesClient::factory(array(
+                'credentials' => array(
+                    'key' => 'AKIAJQCAN6JJ4ZBJ6W4A',
+                    'secret' => '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',
+                ),
+                'region' => $region,
+                'version' => 'latest'));
 
-    echo $CI->email->print_debugger();
+    $result = ses_email($ses_client, $from_email, $to, $subject, $message);
+    return $result;
+}
+
+
+
+function ses_email($ses_client, $source, $to, $subject, $message) 
+{
+    try {
+        $to = array($to);
+        $bcc = array();
+        $cc = array();
+
+        $destination = array(
+            'BccAddresses' => $bcc,
+            'CcAddresses' => $cc,
+            'ToAddresses' => $to );
+
+        // Setup message body
+        $body = array(
+            'Html' => array(
+                'Charset' => 'UTF-8',
+                'Data' => $message,
+            )
+        );
+
+        # Create the send mail request.
+        $request = array(
+            'Destination' => $destination,
+            'Message' => array(
+                'Body' => $body,
+                'Subject' => array(
+                    'Charset' => 'UTF-8',
+                    'Data' => $subject,
+                ),
+            ),
+            'Source' => $source
+        );
+
+        return $ses_client->sendEmail($request)->toArray();
+    } 
+    catch (Exception $e) {
+        return $e->getMessage();
+    }
 }
 
 ?>

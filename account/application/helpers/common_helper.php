@@ -2,6 +2,58 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 session_start();
 
+function is_active($id, $status, $super_admin = false)
+{
+    if($super_admin) {
+        return '--';
+    }
+    if(($status == '1') || ($status == 'yes')) {
+        return '<a class="btn btn-primary btn-rounded btn-outline ladda-button active" href="javascript:void(0);" data-style="zoom-in" data-key="'.$id.'"><i class="fa fa-eye"></i> Active</a>';
+    }
+    else{
+        return '<a class="btn btn-default btn-rounded btn-outline ladda-button inactive" href="javascript:void(0);" data-style="zoom-in" data-key="'.$id.'"><i class="fa fa-eye-slash"></i> Inactive</a>';
+    }
+}
+
+
+function action_edit($id, $super_admin = false, $url = '')
+{
+    if($super_admin) {
+        return '-';
+    }
+    ?>
+    <a title="Edit Details" href="<?php echo $url.'/'.$id; ?>">
+        <button type="button" class="btn btn-outline btn-success dim"><i class="fa fa-edit"></i></button>
+    </a>   
+    <?php
+}
+
+
+function action_delete($id, $super_admin = false, $url = '')
+{
+    if($super_admin) {
+        return '-';
+    }
+    ?>
+    <a href="<?php echo $url.'/'.$id; ?>"  title="Delete">
+        <button title="Delete" type="button" onclick="return confirm('Are you sure you want to delete?');" class="btn btn-outline btn-danger dim"><i class="fa fa-trash-o"></i></button>
+    </a>    
+    <?php
+}
+
+
+function action_permission($id, $super_admin = false, $url = '')
+{
+    if($super_admin) {
+        return '-';
+    }
+    ?>   
+    <a title="Access Permissions" href="<?php echo $url.'/'.$id; ?>">
+        <button type="button" class="btn btn-outline btn-warning dim"><i class="fa fa-lock"></i></button>
+    </a>
+    <?php
+}
+
 /**
  * function to encode password 
  * @param string $password

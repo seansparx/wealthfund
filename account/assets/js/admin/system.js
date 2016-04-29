@@ -6,8 +6,31 @@ $(document).ready(function () {
     validate_system_config_form();
 
     custom_rules(); // keep in last.
+    
+    init_active_button();
 });
 
+
+function init_active_button()
+{
+    $("#dataTables-admin_users .active").unbind('click').bind('click', function() {
+        var element = $(this);
+        var id = element.data('key');
+        $.post(site_url('admin/ajax/change_status'), {"action":"0", "id": id, "token" : get_token()}, function(resp) {
+            element.parent().html('<a class="btn btn-default btn-rounded btn-outline ladda-button inactive" href="javascript:void(0);" data-style="zoom-in" data-key="'+id+'"><i class="fa fa-eye-slash"></i> Inactive</a>');
+            init_active_button();
+        });
+    });
+    
+    $("#dataTables-admin_users .inactive").unbind('click').bind('click', function() {
+        var element = $(this);
+        var id = element.data('key');
+        $.post(site_url('admin/ajax/change_status'), {"action":"1", "id": id, "token" : get_token()}, function(resp){
+            element.parent().html('<a class="btn btn-primary btn-rounded btn-outline ladda-button active" href="javascript:void(0);" data-style="zoom-in" data-key="'+id+'"><i class="fa fa-eye"></i> Active</a>');
+            init_active_button();
+        });
+    });
+}
 
 
 function validate_add_user_form()

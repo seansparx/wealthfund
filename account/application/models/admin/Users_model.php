@@ -24,11 +24,30 @@ class Users_model extends CI_Model {
     
     public function is_email_exists($email)
     {
-       $query =  $this->db->select('emailId')->from(TBL_ADMINLOGIN)->where(array("emailId" => $email, "is_deleted" => '0'))->get();
-       if($query->num_rows() > 0){
-           return true;
-       }
-        
+        if(match_token()) {
+            $query =  $this->db->select('emailId')->from(TBL_ADMINLOGIN)->where(array("emailId" => $email, "is_deleted" => '0'))->get();
+            if($query->num_rows() > 0){
+                return true;
+            }
+        }
+    }
+    
+    
+    /** 
+     * Active/Inactive admin user.
+     * 
+     * @param int
+     * @param string
+     * @return bool
+     */
+    public function change_status()
+    {
+        if(match_token()) {
+            $user_id = $this->input->post('id');
+            $status  = $this->input->post('action');
+            $data = array('status' => $status);
+            return $this->db->where('id', $user_id)->update(TBL_ADMINLOGIN, $data);  
+        }      
     }
     
     

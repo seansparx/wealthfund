@@ -29,8 +29,19 @@ class Ajax extends CI_Controller
      */
     public function is_email_exists()
     {
-        $email = $this->input->post('value');
-        echo ! $this->users_model->is_email_exists($email);
-    }        
+        if(match_token()) {
+            $email = $this->input->post('value');
+            echo ! $this->users_model->is_email_exists($email);
+        }
+    }       
+    
+    
+    public function change_status()
+    {
+        if(match_token()) {
+            sleep(2);
+            echo $this->users_model->change_status();
+        }
+    }
     
 }
