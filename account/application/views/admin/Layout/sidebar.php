@@ -22,7 +22,7 @@ $mainMenu = $this->configuration_model->read_menu();
                     </ul>
                 </div>
                 <div class="logo-element">
-                    WF
+                   
                 </div>
             </li>
             <li>
