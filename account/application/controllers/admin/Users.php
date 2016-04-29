@@ -34,7 +34,8 @@ class Users extends MY_Controller
         $this->render_page('manage_users');
     }
     
-    
+
+
     /**
      * Function for add admin user
      * @access public
