@@ -122,7 +122,7 @@ class Users_model extends CI_Model {
 
         /* create html for menus */
         $resulttbl = $this->main_menus($id, $query->result(), true);
-
+//print_r($resulttbl); die;
         return $resulttbl;
     }
     
@@ -130,7 +130,7 @@ class Users_model extends CI_Model {
     private function main_menus($id, $result, $editable = false) 
     {
         $menu_html = '';
-
+        //pr($result); die;
         foreach ($result as $rowMenu) {
 
             $adminuserid = $id;
@@ -147,10 +147,10 @@ class Users_model extends CI_Model {
                 'status' => '1',
                 'parentId !=' => '0'
             ));
-
+//echo $this->db->last_query(); die;
             $countSubMenu = $query->num_rows();
 
-            if ($countSubMenu > 0) {
+            if ($countSubMenu >= 0) {
                 if ($id) {
                     if ($this->fetchValue(TBL_ADMINPERMISSION, "menuid", "adminLevelId = '" . $user_level_id->adminLevelId . "' and menuid = '" . $rowMenu->menuId . "'") > '0') {
                         $checked1 = 'TRUE';
@@ -166,12 +166,11 @@ class Users_model extends CI_Model {
                 $menu_html .= ($editable) ? "<input type=\"checkbox\" class=\"main_menu\" name=\"main_menu[]\" value=\"" . $rowMenu->menuId . "\" id=\"mainSelect" . $rowMenu->menuId . "\" " . $main_menu_status . " onchange=\"checkMain(this, " . $rowMenu->menuId . ");\" >&nbsp;&nbsp;" : '';//  data-can-change=\"" . ($this->get_menu_status($rowMenu->menuId, getSessionData('USERLEVELID')) ? 1 : 0 ) . "\"
                 $menu_html .= $rowMenu->menuName . "(" . $countSubMenu . ")</b>";
                 $menu_html .= '</td></tr>';
-
+//pr($menu_html); die;
                 /* create sub-menus */
                 $menu_html .= $this->sub_menus($id, $query->result(), $editable);
             }
         }
-
         return $menu_html;
     }
     
@@ -423,6 +422,7 @@ class Users_model extends CI_Model {
         $this->db->from(TBL_ADMINLOGIN);
         $this->db->where(array('id' => $user_id));
         $query = $this->db->get();
+       // echo $this->db->last_query(); die;
         return $query->row();
     }
     
@@ -438,7 +438,7 @@ class Users_model extends CI_Model {
         $this->db->from(TBL_ADMINPERMISSION);
         $this->db->where(array('menuid' => $id, 'adminLevelId' => $levelid));
         $query = $this->db->get();
-
+//echo $this->db->last_query(); die;
         if ($query->num_rows() > 0) {
             return true;
         } else {
