@@ -39,7 +39,6 @@ class Ajax extends CI_Controller
     public function change_status()
     {
         if(match_token()) {
-            sleep(2);
             echo $this->users_model->change_status();
         }
     }

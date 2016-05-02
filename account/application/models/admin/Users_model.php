@@ -166,7 +166,7 @@ class Users_model extends CI_Model {
                 'status' => '1',
                 'parentId !=' => '0'
             ));
-
+pr($query->result());
             $countSubMenu = $query->num_rows();
 
             if ($countSubMenu > 0) {

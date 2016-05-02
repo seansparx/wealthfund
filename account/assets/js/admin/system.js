@@ -19,6 +19,7 @@ function init_active_button()
         $.post(site_url('admin/ajax/change_status'), {"action":"0", "id": id, "token" : get_token()}, function(resp) {
             element.parent().html('<a class="btn btn-default btn-rounded btn-outline ladda-button inactive" href="javascript:void(0);" data-style="zoom-in" data-key="'+id+'"><i class="fa fa-eye-slash"></i> Inactive</a>');
             init_active_button();
+            init_loading_buttons();
         });
     });
     
@@ -28,6 +29,7 @@ function init_active_button()
         $.post(site_url('admin/ajax/change_status'), {"action":"1", "id": id, "token" : get_token()}, function(resp){
             element.parent().html('<a class="btn btn-primary btn-rounded btn-outline ladda-button active" href="javascript:void(0);" data-style="zoom-in" data-key="'+id+'"><i class="fa fa-eye"></i> Active</a>');
             init_active_button();
+            init_loading_buttons();
         });
     });
 }
