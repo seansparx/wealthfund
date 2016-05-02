@@ -93,6 +93,7 @@ class Users extends MY_Controller
     
     public function admin_permission($id)
     {
+       
         if($this->input->post()){
             
            if($this->users_model->edit_panel_record())
