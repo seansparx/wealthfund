@@ -41,6 +41,35 @@ function custom_rules()
         return flag;
 
     }, "User Already Exists."); 
+    /** Rule to check duplicate email of user. */
+    $.validator.addMethod("admin_unique_user_email", function (value, element) {
+                
+        if(ajax_req) { ajax_req.abort(); }
+        
+        var flag = false;
+        var key = $('#form-website_user #users_id').val();
+       
+        ajax_req = $.ajax({
+            url : site_url('admin/ajax/is_user_email_exists'),
+            data:{"key": key, "value": value, "token" : get_token()},
+            type:'post',
+            async: false,
+            success: function(response){
+                if (response) {
+                    flag = true;
+                }
+                else {
+                    flag = false;
+                }
+            },
+            complete:function(response){
+                
+            }
+        });
+        
+        return flag;
+
+    }, "Emailid Already Exists.");
     
     
     /** Rule to validate mobile no format. */

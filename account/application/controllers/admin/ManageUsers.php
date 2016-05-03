@@ -42,6 +42,42 @@ class ManageUsers extends MY_Controller
     {
         $this->data = array();
         $this->render_page('add_user');
-    }        
+    }
+    
+    /*
+     * Render Edit users page
+     * 
+     * @access public
+     * @param int ($id user id)
+     * @return void
+     */
+    
+    public function edit($id)
+    {
+        
+        if($this->input->post()){
+                $this->form_validation->set_rules('full_name', 'User Full Name', 'trim|required');
+                $this->form_validation->set_rules('user_email', 'User Email', 'trim|required|valid_email');
+                $this->form_validation->set_rules('mobile', 'User Mobile', 'trim|min_length[10]');
+       
+           
+             if ($this->form_validation->run() == TRUE) {
+                $this->account_model->editWebsiteUser();
+             }
+            
+        }
+        $this->data = array();
+        $this->data['users_details'] = $this->account_model->website_users($id);
+        
+        $this->render_page('edit_website_users');
+    }
+    
+    public function delete($id)
+    {
+        $this->account_model->delete_website_users($id);
+    }
+    
+    
+    
     
 }

@@ -18,6 +18,8 @@ class Ajax extends CI_Controller
     private function _init()
     {
         $this->load->model('admin/users_model');
+        $this->load->model('admin/account_model');
+       
     }
         
     
@@ -35,11 +37,29 @@ class Ajax extends CI_Controller
         }
     }       
     
+    public function is_user_email_exists()
+    {
+        if(match_token()) {
+            $email = $this->input->post('value');
+            $userid = $this->input->post('key');
+        
+            $status = $this->users_model->is_user_email_exists($email, $userid);
+           
+            echo !$status;
+        }
+    }   
     
     public function change_status()
     {
         if(match_token()) {
             echo $this->users_model->change_status();
+        }
+    }
+    
+    public function change_user_status()
+    {
+        if(match_token()){
+            echo $this->users_model->change_users_status();
         }
     }
     

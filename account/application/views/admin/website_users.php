@@ -29,7 +29,7 @@
                 <div class="ibox-content">
 
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                        <table id="dataTables-manage_users" class="table table-striped table-bordered table-hover dataTables-example" >
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -55,7 +55,7 @@
                                             <td><?php echo date_time($records->created_on); ?></td>
                                             <td><?php echo date_time($records->updated_on); ?></td>
                                             <td><?php echo date_time($records->last_login); ?></td>
-                                            <td><?php echo $records->is_active; ?></td>
+                                            <td>  <?php echo is_active($records->id, $records->is_active, $super_admin); ?></td>
                                             <?php 
                                             if ($records->adminLevelId == SUPER_ADMIN_LVL_ID) {
                                                 ?>
@@ -68,7 +68,7 @@
                                                     <a title="Edit Details" href="ManageUsers/edit/<?php echo $records->id ?>">
                                                         <button type="button" class="btn btn-outline btn-success dim"><i class="fa fa-edit"></i></button>
                                                     </a>
-                                                    <button title="Delete" type="button" class="btn btn-outline btn-danger dim"><i class="fa fa-trash-o"></i></button>
+                                                    <?php echo action_delete($records->id, $super_admin, 'manageUsers/delete'); ?>
                                                 </td>
                                                 <?php 
                                             } 

@@ -29,8 +29,25 @@ class Users_model extends CI_Model {
             if($query->num_rows() > 0){
                 return true;
             }
+            else {
+                return false;
+            }
         }
     }
+    
+    public function is_user_email_exists($email, $userid)
+    {
+        if(match_token()) {
+            $query =  $this->db->select('*')->from(TBL_USERS)->where(array("user_email" => $email, "id!=" => $userid,"is_deleted" => 'no'))->get();
+            //echo $this->db->last_query();
+            if($query->num_rows() > 0){
+                return true;
+            }else {
+                return false;
+            }
+        }
+    }
+
     
     
     /** 
@@ -50,6 +67,28 @@ class Users_model extends CI_Model {
         }      
     }
     
+     /** 
+     * Active/Inactive admin user.
+     * 
+     * @param int
+     * @param string
+     * @return bool
+     */
+    public function change_users_status()
+    {
+        if(match_token()) {
+            $user_id = $this->input->post('id');
+            $status  = $this->input->post('action');
+            if($status=='1'){
+                $data = array('is_active' => yes, 'email_verified'=> yes);
+            }
+            else {
+                $data = array('is_active' => no);
+            }
+           // $data = array('status' => $status);
+            return $this->db->where('id', $user_id)->update(TBL_USERS, $data);  
+        }      
+    }
     
     /**
      * Function to change permission.
