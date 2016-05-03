@@ -27,6 +27,22 @@
         <div class="alert alert-danger" id="no_transaction" style="display: none;">
             Sorry, there are no transactions.
         </div>
+        <div class="spiner-graph">
+                                <div class="sk-spinner sk-spinner-fading-circle">
+                                    <div class="sk-circle1 sk-circle"></div>
+                                    <div class="sk-circle2 sk-circle"></div>
+                                    <div class="sk-circle3 sk-circle"></div>
+                                    <div class="sk-circle4 sk-circle"></div>
+                                    <div class="sk-circle5 sk-circle"></div>
+                                    <div class="sk-circle6 sk-circle"></div>
+                                    <div class="sk-circle7 sk-circle"></div>
+                                    <div class="sk-circle8 sk-circle"></div>
+                                    <div class="sk-circle9 sk-circle"></div>
+                                    <div class="sk-circle10 sk-circle"></div>
+                                    <div class="sk-circle11 sk-circle"></div>
+                                    <div class="sk-circle12 sk-circle"></div>
+                                </div>
+                            </div>
         <canvas id="doughnutChart" width="300" height="300"></canvas>
     </div>  
     <div class="row">

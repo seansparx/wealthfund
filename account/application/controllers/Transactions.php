@@ -266,7 +266,7 @@ class Transactions extends MY_Controller
     public function graph_data()
     {
         if(match_token()) {
-            if($this->input->get('action') == 'spending') {
+            if(trim($this->input->get('action')) == 'spending') {
                 $graph_data = array();
                 $spendings = $this->bank_model->get_expenses_by_category();
                 

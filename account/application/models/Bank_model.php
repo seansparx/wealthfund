@@ -69,7 +69,7 @@ class Bank_model extends CI_Model
         
         $this->db->select(array('DATE_FORMAT(post_date,"%b") AS mnth', 'YEAR(post_date) AS yr', 'SUM(amount) AS total_amount', 'currency'));        
         $this->db->where(array('user_id' => $user_id, 'transaction_type' => 'credit'));
-        $this->db->group_by('mnth','yr');
+        $this->db->group_by('mnth,post_date,currency');
         $this->db->order_by('post_date', 'asc');
         $query = $this->db->get($this->tbl_transactions);
         return $query->result();
@@ -87,7 +87,7 @@ class Bank_model extends CI_Model
         
         $this->db->select(array('DATE_FORMAT(post_date,"%b") AS mnth', 'YEAR(post_date) AS yr', 'SUM(amount) AS total_amount', 'currency'));        
         $this->db->where(array('user_id' => $user_id, 'transaction_type' => 'debit'));
-        $this->db->group_by('mnth','yr');
+        $this->db->group_by('mnth,post_date,currency');
         $this->db->order_by('post_date', 'asc');
         $query = $this->db->get($this->tbl_transactions);
         return $query->result();
@@ -174,7 +174,7 @@ class Bank_model extends CI_Model
         }
         
         $this->db->select(array('post_date','category_name','category_type_id', 'SUM(amount) AS total_amount', 'currency'));
-        $this->db->group_by('category_id');
+        $this->db->group_by('category_id,post_date,category_name,category_type_id,currency');
         $this->db->order_by('total_amount', 'desc');
         
         if(isset($start_date) && $start_date > 0){
@@ -186,8 +186,9 @@ class Bank_model extends CI_Model
         if( ! $account_id){
             $this->db->limit(6);
         }
-                
+        
         $query = $this->db->get_where($this->tbl_transactions, $where);
+        
         return $query->result();
     }
     

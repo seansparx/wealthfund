@@ -15,6 +15,7 @@ function refresh_doughnut(acc_id)
     }
     
     $.getJSON(site_url('transactions/graph_data'), {"action": 'spending', "acc_id": acc_id, "duration": duration, "token": site_token()}, function (result) {
+        $(".spiner-graph").hide();
         if (result.success) {
             $("#no_transaction").hide();
             $("#doughnutChart").show();
